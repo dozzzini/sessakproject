@@ -1,0 +1,33 @@
+/* nav{
+    margin-left: -300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 80px;
+    width: 350px;
+    background-color: #C8E6C9;
+
+    .pp{
+        display: flex;
+        align-items: center;
+        height: 100%;
+        color: red;
+        text-decoration: none;
+        padding: 0 .4em;
+        font-size: 1.5em;
+    }
+    transition: 0.5s;
+
+};
+nav:active{
+    margin-left: 0;
+}; */
+
+/* button{
+    margin: 0;
+    border: 0;
+    background-color: yellow;
+};
+button:hover{
+    background-color: aqua;
+} */

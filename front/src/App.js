@@ -1,9 +1,10 @@
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Home from './pages/Home';
-import Login from './pages/Login';
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import UserPage from './pages/UserPage';
 
 const GlobalStyles = createGlobalStyle`
 ${reset}
@@ -26,7 +27,9 @@ function App() {
         <Routes>
           
           <Route path='/' element={<Home />} />
+          <Route path='/userinfo' element={<UserPage/>}  />
           <Route path='/login' element={<Login />} />
+
             
         </Routes>          
     </BrowserRouter>
