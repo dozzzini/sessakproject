@@ -1,4 +1,11 @@
 import { styled } from "styled-components";
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import { GoogleLogin } from '@react-oauth/google';
+import { useNavigate } from "react-router-dom";
+import jwt_decode from 'jwt-decode';
+
+
+
 
 const Container = styled.div`
 @media screen and (min-width: 414px)and (max-width: 700px){
@@ -65,6 +72,7 @@ const GoogleBtn = styled.button`
 
 
 const Login = () => {
+    const navigate = useNavigate();
 
     return(
         <Container>main
@@ -76,6 +84,21 @@ const Login = () => {
                     <SocialBtnBox>
                         <NaverBtn>네이버</NaverBtn>
                         <KAKAOBtn>카카오</KAKAOBtn>
+                        <GoogleOAuthProvider clientId="363792784415-irv6a5057p1eg27hn7epg6votavkote9.apps.googleusercontent.com">
+                        <GoogleLogin
+                            onSuccess={credentialResponse => {
+                                console.log('성공', credentialResponse);
+                            //     console.log('Encoded JWT ID token: ' + credentialResponse);
+                            // let userObject = jwt_decode(credentialResponse);
+                            // console.log(userObject);
+
+                                navigate('/hi');
+                            }}
+                            onError={() => {
+                                console.log('Login Failed');
+                            }}
+                            />
+                        </GoogleOAuthProvider>
                         <GoogleBtn>구글</GoogleBtn>
                     </SocialBtnBox>
                 </SocialBox>
