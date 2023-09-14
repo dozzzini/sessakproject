@@ -8,6 +8,8 @@ import UserPage from './pages/UserPage';
 import NewPost from './pages/NewPost';
 import { useEffect, useState } from 'react';
 import {UserContext} from './context/LoginContext';
+import GoogleOAuth2RedirectPage from './components/GoogleOAuth2RedirectPage';
+import KakaoRedirectPage from './components/KakaoRedirectPage';
 
 
 const GlobalStyles = createGlobalStyle`
@@ -44,7 +46,10 @@ function App() {
           <Route path='/hi' element={<Home />} />
           <Route path='/userinfo' element={<UserPage/>}  />
           <Route path='/' element={<Login />} />
+          {/* <Route path='/oauth2callback' element={<GoogleOAuth2RedirectPage  />} /> */}
+          <Route path='/oauth/kakao' element={<KakaoRedirectPage  />}/>
           <Route path='/edit' element={<NewPost />}  />
+
           
         </Routes> 
     </UserContext.Provider>           

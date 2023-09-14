@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import Feeds from '../components/Feeds';
 import Category  from '../components/Category';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 const Container = styled.div`
     text-align: center;
@@ -43,12 +45,25 @@ const Header = styled.div`
     width: 100%;
     height: 50px;
     margin-top: 10px;
+    
 `;
 const SearchBox = styled.div`
-    width: 40%;
+    width: 50%;
     display: flex;
-    justify-content:center; 
+    justify-content:space-around; 
     align-items: center;
+
+    .plus{
+    margin-left: -50px ;
+    width: 30px;
+    height: 30px;
+    color: #004e66;
+    &:hover{
+        background-color:whitesmoke ;
+        border-radius: 5px;
+    }
+    };
+
 `;
 const SearchInput = styled.input`
     background-color: whitesmoke;
@@ -133,7 +148,12 @@ const Home = () => {
                 </svg>
             </div>
         )
+    };
+
+    const addEdit = () =>{
+        navigate('/edit')
     }
+
 
     return(
         <Container>
@@ -141,6 +161,10 @@ const Home = () => {
                 지금 우리 동네는?
                 <Header>
                     <SearchBox>
+                    <FontAwesomeIcon className='plus' 
+                    icon={faPlus} size='xs' 
+                    onClick={addEdit}
+                    />
                         <SearchInput  placeholder='검색어를 입력하세요.'  />
                         <SearchBtn className='search'>
                         <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" height={'20px'} aria-hidden="true">

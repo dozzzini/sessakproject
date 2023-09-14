@@ -1,9 +1,12 @@
 import { styled } from "styled-components";
-import { GoogleOAuthProvider } from '@react-oauth/google';
+import { GoogleOAuthProvider,  } from '@react-oauth/google';
 import { GoogleLogin } from '@react-oauth/google';
 import { useNavigate } from "react-router-dom";
 import jwt_decode from 'jwt-decode';
-
+import { useEffect, useState } from "react";
+import axios from 'axios';
+import jwtDecode from "jwt-decode";
+import KakaoRedirectPage from "../components/KakaoRedirectPage";
 
 
 
@@ -58,7 +61,7 @@ const NaverBtn = styled.button`
     text-align: center;
     cursor: pointer;
 `
-const KAKAOBtn = styled.button`
+const KAKAOBtn = styled.div`
     width: 80px;
     text-align: center;
     cursor: pointer;
@@ -73,6 +76,58 @@ const GoogleBtn = styled.button`
 
 const Login = () => {
     const navigate = useNavigate();
+    const [accessToken, setAccessToken] = useState(null);
+    const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+    const GOOGLE_REDIRECT_URI = process.env.REACT_APP_GOOGLE_REDIRECT_URI;
+    const scope = ['email'];
+
+    const onGoogleSocialLogin = () => {
+        window.location.href = `https://accounts.google.com/o/oauth2/auth?client_id=${GOOGLE_CLIENT_ID }&redirect_uri=${GOOGLE_REDIRECT_URI}&response_type=code&scope=openid email`;
+    };
+
+    const responseGoogle = (response) => {
+        if (response.accessToken) {
+            // 클라이언트에서 받은 액세스 토큰을 상태 변수에 저장
+            setAccessToken(response.accessToken);
+
+            // 서버로 액세스 토큰 전송 로직을 추가
+            sendAccessTokenToServer(response.accessToken);
+
+            // 로그인 성공 후 이동할 페이지로 네비게이션
+            navigate('/hi');
+        } else {
+            console.log('구글 로그인 실패', response);
+        }
+    };
+
+    const sendAccessTokenToServer = (accessToken) => {
+        // 액세스 토큰을 서버로 전송
+        // axios를 사용하여 POST 요청을 보냅니다.
+        axios.post('/api/login', { accessToken })
+            .then((response) => {
+                console.log('서버 응답:', response.data);
+                // 서버에서의 응답을 처리하거나 필요한 작업을 수행합니다.
+            })
+            .catch((error) => {
+                console.error('서버 요청 실패:', error);
+            });
+    };
+
+ 
+
+	const KAKAO_REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
+	console.log('1', KAKAO_REST_API_KEY);
+    const KAKAO_REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
+
+
+	const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`;
+
+
+    const onKakaoSocialLogin = () => {
+        // window.location.href=`https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URI}`;
+		window.location.href = kakaoURL;
+    }; 
+    
 
     return(
         <Container>main
@@ -83,23 +138,31 @@ const Login = () => {
                 <SocialBox>소셜 로그인을 이용해보세요~
                     <SocialBtnBox>
                         <NaverBtn>네이버</NaverBtn>
-                        <KAKAOBtn>카카오</KAKAOBtn>
-                        <GoogleOAuthProvider clientId="363792784415-irv6a5057p1eg27hn7epg6votavkote9.apps.googleusercontent.com">
+                        <KAKAOBtn onClick={onKakaoSocialLogin}>카카오</KAKAOBtn>
+                        <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
                         <GoogleLogin
-                            onSuccess={credentialResponse => {
+                        scope={scope}
+                        //    GOOGLE_REDIRECT_URI ={GOOGLE_REDIRECT_URI}
+                       
+                            onSuccess={(credentialResponse ) => {
+                                // credentialResponse 객체에서 액세스토큰 추출!
+                                const accessToken = credentialResponse.credential.accessToken;
+
+                                //  accessToken을 얻은 후 상태 변수에 저장
+                                setAccessToken(accessToken);
+
+                                console.log('accessToken', accessToken);
+                                console.log(jwtDecode(credentialResponse.credential))
                                 console.log('성공', credentialResponse);
-                            //     console.log('Encoded JWT ID token: ' + credentialResponse);
-                            // let userObject = jwt_decode(credentialResponse);
-                            // console.log(userObject);
 
                                 navigate('/hi');
                             }}
-                            onError={() => {
-                                console.log('Login Failed');
+                            onError={(error) => {
+                                console.log('Login Failed', error);
                             }}
                             />
                         </GoogleOAuthProvider>
-                        <GoogleBtn>구글</GoogleBtn>
+                        <GoogleBtn onClick={onGoogleSocialLogin} >구글</GoogleBtn>
                     </SocialBtnBox>
                 </SocialBox>
             </Wrapper>
