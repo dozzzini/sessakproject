@@ -62,7 +62,9 @@
     opacity: 0.8;
     color: #ff5f2e;
 };
-
+.BackBtn{
+    background-color: #004e66;
+}
 @media screen and (min-width: 414px)and (max-width: 700px){
     .Edit{
     }

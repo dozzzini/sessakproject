@@ -114,7 +114,7 @@ const Category = () => {
                             <Sidebar>
                                 <nav className={open ? 'active' : ''}> 
                                 <div className='title'>
-                                    <FontAwesomeIcon icon= {faCircleXmark} size='xl' />
+                                    <FontAwesomeIcon icon= {faCircleXmark} />
                                     <span>카테고리</span>
                                 </div>
                                 <div className='categoryBox'>

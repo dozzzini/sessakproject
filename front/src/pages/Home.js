@@ -67,7 +67,7 @@ const SearchBox = styled.div`
 `;
 const SearchInput = styled.input`
     background-color: whitesmoke;
-    padding: 5px;
+    padding: 10px;
     cursor: pointer;
     border-radius: 5px;
     width: 80%;
@@ -130,7 +130,7 @@ const Main = styled.div`
 
 const Home = () => {
     const navigate = useNavigate();
-    
+    const [search, setSearch] = useState('');
     // 햄버거바 세팅
     // const onMySetting = () => {
     //         return (
@@ -154,6 +154,8 @@ const Home = () => {
         navigate('/edit')
     }
 
+    const searchingBtn = () => {
+    };
 
     return(
         <Container>
@@ -165,8 +167,12 @@ const Home = () => {
                     icon={faPlus} size='xs' 
                     onClick={addEdit}
                     />
-                        <SearchInput  placeholder='검색어를 입력하세요.'  />
-                        <SearchBtn className='search'>
+                        <SearchInput
+                        
+                        placeholder='검색어를 입력하세요.'  />
+                        <SearchBtn 
+                        onClick={searchingBtn}
+                        className='search'>
                         <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" height={'20px'} aria-hidden="true">
                         <path clipRule="evenodd" fillRule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" />
                         </svg>

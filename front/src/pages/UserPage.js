@@ -5,6 +5,20 @@ import { useNavigate } from 'react-router-dom';
 
 const UserPage = () => {
     const navigate = useNavigate();
+    const handleDongnea = () => {
+        //api gps 인증
+
+    };
+    const handlePosts = () => {
+        //api get postlist
+        navigate('/mypostlist')
+    };
+    const handleCommnets = () => {
+        //api get comments
+        navigate('/mycommentlist')
+    };
+
+
     return(
         <div className={styles.container}>
             <div className={styles.wrapper}>
@@ -31,9 +45,9 @@ const UserPage = () => {
                 </section>
                 <section className={styles.main}>
                     <ul className={styles.list}>
-                      <li>동네 인증</li>
-                      <li>내가 작성한 게시물</li>
-                      <li>내가 작성한 댓글</li>
+                      <li onClick={handleDongnea}>동네 인증</li>
+                      <li onClick={handlePosts}>내가 작성한 게시물</li>
+                      <li onClick={handleCommnets}>내가 작성한 댓글</li>
                     </ul>
                 </section>
             </div>

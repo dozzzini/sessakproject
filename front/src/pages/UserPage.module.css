@@ -85,7 +85,7 @@
 }
 
 .list li{
-    background-color: #ff5f2e	;
+    background-color: #fe5b05	;
     border: 1px solid #e1eef6 ;
     border-radius: 15px;
     height: 10%;
@@ -94,7 +94,7 @@
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    font-size: 24px;
+    font-size: 20px;
     cursor: pointer;
 }
 

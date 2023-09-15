@@ -45,7 +45,7 @@ const TitleImg = styled.img`
 `
 const SocialBox = styled.div`
     width: 100%;
-    border: 2px solid darkblue;
+    /* border: 2px solid darkblue; */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -81,56 +81,67 @@ const Login = () => {
     const GOOGLE_REDIRECT_URI = process.env.REACT_APP_GOOGLE_REDIRECT_URI;
     const scope = ['email'];
 
-    const onGoogleSocialLogin = () => {
-        window.location.href = `https://accounts.google.com/o/oauth2/auth?client_id=${GOOGLE_CLIENT_ID }&redirect_uri=${GOOGLE_REDIRECT_URI}&response_type=code&scope=openid email`;
-    };
+    // const onGoogleSocialLogin = () => {
+    //     window.location.href = `https://accounts.google.com/o/oauth2/auth?client_id=${GOOGLE_CLIENT_ID }&redirect_uri=${GOOGLE_REDIRECT_URI}&response_type=token&scope=openid email`;
+    // };
 
-    const responseGoogle = (response) => {
-        if (response.accessToken) {
-            // 클라이언트에서 받은 액세스 토큰을 상태 변수에 저장
-            setAccessToken(response.accessToken);
 
-            // 서버로 액세스 토큰 전송 로직을 추가
-            sendAccessTokenToServer(response.accessToken);
+    // const responseGoogle = (response) => {
+    //     if (response.accessToken) {
+    //         // 클라이언트에서 받은 액세스 토큰을 상태 변수에 저장
+    //         setAccessToken(response.accessToken);
 
-            // 로그인 성공 후 이동할 페이지로 네비게이션
-            navigate('/hi');
-        } else {
-            console.log('구글 로그인 실패', response);
-        }
-    };
+    //         // 서버로 액세스 토큰 전송 로직을 추가
+    //         sendAccessTokenToServer(response.accessToken);
 
-    const sendAccessTokenToServer = (accessToken) => {
+    //         // 로그인 성공 후 이동할 페이지로 네비게이션
+    //         navigate('/hi');
+    //     } else {
+    //         console.log('구글 로그인 실패', response);
+    //     }
+    // };
+
+    const sendAccessTokenToServer = async(accessToken) => {
         // 액세스 토큰을 서버로 전송
-        // axios를 사용하여 POST 요청을 보냅니다.
-        axios.post('/api/login', { accessToken })
-            .then((response) => {
-                console.log('서버 응답:', response.data);
-                // 서버에서의 응답을 처리하거나 필요한 작업을 수행합니다.
-            })
-            .catch((error) => {
-                console.error('서버 요청 실패:', error);
+        try {
+            const response = await axios.post('/api/login', { accessToken }, {
+                headers: { accept: 'application/json' },
             });
+            console.log('서버 응답:', response.data);
+            // 서버에서의 응답을 처리하거나 필요한 작업을 수행
+            // navigate 함수 사용해서 페이지 이동하기
+            navigate('/hi');
+        } catch (error) {
+            console.error('서버 요청 실패:', error);
+        }
     };
 
  
 
 	const KAKAO_REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
-	console.log('1', KAKAO_REST_API_KEY);
+    
     const KAKAO_REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
 
 
-	const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`;
+	const KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`;
 
 
     const onKakaoSocialLogin = () => {
         // window.location.href=`https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URI}`;
-		window.location.href = kakaoURL;
+		window.location.href = KAKAO_URL;
+        console.log('kako');
+        // const isSuccess = true;
+		// if(isSuccess){
+		// 	navigate('/hi');
+		// }else{
+		// 	alert('카카오 로그인 실패');
+		// 	navigate('/');
+		// }
     }; 
     
 
     return(
-        <Container>main
+        <Container>
             <Wrapper>
                 <Title>지금 우리 동네는
                     <TitleImg src="https://modo-phinf.pstatic.net/20190104_252/154656769119680glg_JPEG/mosa5BMDm6.jpeg?type=f320_320"  />
@@ -138,31 +149,32 @@ const Login = () => {
                 <SocialBox>소셜 로그인을 이용해보세요~
                     <SocialBtnBox>
                         <NaverBtn>네이버</NaverBtn>
-                        <KAKAOBtn onClick={onKakaoSocialLogin}>카카오</KAKAOBtn>
+                        {/* <KAKAOBtn style={{width: '100px', backgroundColor:'yellow'}} onClick={onKakaoSocialLogin}>카카오</KAKAOBtn> */}
+                        <div><KakaoRedirectPage  /></div>
                         <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
                         <GoogleLogin
-                        scope={scope}
-                        //    GOOGLE_REDIRECT_URI ={GOOGLE_REDIRECT_URI}
-                       
+                            scope={scope}
                             onSuccess={(credentialResponse ) => {
+                               
                                 // credentialResponse 객체에서 액세스토큰 추출!
                                 const accessToken = credentialResponse.credential.accessToken;
-
-                                //  accessToken을 얻은 후 상태 변수에 저장
+                                // //  accessToken을 얻은 후 상태 변수에 저장
                                 setAccessToken(accessToken);
 
+                                //서버로 엑세스 토큰 전송
+                                sendAccessTokenToServer(accessToken);
                                 console.log('accessToken', accessToken);
+
                                 console.log(jwtDecode(credentialResponse.credential))
                                 console.log('성공', credentialResponse);
-
-                                navigate('/hi');
+                               
                             }}
                             onError={(error) => {
                                 console.log('Login Failed', error);
                             }}
                             />
                         </GoogleOAuthProvider>
-                        <GoogleBtn onClick={onGoogleSocialLogin} >구글</GoogleBtn>
+                        
                     </SocialBtnBox>
                 </SocialBox>
             </Wrapper>
