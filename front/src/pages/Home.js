@@ -2,10 +2,10 @@ import {styled} from 'styled-components'
 import Pagination from '../components/Pagination';
 import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
-import Feeds from '../components/Feeds';
 import Category  from '../components/Category';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import FeedList from '../components/FeedList';
 
 const Container = styled.div`
     text-align: center;
@@ -190,7 +190,7 @@ const Home = () => {
 
                 </Header>
                 <Main>
-                    <Feeds  />
+                    <FeedList  />
                     <Pagination />
                 </Main>
             </Wrapper>

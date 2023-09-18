@@ -12,6 +12,9 @@ import GoogleOAuth2RedirectPage from './components/GoogleOAuth2RedirectPage';
 import KakaoRedirectPage from './components/KakaoRedirectPage';
 import MyPostLists from './pages/MyPostList';
 import MyComments from './pages/MyComments';
+import FeedList from './components/FeedList';
+import FeedDetail from './components/FeedDetail';
+import Playground from './pages/Playground';
 
 
 const GlobalStyles = createGlobalStyle`
@@ -51,9 +54,11 @@ function App() {
           <Route path='/oauth' element={<GoogleOAuth2RedirectPage  />} />
           <Route path='/oauth' element={<KakaoRedirectPage  />}/>
           <Route path='/edit' element={<NewPost />}  />
+          <Route path='/feed' element={<FeedList/>} />
+          <Route path='/feed:${idx}' element={<FeedDetail />} />
           <Route path='/mypostlist' element={<MyPostLists  />} />
           <Route path='/mycommentlist' element={<MyComments />} />
-          
+          <Route path='/dongnea' element={<Playground />} />
         </Routes> 
     </UserContext.Provider>           
     </BrowserRouter>

@@ -1,0 +1,119 @@
+:root {
+	/* --bg: #3C465C; */
+	--primary: #fcbe32;
+	--solid: #ff5f2e;
+	--btn-w: 10em;
+	--dot-w: calc(var(--btn-w)*.2);
+	--tr-X: calc(var(--btn-w) - var(--dot-w));
+  }
+  * {box-sizing: border-box;}
+  *:before, *:after {box-sizing: border-box;}
+
+.container{
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #e1eef6;
+}
+
+.wrapper{
+	margin: 0px 150px;
+	font-size: 25px;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	/* justify-content: center; */
+	flex-direction: column;
+	align-items: center;
+}
+.header{
+	display: flex;
+	justify-content: center;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	width:90%;
+	height:70px;
+	position: relative;
+	border: 2px solid gainsboro;
+	border-radius: 15px;
+}
+.back{
+	position: absolute;
+	left: -50px;
+	top: -30px;
+
+}
+.title{
+	margin-top: 25px;
+	margin-bottom: 30px;
+}
+.mapBox{
+	width:  90%;
+	height: 70%;
+}
+.btn {
+	position: relative;
+	margin: 0 auto;
+	width: var(--btn-w);
+	color: var(--primary);
+	border: .15em solid var(--primary);
+	border-radius: 5em;
+	text-transform: uppercase;
+	text-align: center;
+	font-size: 20px;
+	line-height: 2em;
+	cursor: pointer;  
+	margin-top: 20px;
+  }
+  .dot {
+	content: '';
+	position: absolute;
+	top: 0;
+	width: var(--dot-w);
+	height: 100%;
+	border-radius: 100%;
+	transition: all 300ms ease;
+	display: none;
+  }
+  .dot:after {
+	content: '';
+	position: absolute;
+	left: calc(50% - .4em);
+	top: -.4em;
+	height: .8em;
+	width: .8em;
+	background: var(--primary);
+	border-radius: 1em;
+	border: .25em solid var(--solid);
+	box-shadow: 0 0 .7em var(--solid),
+		  0 0 2em var(--primary);
+  }
+  .btn:hover .dot,
+  .btn:focus .dot {
+	animation: atom 2s infinite linear;
+	display: block;
+  }
+  @keyframes atom {
+	0% {transform: translateX(0) rotate(0);}
+	30%{transform: translateX(var(--tr-X)) rotate(0);}
+	50% {transform: translateX(var(--tr-X)) rotate(180deg);}
+	80% {transform: translateX(0) rotate(180deg);}
+	100% {transform: translateX(0) rotate(360deg);}
+  }
+
+@media screen and (min-width: 414px)and (max-width: 700px){
+	.container{
+		width: 100%;
+		height: 100vh;
+	}
+	.wrapper{
+		margin: 0px 20px;
+		/* margin-top: 50px; */
+	}
+	.mapBox{
+		width:  90%;
+		height: 50%;
+	}
+}

@@ -1,6 +1,6 @@
 const PopularPost = () => {
 	return(
-		<></>
+		<>인기글</>
 	)
 };
 

@@ -7,6 +7,7 @@ const UserPage = () => {
     const navigate = useNavigate();
     const handleDongnea = () => {
         //api gps 인증
+        navigate('/dongnea');
 
     };
     const handlePosts = () => {

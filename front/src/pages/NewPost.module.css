@@ -4,3 +4,7 @@
     height: 100vh;
     /* margin: 0px auto; */
 }
+.wrapper{
+    width: 500px;
+    height: 500px;
+}
