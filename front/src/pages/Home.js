@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import Category  from '../components/Category';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import FeedList from '../components/FeedList';
+import Board from '../components/Board';
 
 const Container = styled.div`
     text-align: center;
@@ -26,10 +26,10 @@ const Container = styled.div`
 `;
 const Wrapper = styled.div`
     background-color: #e1eef6;
-    margin-top: 20px;
+    margin-top: 10px;
     width: 100%;
     height: 100vh;
-    cursor: pointer;
+    /* cursor: pointer; */
     position: relative;
     /* display: flex;
     flex-direction: column;
@@ -190,9 +190,9 @@ const Home = () => {
 
                 </Header>
                 <Main>
-                    <FeedList  />
-                    <Pagination />
+                    <Board  />
                 </Main>
+                <Pagination />
             </Wrapper>
         </Container>
     )

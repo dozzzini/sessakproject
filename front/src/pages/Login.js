@@ -56,15 +56,16 @@ const SocialBtnBox = styled.div`
     padding: 5px;
     margin: 0 auto;
 `
-const NaverBtn = styled.button`
-    width: 80px;
-    text-align: center;
-    cursor: pointer;
-`
+// const NaverBtn = styled.button`
+//     width: 80px;
+//     text-align: center;
+//     cursor: pointer;
+// `
 const KAKAOBtn = styled.div`
-    width: 80px;
+    width: 180px;
     text-align: center;
     cursor: pointer;
+    
 `
 const GoogleBtn = styled.button`
     width: 80px;
@@ -148,7 +149,7 @@ const Login = () => {
                 </Title>
                 <SocialBox>소셜 로그인을 이용해보세요~
                     <SocialBtnBox>
-                        <NaverBtn>네이버</NaverBtn>
+                        {/* <NaverBtn>네이버</NaverBtn> */}
                         {/* <KAKAOBtn style={{width: '100px', backgroundColor:'yellow'}} onClick={onKakaoSocialLogin}>카카오</KAKAOBtn> */}
                         <div><KakaoRedirectPage  /></div>
                         <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>

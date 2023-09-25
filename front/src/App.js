@@ -12,9 +12,11 @@ import GoogleOAuth2RedirectPage from './components/GoogleOAuth2RedirectPage';
 import KakaoRedirectPage from './components/KakaoRedirectPage';
 import MyPostLists from './pages/MyPostList';
 import MyComments from './pages/MyComments';
-import FeedList from './components/FeedList';
+import FeedList from './components/Board';
 import FeedDetail from './components/FeedDetail';
 import Playground from './pages/Playground';
+import PopularPost from './pages/PopularPost';
+import Sooda from './pages/Sooda';
 
 
 const GlobalStyles = createGlobalStyle`
@@ -59,6 +61,8 @@ function App() {
           <Route path='/mypostlist' element={<MyPostLists  />} />
           <Route path='/mycommentlist' element={<MyComments />} />
           <Route path='/dongnea' element={<Playground />} />
+          <Route path='/인기글' element={<PopularPost  />}/>
+          <Route path='/왁자지껄' element={<Sooda  />}/>
         </Routes> 
     </UserContext.Provider>           
     </BrowserRouter>

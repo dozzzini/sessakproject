@@ -6,9 +6,9 @@ import { useNavigate } from "react-router-dom";
 
 const Button = styled.button`
     width: 50px;
-    height: 50px;
+    height: 40px;
     position: absolute;
-    top: 40px;
+    top: 50px;
     left:60px;
     background-color: #e1eef6;
     border: none;
@@ -17,9 +17,13 @@ const Button = styled.button`
     color: #004e66;
     &:hover{
         background-color: #fcbe32;
-        border-radius: 15px;
+        border-radius: 5px;
         color: #ff5f2e;
     }
+    @media screen and (min-width: 414px)and (max-width: 700px){
+        left: 20px;
+    }
+
 `;
 
 
