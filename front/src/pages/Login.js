@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import axios from 'axios';
 import jwtDecode from "jwt-decode";
 import KakaoRedirectPage from "../components/KakaoRedirectPage";
-
+import styles from './login.module.css';
 
 
 const Container = styled.div`
@@ -35,6 +35,8 @@ const Title = styled.div`
     flex-direction: column;
     text-align: center;
     margin: 0 auto;
+    font-family: 'Giants-Regular';    
+    font-size: 40px;
 `
 const TitleImg = styled.img`
     width: 300px;
@@ -50,6 +52,7 @@ const SocialBox = styled.div`
     flex-direction: column;
     justify-content: center;
     text-align: center;
+
 `
 const SocialBtnBox = styled.div`
    
@@ -147,7 +150,7 @@ const Login = () => {
                 <Title>지금 우리 동네는
                     <TitleImg src="https://modo-phinf.pstatic.net/20190104_252/154656769119680glg_JPEG/mosa5BMDm6.jpeg?type=f320_320"  />
                 </Title>
-                <SocialBox>소셜 로그인을 이용해보세요~
+                <SocialBox className={styles.sub}>지우동을 이용하려면 소셜로그인을 이용해주세요!
                     <SocialBtnBox>
                         {/* <NaverBtn>네이버</NaverBtn> */}
                         {/* <KAKAOBtn style={{width: '100px', backgroundColor:'yellow'}} onClick={onKakaoSocialLogin}>카카오</KAKAOBtn> */}

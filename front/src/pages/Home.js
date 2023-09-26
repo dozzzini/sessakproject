@@ -6,7 +6,7 @@ import Category  from '../components/Category';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import Board from '../components/Board';
-
+import styles from './Home.module.css';
 const Container = styled.div`
     text-align: center;
     font-size: 30px;
@@ -40,6 +40,21 @@ const Wrapper = styled.div`
 const HeaderBox = styled.div`
     display: flex;
     justify-content: center;
+    align-items: center;
+    font-family: 'Giants-Regular';    
+    font-size: 40px;
+    /* border: 2px solid darkblue; */
+    img{
+        border-radius: 5px;
+    }
+     @media screen and (min-width: 414px) and (max-width: 700px){
+        img{
+            width: 30px;
+            height: 50px;
+
+        }
+        font-size: 25px;
+        }    
 `
 const Header = styled.div`
     background-color: #fcbe32;
@@ -99,11 +114,11 @@ const SettingBox = styled.div`
     width: 70px;
     justify-content: space-between;
     position: absolute;
-    top: 50px;
+    top: 90px;
     right: 30px;
     
     @media screen and (min-width: 414px) and (max-width: 700px){
-        top: 50px;
+        top: 70px;
         right: 30px;
         }
     
@@ -165,8 +180,8 @@ const Home = () => {
                     <img src={process.env.PUBLIC_URL + 'logo.png'} 
                     onClick={(e)=>navigate('/hi')}
                     style={{
-                    width:'30px', marginRight:'10px', cursor:'pointer'}}/>
-                    지금 우리 동네는?
+                    width:'70px', marginRight:'10px', cursor:'pointer'}}/>
+                    <span className={styles.headerBox}>지금 우리 동네는?</span>
                 </HeaderBox>
                 
                 <Header>
