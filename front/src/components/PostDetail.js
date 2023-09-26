@@ -31,7 +31,7 @@ const PostDetail = () => {
 				{loading ? (
 					<h2>loading~~</h2>
 				) : (
-					<div>
+					<div>왜 안나오는거야?
 						{post.title ? (
 							<h2>title : {post.title}</h2>
 						) : (

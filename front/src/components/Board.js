@@ -123,8 +123,7 @@ const Board = () => {
     //     { id: 2, title: '못하겠다...', likes: 345 , comments: 678, views:3455},
     //     { id: 3, title: 'ㅠㅠㅠㅠㅠㅠ', likes: 975 , comments: 823,  views:4534},
     //     { id: 4, title: '안녕히..', likes: 234 , comments: 234,  views:234},
-    //     { id: 5, title: '언니가ㅣ 못하면 누가 해!!!!!!!', likes: 10000 , comments: 2222,  views:3313},
-    // ]);
+// ]}
 
     const [posts, setPosts] = useState([]);
     const [selectedPost, setSelectedPost] = useState(null);
