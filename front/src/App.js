@@ -12,11 +12,12 @@ import GoogleOAuth2RedirectPage from './components/GoogleOAuth2RedirectPage';
 import KakaoRedirectPage from './components/KakaoRedirectPage';
 import MyPostLists from './pages/MyPostList';
 import MyComments from './pages/MyComments';
-import FeedList from './components/Board';
-import FeedDetail from './components/FeedDetail';
+// import FeedList from './components/Board';
+// import FeedDetail from './components/FeedDetail';
 import Playground from './pages/Playground';
 import PopularPost from './pages/PopularPost';
 import Sooda from './pages/Sooda';
+import PostDetail from './components/PostDetail';
 
 
 const GlobalStyles = createGlobalStyle`
@@ -48,6 +49,8 @@ function App() {
   return (
     <BrowserRouter>
       <GlobalStyles />
+      <div className='App'>
+
       <UserContext.Provider value= {{accessToken, setAccessToken, isLogin, setIsLogin}}>
         <Routes>
           <Route path='/hi' element={<Home />} />
@@ -56,15 +59,17 @@ function App() {
           <Route path='/oauth' element={<GoogleOAuth2RedirectPage  />} />
           <Route path='/oauth' element={<KakaoRedirectPage  />}/>
           <Route path='/edit' element={<NewPost />}  />
-          <Route path='/feed' element={<FeedList/>} />
-          <Route path='/feed:${idx}' element={<FeedDetail />} />
+          {/* <Route path='/feed' element={<FeedList/>} /> */}
+          <Route path='/posts/:id' element={<PostDetail />} />
           <Route path='/mypostlist' element={<MyPostLists  />} />
           <Route path='/mycommentlist' element={<MyComments />} />
           <Route path='/dongnea' element={<Playground />} />
           <Route path='/인기글' element={<PopularPost  />}/>
           <Route path='/왁자지껄' element={<Sooda  />}/>
         </Routes> 
-    </UserContext.Provider>           
+    </UserContext.Provider>   
+    </div>
+        
     </BrowserRouter>
 
   );

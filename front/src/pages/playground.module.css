@@ -36,10 +36,27 @@
 	position: absolute;
 	left: -20px;
 	top: -35px;
-
+}
+.refresh{
+	border: none;
+	position: absolute;
+	right: 1px;
+	top: 15px;
+	background-color: #e1eef6;
+    border: none;
+    font-size: 30px;
+    font-weight: 600;
+    color: #004e66;
+	width: 50px;
+    height: 40px;
+}
+.refresh:hover{
+	background-color: #fcbe32;
+	border-radius: 5px;
+	color: #ff5f2e;
 }
 .title{
-	margin-top: 25px;
+	margin-top: 20px;
 	margin-bottom: 30px;
 }
 .dongText{

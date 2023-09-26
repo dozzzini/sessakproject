@@ -14,15 +14,15 @@ const Container = styled.div`
     background-color: #e1eef6;
     margin: 0px 50px;
 
-@media screen and (min-width: 414px)and (max-width: 700px){
-    background-color: #e1eef6;
-    width: 100%;
-    height: 100vh;
-    text-align: center;
-    font-size: 30px;
-    padding-top: 30px;
-    margin:  0px;
-}
+    @media screen and (min-width: 414px) and (max-width: 700px){
+        background-color: #e1eef6;
+        width: 100%;
+        height: 100vh;
+        text-align: center;
+        font-size: 30px;
+        padding-top: 30px;
+        margin:  0px;
+    }
 `;
 const Wrapper = styled.div`
     background-color: #e1eef6;
@@ -37,6 +37,10 @@ const Wrapper = styled.div`
     align-items: center; */
     
 `;
+const HeaderBox = styled.div`
+    display: flex;
+    justify-content: center;
+`
 const Header = styled.div`
     background-color: #fcbe32;
     display: flex;
@@ -45,8 +49,7 @@ const Header = styled.div`
     width: 100%;
     height: 50px;
     margin-top: 10px;
-    
-`;
+`
 const SearchBox = styled.div`
     width: 50%;
     display: flex;
@@ -62,9 +65,8 @@ const SearchBox = styled.div`
         background-color:whitesmoke ;
         border-radius: 5px;
     }
-    };
-
-`;
+    }
+`
 const SearchInput = styled.input`
     background-color: whitesmoke;
     padding: 10px;
@@ -73,8 +75,7 @@ const SearchInput = styled.input`
     width: 80%;
     height: 35px;
     border: none;
-   
-`;
+`
 const SearchBtn = styled.div`
     background-color: #fcbe32;
     width: 25px;
@@ -92,7 +93,7 @@ const SearchBtn = styled.div`
         background-color: whitesmoke;
     }
 
-`;
+`
 const SettingBox = styled.div`
     display: flex;
     width: 70px;
@@ -101,14 +102,14 @@ const SettingBox = styled.div`
     top: 50px;
     right: 30px;
     
-    @media screen and (min-width: 414px)and (max-width: 700px){
+    @media screen and (min-width: 414px) and (max-width: 700px){
         top: 50px;
         right: 30px;
         }
     
 `;
 const User = styled.button`
- cursor: pointer;
+    cursor: pointer;
     width: 30px;
     height: 30px;
     border: none;
@@ -160,7 +161,14 @@ const Home = () => {
     return(
         <Container>
             <Wrapper >
-                지금 우리 동네는?
+                <HeaderBox>
+                    <img src={process.env.PUBLIC_URL + 'logo.png'} 
+                    onClick={(e)=>navigate('/hi')}
+                    style={{
+                    width:'30px', marginRight:'10px', cursor:'pointer'}}/>
+                    지금 우리 동네는?
+                </HeaderBox>
+                
                 <Header>
                     <SearchBox>
                     <FontAwesomeIcon className='plus' 
@@ -191,6 +199,7 @@ const Home = () => {
                 </Header>
                 <Main>
                     <Board  />
+                    
                 </Main>
                 <Pagination />
             </Wrapper>

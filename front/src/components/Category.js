@@ -19,6 +19,9 @@ const SettingBtn =styled.div`
     /* justify-content: center;  */
    
 `;
+const Nav = styled.div`
+    height: 90vh;
+`
 
 // const PageNation = styled.div`
 //     margin-top: 50px;
@@ -46,12 +49,13 @@ const Sidebar = styled.div`
     margin-top: -10px;
     margin-left: -250px;
     display: flex;
-    height: 100vh;
+    height: 95vh;
     width: 360px;
     /* border: 12px solid purple; */
     /* background-color: #004e66; */
+    /* border: 2px solid red; */
     /* cursor: pointer; */
-
+    
     .title{
         font-weight: 100;
         display: flex;
@@ -61,6 +65,7 @@ const Sidebar = styled.div`
         background-color: #fcbe32;
         width: 100%;
         /* border: 2px solid violet; */
+        
     }
   
     .categoryBox{
@@ -69,8 +74,9 @@ const Sidebar = styled.div`
         justify-content: start;
         align-items: start;
         border-radius: 0%;
+
     }
-    @media screen and (min-width: 414px)and (max-width: 700px){
+    @media screen and (min-width: 414px) and (max-width: 700px){
 
         margin-top: -10px;
         margin-left: -250px;
@@ -102,7 +108,7 @@ const Sidebar = styled.div`
             margin:0 auto;
             font-size: 40px;
         }
-    };
+    }
     .categoryBox{
         /* border: 2px solid darkblue; */
         /* height: 800px; */
@@ -130,7 +136,7 @@ const Sidebar = styled.div`
         border-radius: 50%;
         border: none;
         cursor: pointer;
-    };
+    }
     .categoryAdd:hover{
         background-color:  #ff5f2e ;
     }
@@ -191,7 +197,13 @@ const Category = () => {
             setNewCategory(""); // 입력 창 초기화
             setInputVisible(false); // 입력이 완료되면 입력 창을 숨김
         
-            axios.post("/api/categories", { newCategory: newCategory })
+            axios.post("/api/categories", { newCategory: newCategory },
+                {headers: {
+                        'Content-Type': 'application/json',
+                        'withCredentials': true,
+                    }
+                },
+            )
             .then((response) => {
                 console.log("카테고리 추가 성공:", response.data);
             })
@@ -212,7 +224,7 @@ const Category = () => {
             </svg>
             : 
             <Sidebar>
-                <nav className={open ? 'active' : ''}> 
+                <Nav className={open ? 'active' : ''}> 
                     <div className='title'>
                         <FontAwesomeIcon 
                         style={{cursor:'pointer'}}
@@ -266,7 +278,7 @@ const Category = () => {
                 )}
                         </div>
                     </div>
-                </nav>
+                </Nav>
             </Sidebar>
         }
         </SettingBtn> 

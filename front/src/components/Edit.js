@@ -3,8 +3,6 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import styles from './edit.module.css';
 import BackBtn from './BackBtn';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 
 const Edit = () => {
@@ -19,10 +17,10 @@ const Edit = () => {
         return doc.body.textContent || "";
     };
 
-    const handleEditChange = (value) => {
-        const cleanedValue = removeHtmlTags(value);
-        setEditValue(cleanedValue);
-      };
+    // const handleEditChange = (editvalue) => {
+    //     const cleanedValue = removeHtmlTags(editvalue);
+    //     setEditValue(cleanedValue);
+    //   };
     
         // edit 커스텀
     const toolbarOptions = [  
@@ -60,7 +58,7 @@ const Edit = () => {
         try {
             const response = await axios.post('https://port-0-sessak-back2-cgw1f2almhig6l2.sel5.cloudtype.app/api/v1/posts/newpost/', {
                 title: title,
-                content: editvalue, // ReactQuill의 내용을 사용합니다.
+                content: removeHtmlTags(editvalue), // ReactQuill의 내용을 사용합니다.
                 // date: date // 날짜를 ISO 형식으로 변환하여 보낼 수 있습니다.
             },{
                 headers: {
@@ -101,19 +99,19 @@ const Edit = () => {
                     </div>
                <div className={styles.editBox}>
                     <ReactQuill theme="snow" 
-                    value={editvalue} 
-                    modules={module} 
-                    onChange={handleEditChange}
-
-                    className={styles.editTool}
-                    placeholder='내용을 입력하세요.' />
+                        value={editvalue} 
+                        modules={module} 
+                        // onChange={handleEditChange}
+                        onChange={setEditValue}
+                        className={styles.editTool}
+                        placeholder='내용을 입력하세요.'
+                    />
                 </div>
                 <div className={styles.btnBox}>
                     <button 
                     className={styles.submitBtn} 
                     onClick={handleSubmit}>
                         <span>저장하기</span>
-                       {/* <FontAwesomeIcon icon={faUpload} size='2xl'/> */}
                     </button>
                 </div>
             </div>

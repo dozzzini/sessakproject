@@ -2,11 +2,12 @@ import axios from 'axios';
 import styles from './playground.module.css';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import BackBtn from '../components/BackBtn';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faRotateRight } from '@fortawesome/free-solid-svg-icons';
 
 const {kakao} = window;
 
 const Playground = () => {
-	
 	const [map, setMap] = useState(null);  
 	const [location, setLocation] = useState({ latitude: null, longitude: null });
 	const [savedLocation, setSavedLocation] = useState(null); // 저장된 위치 정보
@@ -62,8 +63,9 @@ const Playground = () => {
 		marker.setMap(mapInstance);
 		setMap(mapInstance);
 		};
-
+	
 		kakaoMap();
+
 	}, [location,]);
 
 
@@ -78,14 +80,18 @@ const Playground = () => {
 			},{
 				headers: {
 					'Content-Type' : 'application/json',
+                    'withCredentials': true,
 				}
 			}
 			)
-				.then((response) => {
+				.then((response) => {				
+					window.alert('동네변경 저장성공')
+
 				console.log("위치 저장 서버 성공", response.data);
 				setSavedLocation(location); // 저장된 위치 정보 업데이트
 				})
 				.catch((error) => {
+					window.alert('동네변경 저장실패! 다시 시도해주세요')
 				console.error("위치 정보 저장 오류(서버로)", error);
 			});
 		}
@@ -167,25 +173,31 @@ const Playground = () => {
 	
 	// 위도와 경도를 이용하여 주소 정보 얻기
 	getReverseGeocode(location.latitude, location.longitude);
-
+	const refresh = () => {
+		window.location.reload();
+	}
 
 	return(
 		<div className={styles.container}>
 			<div className={styles.wrapper}>
 				<div className={styles.header}>
-					<div className={styles.back}><BackBtn /></div>
+					<div className={styles.back}>
+						<BackBtn />
+					</div>
 					<div className={styles.title}>우리 동네 인증</div>
+					<button onClick={refresh}
+					className={styles.refresh}><FontAwesomeIcon icon={faRotateRight}  /></button>
+					
 				</div>
 				<div id='dongDiv' className={styles.dongText}>현재 우리 동네 :</div>
+				
 				<div id='map' className={styles.mapBox} >
 				</div>
+
 				<button onClick={saveLocation} type="button" className={styles.saveBtn}><span>저장하기</span>
 					
-		</button>
-				{/* <button onClick={saveLocation} className={styles.btn}>
-				<span>저장하기</span>
-				<div className={styles.dot}></div>
-				</button> */}
+				</button>
+			
 				
 				{savedLocation && (
 				<div className={styles.savedLocation}>

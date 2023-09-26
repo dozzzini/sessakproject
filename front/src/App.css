@@ -1,5 +1,10 @@
-
-  @media screen and (min-width: 414px)and (max-width: 700px){
+  /* @import url('https://fonts.googleapis.com/css2?family=Gruppo&family=Nanum+Pen+Script&family=Yeon+Sung&display=swap');
+  .App{
+    font-family: 'Gruppo', sans-serif;
+    font-family: 'Nanum Pen Script', cursive;
+    font-family: 'Yeon Sung', cursive;
+  } */
+  @media screen and (min-width: 414px) and (max-width: 700px){
   /* Styles */
   .App{
   

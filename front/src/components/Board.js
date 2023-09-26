@@ -4,6 +4,7 @@ import PostList from "./PostList";
 import Edit from "./Edit";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { json, useNavigate, useParams } from "react-router-dom";
 
 const FeedBox  = styled.div`
     /* display: flex;
@@ -93,7 +94,7 @@ const Comments = styled.button`
     };
 `
 const Views = styled.button`
- border: none;
+    border: none;
     /* background-color: whitesmoke; */
     background-color: #FAEBCD;
     margin-right: 10px;
@@ -127,32 +128,42 @@ const Board = () => {
 
     const [posts, setPosts] = useState([]);
     const [selectedPost, setSelectedPost] = useState(null);
-
-  
+    const navigate = useNavigate();
+    const params = useParams();
 
     useEffect(() => {
         // 게시글 목록을 불러오기
         const getPosts = async() => {
         try {
-            const response = await axios.get("https://jsonplaceholder.typicode.com/posts"); //더미데이터 url
+            const response = await axios.get(
+                "https://jsonplaceholder.typicode.com/posts", {data:posts.id},
+                // "https://port-0-sessak-back2-cgw1f2almhig6l2.sel5.cloudtype.app/api/v1/posts/postlist", 
+                {headers: {
+                'Content-Type': 'application/json',
+                'withCredentials': true,
+            }}
+            ); //더미데이터 url
             setPosts(response.data);
         } catch (error) {
-            console.error("게시글 목록을 불러오는 데 실패했습니다.", error);
+            console.log("게시글 목록을 불러오는 데 실패했습니다.", error);
         }
         }
 
         getPosts();
     }, []);
+
     const selectPost = (posts) => {
+        const id = posts.id;
+        navigate(`/posts/${id}`);
         setSelectedPost(posts);
-      };
+    };
     
     
 
     return(
         <FeedBox>
         {/* <h1>게시판 목록</h1> */}
-        <Feed>
+        {/* <Feed>
         {posts.map((posts ) =><div>
             <TextBox>
                 <div className="tt">
@@ -185,13 +196,15 @@ const Board = () => {
                 </div>
                 )}
 
-        </Feed>
-        {/* <PostList posts={posts} selectPost={selectPost} />
+        </Feed> */}
+        <PostList posts={posts} selectPost={selectPost} />
         {selectedPost ? (
-          <PostDetail post={selectedPost} />
+            <PostDetail 
+            post={selectedPost} 
+            />
         ) : (
         null
-        )} */}
+        )}
       </FeedBox>
     )
 };
