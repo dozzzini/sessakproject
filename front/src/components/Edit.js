@@ -62,10 +62,10 @@ const Edit = () => {
                 // date: date // 날짜를 ISO 형식으로 변환하여 보낼 수 있습니다.
             },{
                 headers: {
-                    'Content-Type': 'application/json',
-                    'withCredentials': true,
+                    'Content-Type': 'application/json',       
+                },
+                'withCredentials': true,
 
-                }
             });
 
             // 서버 응답 확인

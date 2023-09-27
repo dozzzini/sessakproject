@@ -198,10 +198,12 @@ const Category = () => {
             setInputVisible(false); // 입력이 완료되면 입력 창을 숨김
         
             axios.post("/api/categories", { newCategory: newCategory },
-                {headers: {
+                {headers: 
+                    {
                         'Content-Type': 'application/json',
-                        'withCredentials': true,
-                    }
+                    },
+                    'withCredentials': true,
+
                 },
             )
             .then((response) => {

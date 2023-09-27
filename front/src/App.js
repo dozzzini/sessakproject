@@ -36,7 +36,7 @@ body{
 
 function App() {
   const[accessToken, setAccessToken] = useState(null);
-  const [isLogin, setIsLogin] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState('');
   
   useEffect(() => {
     if(accessToken){
@@ -51,7 +51,7 @@ function App() {
       <GlobalStyles />
       <div className='App'>
 
-      <UserContext.Provider value= {{accessToken, setAccessToken, isLogin, setIsLogin}}>
+      <UserContext.Provider value= {{accessToken, setAccessToken, isLoggedIn, setIsLoggedIn}}>
         <Routes>
           <Route path='/hi' element={<Home />} />
           <Route path='/userinfo' element={<UserPage/>}  />

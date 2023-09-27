@@ -2,12 +2,12 @@ import { styled } from "styled-components";
 import { GoogleOAuthProvider,  } from '@react-oauth/google';
 import { GoogleLogin } from '@react-oauth/google';
 import { useNavigate } from "react-router-dom";
-import jwt_decode from 'jwt-decode';
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import jwtDecode from "jwt-decode";
 import KakaoRedirectPage from "../components/KakaoRedirectPage";
 import styles from './login.module.css';
+import Gg from "../components/Gg";
 
 
 const Container = styled.div`
@@ -79,6 +79,7 @@ const GoogleBtn = styled.button`
 
 
 const Login = () => {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const navigate = useNavigate();
     const [accessToken, setAccessToken] = useState(null);
     const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
@@ -119,8 +120,10 @@ const Login = () => {
             console.error('서버 요청 실패:', error);
         }
     };
+    // const axios = require('axios');
 
  
+    // const gg = () => {`https://port-0-sessak-back2-cgw1f2almhig6l2.sel5.cloudtype.app/api/v1/users/google/login`}
 
 	const KAKAO_REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
     
@@ -177,6 +180,10 @@ const Login = () => {
                                 console.log('Login Failed', error);
                             }}
                             />
+                            <button onClick={()=>{
+                                
+                            }}>123</button>
+                            <Gg />
                         </GoogleOAuthProvider>
                         
                     </SocialBtnBox>

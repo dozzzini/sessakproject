@@ -2,9 +2,12 @@ import styles from './UserPage.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faLeftLong} from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 const UserPage = () => {
     const navigate = useNavigate();
+    const [isLoggedIn, setIsLoggedIn] = useState(true); // 초기값은 로그인되어 있다고 가정
+
     const handleDongnea = () => {
         //api gps 인증
         navigate('/dongnea');
@@ -19,6 +22,7 @@ const UserPage = () => {
         navigate('/mycommentlist')
     };
     const handleLogout = () => {
+        setIsLoggedIn(false);
         console.log('logout')
     };
 

@@ -1,18 +1,71 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './postList.module.css';
-const PostList = ({ posts, selectPost }) => {
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faHeart } from '@fortawesome/free-regular-svg-icons';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
+
+const PostList = ({ posts, selectPost, }) => {
+    const [heartColors, setHeartColors] = useState({});
+	const [count, setCount] = useState(0);
+
+
+	  // 좋아요 클릭 배경채우기
+	const updateHeartColor = (postId) => {
+		setHeartColors((prevColors) => ({
+		...prevColors,
+		[postId]: !prevColors[postId],
+		}));
+	};  
+	const onHeart = (e, postId) => {
+		e.stopPropagation(); // 이벤트 버블링 막기
+		updateHeartColor(postId)
+		setCount(count + 1);
+		console.log((count));
+		const currentLiked = heartColors[postId] || false;
+
+		const likeData = {
+			postId: postId,
+			liked: !currentLiked, // 클릭 시 좋아요  반대로 토글
+		  };
+		
+		
+		  // Axios를 사용하여 서버로 POST 요청을 보냅니다.
+		axios
+			.post(`https://port-0-sessak-back2-cgw1f2almhig6l2.sel5.cloudtype.app/api/v1/posts/like/${postId}/`, likeData)
+			.then((response) => {
+			  // 요청이 성공하면 서버로부터의 응답을 처리할 수 있습니다.
+			console.log("좋아요 요청 성공:", response.data);
+		
+			  // 여기에서 필요한 상태 업데이트를 수행할 수 있습니다.
+			  // 예를 들어, 좋아요 카운트를 업데이트하거나, 서버로부터의 응답을 반영할 수 있습니다.
+			})
+			.catch((error) => {
+			  // 요청이 실패한 경우 에러를 처리할 수 있습니다.
+			console.error("좋아요 요청 실패:", error);
+			});
+
+    };
+
 	return(
+
 	<div className={styles.container} >
 		<ul className={styles.postList}>
-		{posts.map((post) => (
+		{posts.map((post,) => (
 			<li className={styles.postItem}
-			 key={post.id} onClick={() => selectPost(post)}>
+			key={post.id} onClick={() => selectPost(post)}>
 			{post.title.length > 35 ? `${post.title.slice(0,35)}...` : post.title}
 			{post.comment}
-			<div className={styles.participation}  >
-				<span><svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" style={{width: '20px'}} aria-hidden="true">
-                <path d="M9.653 16.915l-.005-.003-.019-.01a20.759 20.759 0 01-1.162-.682 22.045 22.045 0 01-2.582-1.9C4.045 12.733 2 10.352 2 7.5a4.5 4.5 0 018-2.828A4.5 4.5 0 0118 7.5c0 2.852-2.044 5.233-3.885 6.82a22.049 22.049 0 01-3.744 2.582l-.019.01-.005.003h-.002a.739.739 0 01-.69.001l-.002-.001z" />
-                </svg>{post.id}</span>
+			<div className={styles.participation}>
+				<span count={count} onClick={(e) =>  onHeart(e, post.id)}>
+					{heartColors[post.id] ?
+					(<FontAwesomeIcon
+						icon={faHeart}
+						style={{color:'red'}}/>) : 
+						(<FontAwesomeIcon
+						icon={faHeart}
+						style={{color:'black'}}/>)}
+					{post.id}</span>
 
 				<span><svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" style={{width: '20px'}} aria-hidden="true">
                 <path clipRule="evenodd" fillRule="evenodd" d="M10 2c-2.236 0-4.43.18-6.57.524C1.993 2.755 1 4.014 1 5.426v5.148c0 1.413.993 2.67 2.43 2.902 1.168.188 2.352.327 3.55.414.28.02.521.18.642.413l1.713 3.293a.75.75 0 001.33 0l1.713-3.293a.783.783 0 01.642-.413 41.102 41.102 0 003.55-.414c1.437-.231 2.43-1.49 2.43-2.902V5.426c0-1.413-.993-2.67-2.43-2.902A41.289 41.289 0 0010 2zM6.75 6a.75.75 0 000 1.5h6.5a.75.75 0 000-1.5h-6.5zm0 2.5a.75.75 0 000 1.5h3.5a.75.75 0 000-1.5h-3.5z" />

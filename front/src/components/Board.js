@@ -129,6 +129,7 @@ const Board = () => {
     const [selectedPost, setSelectedPost] = useState(null);
     const navigate = useNavigate();
     const params = useParams();
+	// const [heartStates, setHeartStates] = useState(Array(posts.length).fill(false));
 
     useEffect(() => {
         // 게시글 목록을 불러오기
@@ -137,11 +138,16 @@ const Board = () => {
             const response = await axios.get(
                 "https://jsonplaceholder.typicode.com/posts", {data:posts.id},
                 // "https://port-0-sessak-back2-cgw1f2almhig6l2.sel5.cloudtype.app/api/v1/posts/postlist", 
-                {headers: {
-                'Content-Type': 'application/json',
-                'withCredentials': true,
-            }}
+                
+                {headers: 
+                    {
+                    'Content-Type': 'application/json',
+                    },
+                    'withCredentials': true,
+        }
             ); //더미데이터 url
+            // setHeartStates(new Array(response.data.length).fill(false));
+
             setPosts(response.data);
         } catch (error) {
             console.log("게시글 목록을 불러오는 데 실패했습니다.", error);
@@ -152,13 +158,14 @@ const Board = () => {
     }, []);
 
     const selectPost = (posts) => {
+        
         const id = posts.id;
         navigate(`/posts/${id}`);
         setSelectedPost(posts);
     };
     
     
-
+   
     return(
         <FeedBox>
         {/* <h1>게시판 목록</h1> */}
@@ -196,7 +203,9 @@ const Board = () => {
                 )}
 
         </Feed> */}
-        <PostList posts={posts} selectPost={selectPost} />
+        <PostList posts={posts} selectPost={selectPost}
+        //  onHeart ={onHeart} 
+         />
         {selectedPost ? (
             <PostDetail 
             post={selectedPost} 
