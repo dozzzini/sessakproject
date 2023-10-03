@@ -8,7 +8,7 @@ import jwtDecode from "jwt-decode";
 import KakaoRedirectPage from "../components/KakaoRedirectPage";
 import styles from './login.module.css';
 import Gg from "../components/Gg";
-
+import { useForm } from "react-hook-form";
 
 const Container = styled.div`
 @media screen and (min-width: 414px)and (max-width: 700px){
@@ -75,9 +75,12 @@ const GoogleBtn = styled.button`
     text-align: center;
     cursor: pointer;
 `
-
-
-
+const Id = styled.div`
+`
+const Pw = styled.div`
+`
+const Form = styled.form`
+`
 const Login = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const navigate = useNavigate();
@@ -145,14 +148,50 @@ const Login = () => {
 		// 	navigate('/');
 		// }
     }; 
-    
+    const  {register, handleSubmit,  errors}   = useForm();
+    const handleLogin = async(data) => {console.log({
+        email:data.email,
+        password:data.password
+    })
+        const response = await axios.post('https://port-0-sessak-back2-cgw1f2almhig6l2.sel5.cloudtype.app/api/v1/users/login/', 
+        {
+            email:data.email,
+            password:data.password
+        },{
+            headers: {
+                'Content-Type': 'application/json',       
+            },
+            'withCredentials': true,}        
+    )
 
+    }
+    const pathSignUp = () => {
+        navigate('/signup')
+    }
     return(
         <Container>
             <Wrapper>
                 <Title>지금 우리 동네는
                     <TitleImg src="https://modo-phinf.pstatic.net/20190104_252/154656769119680glg_JPEG/mosa5BMDm6.jpeg?type=f320_320"  />
                 </Title>
+                <Form onSubmit={handleSubmit(handleLogin)}>
+                    <Id>이메일
+                        <input
+                            type="email"
+                            name="이메일"
+                            {...register("email",{ required: true, pattern: /^\S+@\S+$/i})}
+                         />
+                    </Id>
+                    <Pw>비밀번호
+                        <input
+                            type="password"
+                            name="password"  
+                            {...register('password', { required: true })}   
+                        />
+                    </Pw>
+                    <button type="submit">로그인하기</button>
+                </Form>
+                <div onClick={pathSignUp}>회원가입</div>
                 <SocialBox className={styles.sub}>지우동을 이용하려면 소셜로그인을 이용해주세요!
                     <SocialBtnBox>
                         {/* <NaverBtn>네이버</NaverBtn> */}

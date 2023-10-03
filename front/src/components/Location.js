@@ -1,17 +1,10 @@
-import axios from 'axios';
-import styles from './playground.module.css';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
-import BackBtn from '../components/BackBtn';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faRotateRight } from '@fortawesome/free-solid-svg-icons';
-
+import axios from "axios";
+import { useMemo, useState, useEffect } from "react";
 const {kakao} = window;
 
-const Playground = () => {
-	
+const Location = ({onLocationUpdate,}) => {
 	const [map, setMap] = useState(null);  
 	const [location, setLocation] = useState({ latitude: null, longitude: null });
-	const [address,setAddress] = useState()
 	const [savedLocation, setSavedLocation] = useState(null); // 저장된 위치 정보
 	// const mapContainerRef = useRef(null);
 
@@ -44,7 +37,7 @@ const Playground = () => {
 			});
 				console.log("위치 받기 실패");
 			}
-	}, [options]);
+	}, [onLocationUpdate]);
 
  // 카카오지도 API 가져오기
 	useEffect(() => {
@@ -74,11 +67,11 @@ const Playground = () => {
 	 // 위치 저장 및 서버로 전송
 	const saveLocation = async() => {
 		if (location) {
-			getReverseGeocode(location); 
-			console.log('run',address)
+			const dong = extractDongFromLocation(location); 
 		  // 위치 정보를 서버로 전송하는 POST 요청 보내기
-			await axios.put("/url", {
-				"location": address,
+			await axios.post("/url", {
+				location: location,
+				dong: dong,
 			},{
 				headers: {
 					'Content-Type' : 'application/json',
@@ -100,11 +93,10 @@ const Playground = () => {
 	};
 	
 	// 위치 정보에서 동 정보 추출하는 함수 (예시)
-	const extractDongFromLocation = () => {
+	const extractDongFromLocation = (location) => {
 		// 위치 정보에서 동 정보 추출하는 로직 작성
 		// 예: location에서 동 정보가 어떤 속성에 저장되어 있다면 해당 속성을 반환
 		// 이 예시에서는 location.latitude와 location.longitude를 이용하여 동 정보를 얻는다고 가정
-		console.log('location,dong',location)
 		const latitude = location.latitude;
 		const longitude = location.longitude;
 		const dong = getReverseGeocode(latitude, longitude);
@@ -143,12 +135,12 @@ const Playground = () => {
 			  const dongWithNumbers = match[1].trim();
 			  const dong = dongWithNumbers.replace(/[0-9-]/g, ''); // 숫자와 하이픈 제거
 			  console.log("동:", dong);
+			  onLocationUpdate(dong);
 	  
 			  // 동 정보를 화면에 표시
 			  const dongDiv = document.getElementById('dongDiv');
 			  if (dongDiv) {
 				dongDiv.textContent = `현재 위치 : ${dong}`;
-				setAddress(dong);
 			  }
 		} else {
 			// "동"이 없는 경우 '읍'
@@ -158,7 +150,7 @@ const Playground = () => {
 				const eupWithNumbers = matchEup[1].trim();
 				const eup = eupWithNumbers.replace(/[0-9-]/g, '');
 				console.log("읍:", eup);
-				
+				onLocationUpdate(eup);
 				const dongDiv = document.getElementById('dongDiv');
 				if (dongDiv) {
 				  dongDiv.textContent = `현재 위치 : ${eup}`;
@@ -180,39 +172,20 @@ const Playground = () => {
 	const refresh = () => {
 		window.location.reload();
 	}
-
 	return(
-		<div className={styles.container}>
-			<div className={styles.wrapper}>
-				<div className={styles.header}>
-					<div className={styles.back}>
-						<BackBtn />
-					</div>
-					<div className={styles.title}>우리 동네 인증</div>
-					<button onClick={refresh}
-					className={styles.refresh}><FontAwesomeIcon icon={faRotateRight}  /></button>
-					
-				</div>
-				<div id='dongDiv' className={styles.dongText}>현재 우리 동네 :</div>
-				
-				<div id='map' className={styles.mapBox} >
-				</div>
-
-				<button onClick={saveLocation} type="button" className={styles.saveBtn}><span>저장하기</span>
-					
-				</button>
-			
-				
-				{savedLocation && (
-				<div className={styles.savedLocation}>
+		<>
+			<div >
+				<div id='dongDiv'>현재 우리 동네 :</div>
+					<div id='map' ></div>
+				{/* {savedLocation && (
+				<div>
 					저장된 위치: 위도 {savedLocation.latitude}, 경도 {savedLocation.longitude}
 				</div>
-				)}
-				
+				)} */}
 			</div>
-		</div>
+		</>
 	)
-	};
+};
 
-export default Playground;
+export default Location;
 

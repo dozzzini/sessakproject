@@ -18,6 +18,8 @@ import Playground from './pages/Playground';
 import PopularPost from './pages/PopularPost';
 import Sooda from './pages/Sooda';
 import PostDetail from './components/PostDetail';
+import SignUp from './pages/SignUp';
+import { ChakraProvider } from '@chakra-ui/react';
 
 
 const GlobalStyles = createGlobalStyle`
@@ -50,7 +52,7 @@ function App() {
     <BrowserRouter>
       <GlobalStyles />
       <div className='App'>
-
+      <ChakraProvider>
       <UserContext.Provider value= {{accessToken, setAccessToken, isLoggedIn, setIsLoggedIn}}>
         <Routes>
           <Route path='/hi' element={<Home />} />
@@ -66,8 +68,10 @@ function App() {
           <Route path='/dongnea' element={<Playground />} />
           <Route path='/인기글' element={<PopularPost  />}/>
           <Route path='/왁자지껄' element={<Sooda  />}/>
+          <Route path='/signup' element={<SignUp  />} />
         </Routes> 
     </UserContext.Provider>   
+    </ChakraProvider>
     </div>
         
     </BrowserRouter>
