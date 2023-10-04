@@ -9,6 +9,7 @@ import KakaoRedirectPage from "../components/KakaoRedirectPage";
 import styles from './login.module.css';
 import Gg from "../components/Gg";
 import { useForm } from "react-hook-form";
+import Cookies from "js-cookie";
 
 const Container = styled.div`
 @media screen and (min-width: 414px)and (max-width: 700px){
@@ -89,6 +90,8 @@ const Login = () => {
     const GOOGLE_REDIRECT_URI = process.env.REACT_APP_GOOGLE_REDIRECT_URI;
     const scope = ['email'];
 
+
+
     // const onGoogleSocialLogin = () => {
     //     window.location.href = `https://accounts.google.com/o/oauth2/auth?client_id=${GOOGLE_CLIENT_ID }&redirect_uri=${GOOGLE_REDIRECT_URI}&response_type=token&scope=openid email`;
     // };
@@ -161,10 +164,14 @@ const Login = () => {
             headers: {
                 'Content-Type': 'application/json',       
             },
-            'withCredentials': true,}        
+                'withCredentials': true,
+        }        
     )
-
+    Cookies.set('access_token', response.data.access)
+    Cookies.set('refresh_token', response.data.refresh)
+    navigate('/hi');
     }
+
     const pathSignUp = () => {
         navigate('/signup')
     }

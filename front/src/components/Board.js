@@ -136,15 +136,14 @@ const Board = () => {
         const getPosts = async() => {
         try {
             const response = await axios.get(
-                "https://jsonplaceholder.typicode.com/posts", {data:posts.id},
-                // "https://port-0-sessak-back2-cgw1f2almhig6l2.sel5.cloudtype.app/api/v1/posts/postlist", 
-                
+                // "https://jsonplaceholder.typicode.com/posts", {data:posts.id},
+                "https://port-0-sessak-back2-cgw1f2almhig6l2.sel5.cloudtype.app/api/v1/posts/postlist/",
                 {headers: 
                     {
                     'Content-Type': 'application/json',
                     },
                     'withCredentials': true,
-        }
+                }
             ); //더미데이터 url
             // setHeartStates(new Array(response.data.length).fill(false));
 

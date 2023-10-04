@@ -3,10 +3,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faLeftLong} from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import Cookies from 'js-cookie';
+import axios from 'axios';
 
 const UserPage = () => {
     const navigate = useNavigate();
-    const [isLoggedIn, setIsLoggedIn] = useState(true); // 초기값은 로그인되어 있다고 가정
+    const [isLoggedIn, setIsLoggedIn] = useState(false); 
 
     const handleDongnea = () => {
         //api gps 인증
@@ -21,10 +23,27 @@ const UserPage = () => {
         //api get comments
         navigate('/mycommentlist')
     };
-    const handleLogout = () => {
+    const handleLogout = async () => {
         setIsLoggedIn(false);
-        console.log('logout')
+        console.log('로그아웃');
+        
+        try {
+            await axios.post('url/logout', {
+                'headers' : {
+                    'Content-Type': 'application/json',
+                },
+                withCredentials: true,
+            });
+    
+            Cookies.remove('access_token'); // 쿠키 삭제 (값 없이 이름만 제공)
+            // Cookies.remove('refresh_token', response.data.refresh) // 필요한 경우 주석 해제
+            navigate('/');
+        } catch (error) {
+            // 에러 처리 코드 추가
+            console.log('로그아웃 실패:', error);
+        }
     };
+    
 
     return(
         <div className={styles.container}>

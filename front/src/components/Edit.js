@@ -1,16 +1,22 @@
-import React, { useRef, useState } from 'react';
-import ReactQuill from 'react-quill';
+import React, { useMemo, useRef, useState } from 'react';
+import ReactQuill, { Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import styles from './edit.module.css';
 import BackBtn from './BackBtn';
 import axios from 'axios';
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
+import  ImageResize  from '@looop/quill-image-resize-module-react'
+
 
 const Edit = () => {
     const [editvalue, setEditValue] = useState('');
     const [title, setTitle] = useState("");
     console.log(editvalue);
 
+    //edit 속 컨텐츠 저장하는 state
     const quillRef = useRef(null);
+
     // 이 함수는 HTML 태그를 제거하는 역할을 합니다.
     const removeHtmlTags = (html) => {
         const doc = new DOMParser().parseFromString(html, 'text/html');
@@ -32,17 +38,22 @@ const Edit = () => {
             [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
             ['link', 'image', 'video']
         ];
-    const module = {
-                toolbar: toolbarOptions,
-                clipboard: {
-                    matchVisual: false,
-                },
-        };
+    
+    
+        const module = useMemo(() => (  {   toolbar: toolbarOptions,
+            clipboard: {
+                        matchVisual: false,
+                    },         
+        })) 
+
+    
+
     const handleTitle = (e) => {
         setTitle(e.target.value);
         console.log(e.target.title);
     };
-    
+    const navigate = useNavigate();
+
     const handleSubmit = async() => {
         const date = new Date();
         const year = date.getFullYear();
@@ -62,7 +73,8 @@ const Edit = () => {
                 // date: date // 날짜를 ISO 형식으로 변환하여 보낼 수 있습니다.
             },{
                 headers: {
-                    'Content-Type': 'application/json',       
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${Cookies.get('access_token')}`       
                 },
                 'withCredentials': true,
 
@@ -70,6 +82,8 @@ const Edit = () => {
 
             // 서버 응답 확인
             console.log(response.data);
+            navigate(`/posts/${response.data.id}`);
+
 
             // 서버로 데이터를 보낸 후에 필요한 작업을 수행할 수 있습니다.
         } catch (error) {
@@ -101,6 +115,7 @@ const Edit = () => {
                     <ReactQuill theme="snow" 
                         value={editvalue} 
                         modules={module} 
+                        ref={quillRef}
                         // onChange={handleEditChange}
                         onChange={setEditValue}
                         className={styles.editTool}

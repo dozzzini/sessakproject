@@ -20,6 +20,7 @@ import Sooda from './pages/Sooda';
 import PostDetail from './components/PostDetail';
 import SignUp from './pages/SignUp';
 import { ChakraProvider } from '@chakra-ui/react';
+import PostUpdate from './components/PostUpdate';
 
 
 const GlobalStyles = createGlobalStyle`
@@ -63,6 +64,7 @@ function App() {
           <Route path='/edit' element={<NewPost />}  />
           {/* <Route path='/feed' element={<FeedList/>} /> */}
           <Route path='/posts/:id' element={<PostDetail />} />
+          <Route path='/posts/update/:id' element={<PostUpdate />} />
           <Route path='/mypostlist' element={<MyPostLists  />} />
           <Route path='/mycommentlist' element={<MyComments />} />
           <Route path='/dongnea' element={<Playground />} />

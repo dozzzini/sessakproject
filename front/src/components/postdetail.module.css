@@ -1,0 +1,108 @@
+.container{
+	width: 100%;
+	height: 100vh;
+	text-align: center;
+    font-size: 30px;
+    padding-top: 5px;
+    background-color: #e1eef6;
+    /* margin: 0px 50px; */
+}
+.wrapper{
+    margin: 0px 50px;
+	background-color: #e1eef6;
+    margin-top: 10px;
+	font-size: 20px;
+}
+.postBox{
+	padding: 5px;
+	border-radius: 15px;
+	background-color: whitesmoke;
+	display: flex;
+	flex-direction: column;
+	height: 600px;
+}
+.BtnBox{
+	display: flex;
+	justify-content: flex-end;
+	padding: 5px;
+}
+.BtnBox button{
+	margin-left: 15px;
+}
+.BtnBox button:hover{
+	background-color: blueviolet;
+	color: white;
+	width: 50px;
+	border-radius: 5px;
+}
+/* .userId{
+	display: flex;
+	justify-content: flex-end;
+	padding: 5px;
+} */
+.userPost{
+	/* background-color: antiquewhite; */
+}
+.userPost p {
+	display: flex;
+	justify-content: flex-start;
+	padding: 5px;
+	background-color: aquamarine;
+}
+/* .userPost p:nth-child(1){
+	background-color: aquamarine;
+	border-bottom: 2px solid gray;
+	margin-bottom: 10px;
+} */
+.userPost p:nth-child(2) {
+	padding:  10px;
+	background-color: wheat;
+}
+.TitleId{
+	display: flex;
+	justify-content: space-between;
+	/* background-color: rgb(67, 139, 0); */
+	padding: 5px;
+	border-bottom: 1px solid gray;
+}
+@media screen and (min-width: 414px) and (max-width: 700px){
+	.container{
+		background-color: #e1eef6;
+		width: 100%;
+		height: 100vh;
+		text-align: center;
+		font-size: 30px;
+		padding-top: 0px;
+		margin:  0px;
+	}
+	.wrapper{
+		/* background-color: #376809; */
+		margin: 10px 0px 5px 0px;
+		font-size: 20px;
+	}
+	.postBox{
+		/* padding: 5px; */
+		padding-right: 5px;
+		border-radius: 15px;
+		background-color: rgba(159, 201, 19, 0.282);
+		display: flex;
+		flex-direction: column;
+		height: 50;
+	}
+	
+}
+
+ /* 
+const Wrapper = styled.div`
+    background-color: #e1eef6;
+    margin-top: 10px;
+    width: 100%;
+    height: 100vh;
+    /* cursor: pointer; */
+    /* position: relative; */
+    /* display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; */
+    
+/* `; */ 
