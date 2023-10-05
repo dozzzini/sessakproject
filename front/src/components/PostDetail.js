@@ -6,10 +6,11 @@ import Header from './Header';
 import styles from './postdetail.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEraser, faL, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import Comments from './Comments';
 
 
 
-const PostDetail = () => {
+const PostDetail = ({post_comments}) => {
 	const {id} = useParams();
 	// const params = useParams();
 	// console.log(params, '1231')
@@ -103,16 +104,19 @@ const PostDetail = () => {
 							
 						</div>
 						{post.title ? (
-							<>
+							<div className={styles.mainContents}>
 							<div className={styles.userPost}>
 								<div className={styles.TitleId}>
 									<p>제목 : {post.title}</p>
-									<span>id : {post.id} </span>
+									<span>닉네임 : {post.author.nickname} </span>
 								</div>
 								<p>{post.content}</p>
 							</div>
-							
-							</>
+							<div className={styles.comments}>
+								<p>댓글</p>
+								<Comments 	/>
+							</div>
+							</div>
 						) : (
 							<h2>No content available</h2>
 						)}

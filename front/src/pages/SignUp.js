@@ -31,8 +31,7 @@ const SignUp = () => {
 			const response = await axios.post('https://port-0-sessak-back2-cgw1f2almhig6l2.sel5.cloudtype.app/api/v1/users/signup/', formData);
 			console.log('서버 전송 성공' , response.data);
 			window.alert('회원가입 성공! 로그인해주세요!');
-
-			navigate('/hi');
+			navigate('/');
 
 		} catch (error) {
 			console.log('서버 전송실패', error);

@@ -6,7 +6,6 @@ import BackBtn from './BackBtn';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
-import  ImageResize  from '@looop/quill-image-resize-module-react'
 
 
 const Edit = () => {

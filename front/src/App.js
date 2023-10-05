@@ -20,8 +20,6 @@ import Sooda from './pages/Sooda';
 import PostDetail from './components/PostDetail';
 import SignUp from './pages/SignUp';
 import { ChakraProvider } from '@chakra-ui/react';
-import PostUpdate from './components/PostUpdate';
-
 
 const GlobalStyles = createGlobalStyle`
 ${reset}
@@ -38,39 +36,37 @@ body{
 ` ;
 
 function App() {
-  const[accessToken, setAccessToken] = useState(null);
+  const[access_token, setAccess_token] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState('');
   
   useEffect(() => {
-    if(accessToken){
+    if(access_token){
 
     }
 
-  }, [accessToken]);
+  }, [access_token]);
 
 
   return (
     <BrowserRouter>
       <GlobalStyles />
       <div className='App'>
-      <ChakraProvider>
-      <UserContext.Provider value= {{accessToken, setAccessToken, isLoggedIn, setIsLoggedIn}}>
+    <ChakraProvider>
+      <UserContext.Provider value= {{access_token, setAccess_token, isLoggedIn, setIsLoggedIn}}>
         <Routes>
           <Route path='/hi' element={<Home />} />
           <Route path='/userinfo' element={<UserPage/>}  />
           <Route path='/' element={<Login />} />
+          <Route path='signup' element={<SignUp />} />
           <Route path='/oauth' element={<GoogleOAuth2RedirectPage  />} />
           <Route path='/oauth' element={<KakaoRedirectPage  />}/>
           <Route path='/edit' element={<NewPost />}  />
-          {/* <Route path='/feed' element={<FeedList/>} /> */}
           <Route path='/posts/:id' element={<PostDetail />} />
-          <Route path='/posts/update/:id' element={<PostUpdate />} />
           <Route path='/mypostlist' element={<MyPostLists  />} />
           <Route path='/mycommentlist' element={<MyComments />} />
           <Route path='/dongnea' element={<Playground />} />
           <Route path='/인기글' element={<PopularPost  />}/>
           <Route path='/왁자지껄' element={<Sooda  />}/>
-          <Route path='/signup' element={<SignUp  />} />
         </Routes> 
     </UserContext.Provider>   
     </ChakraProvider>

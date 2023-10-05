@@ -120,7 +120,7 @@ const Header = () => {
 	return(
 		<>
 		 <HeaderBox>
-                    <img src={process.env.PUBLIC_URL + 'logo.png'} 
+                    <img src={process.env.PUBLIC_URL + '/logo.png'} 
                     onClick={(e)=>navigate('/hi')}
                     style={{
                     width:'70px', marginRight:'10px', cursor:'pointer'}}/>

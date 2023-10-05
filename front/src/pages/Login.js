@@ -167,9 +167,9 @@ const Login = () => {
                 'withCredentials': true,
         }        
     )
-    Cookies.set('access_token', response.data.access)
-    Cookies.set('refresh_token', response.data.refresh)
-    navigate('/hi');
+        Cookies.set('access_token', response.data.access)
+        Cookies.set('refresh_token', response.data.refresh)
+        navigate('/hi');
     }
 
     const pathSignUp = () => {
