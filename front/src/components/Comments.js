@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import styles from './comments.module.css';
-import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useParams } from 'react-router-dom';
 import api from '../RefreshToken';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faEraser, faTrashCan} from '@fortawesome/free-solid-svg-icons';
+import { faSquarePlus } from '@fortawesome/free-regular-svg-icons';
+
 
 const Comments = () => {
 	const [comment, setComment] = useState('');
@@ -47,6 +50,7 @@ const Comments = () => {
 		setComment(''); 
 		setCommentList([...commentList, newComment])
 		}
+		
 		console.log('add')
 		try{
 			const response = await api.post('comments/newcomment/',
@@ -66,23 +70,49 @@ const Comments = () => {
 			alert('댓글을 입력해주세요!')
 		}	
 	};
-
+	
+// 댓글삭제
+	const commentTrash = async(commentId) => {
+		try{
+			const res = await api.delete(`comments/${commentId}>/`,
+			{
+				headers: {'Authorization': `Bearer ${Cookies.get('access_token')}`}
+			});
+			setComment(res.data);
+			// setLoading(false); 
+			console.log(res)
+			alert('게시글이 삭제되었습니다.')
+			// navigate('/hi') ;
+		}catch(error){
+			console.log(error, '게시글 삭제 실패' )
+		}
+	}
 	
 
 	return(
 		<div className={styles.container}>
-			<div className={styles.wrapper}>
-				<div className={styles.commentList}>
-				{commentList?.map((comment, index) => (
-				<div key={index}>{comment}</div>
-				))}
-				</div>
-				<div className={styles.commentsBox}>
+			<div className={styles.commentsBox}>
 					<input type='text' value={comment}
 						onChange={(e) => setComment(e.target.value)}
 						placeholder='댓글을 입력해주세요.' />
-					<button onClick={addComment} >추가</button>
+					<button onClick={addComment} >
+					<FontAwesomeIcon icon= {faSquarePlus} size='2xl' />
+					</button>
 				</div>
+			<div className={styles.wrapper}>
+				<div className={styles.commentList}>
+					{commentList?.map((comment, index) => (
+					<div className={styles.commentItem} key={index}>
+						<p className={styles.item} >
+							{comment}
+						</p>
+						<p>{}</p>
+						<button><FontAwesomeIcon icon={faEraser} size='xs'/></button>
+						<button onClick={commentTrash}><FontAwesomeIcon icon={faTrashCan} size='xs' /></button>
+					</div>
+					))}
+				</div>
+				
 			</div>
 		</div>
 	)

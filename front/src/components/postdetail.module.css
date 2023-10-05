@@ -1,6 +1,6 @@
 .container{
 	width: 100%;
-	height: 100vh;
+	height: 100%;
 	text-align: center;
     font-size: 30px;
     padding-top: 5px;
@@ -12,6 +12,7 @@
 	background-color:#e1eef6;
     margin-top: 10px;
 	font-size: 20px;
+	/* height: 100%; */
 }
 .postBox{
 	padding: 5px;
@@ -20,6 +21,7 @@
 	display: flex;
 	flex-direction: column;
 	/* height: 600px; */
+	height: 100%;
 }
 .BtnBox{
 	display: flex;
@@ -43,7 +45,6 @@
 .mainContents{
 	height: 100%;
 	display: flex;
-	justify-content: space-between;
 	flex-direction: column;
 }
 .userPost{
@@ -77,10 +78,22 @@
 	padding: 5px;
 	border-bottom: 1px solid gray;
 }
+.TitleId span{
+	margin-top: 10px;
+	font-size: 14px;
+	display: flex;
+	align-items: center;
+	border-radius: 5px;
+	height: 20px;
+	background-color: rgba(204, 204, 204, 0.488);
+}
 .comments{
 	background-color: #6bcd1510;
 	border-radius: 5px;
 	height: 50%;
+	margin-top: 20px;
+	display: flex;
+	flex-direction: column;
 }
 .comments p{
 	display: flex;
@@ -105,12 +118,20 @@
 		/* padding: 5px; */
 		padding-right: 5px;
 		border-radius: 15px;
-		background-color: rgba(159, 201, 19, 0.282);
+		background-color: rgba(220, 228, 192, 0.282);
 		display: flex;
 		flex-direction: column;
 		height: 50;
 	}
-	
+	.comments{
+		box-sizing: border-box;
+		word-wrap: break-word;
+		width: 100%;
+	}
+	.comments p {
+	border-bottom: 1px solid gray;
+
+	}
 }
 
  /* 

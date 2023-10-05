@@ -1,27 +1,63 @@
 .container{
 	/* background-color: rgb(133, 161, 110); */
 	border-radius: 5px;
+	height: 100vh;
+
 }
+/* 댓글 리스트 */
 .wrapper{
 	/* background-color: blueviolet; */
 	width: 100%;
-	height: 300px;
+	height: 70%;
+	overflow-y: scroll;
+
 }
 .commentList{
-	background-color: rgba(225, 230, 230, 0.365);
+	background-color: rgba(230, 227, 225, 0.365);
 	margin-bottom: 20px;
 	padding: 10px;
 	border-radius: 10px;
-	display: flex;
+	white-space: pre-line;
+	/* display: flex; */
+	/* height: 100%; */
+	/* overflow-y: scroll; */
 }
 .commentList div{
+
+	width: 100%;
+}
+.commentItem {
 	display: flex;
-	flex-direction: column;
+	/* align-items: center; */
+	/* flex-direction: column; */
+}
+
+.commentItem button{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 30px;
+	height: 30px;
+	margin-left: 5px;
+	/* background-color: #f8e1a4; */
+	background-color: #edc483;
+	border-radius: 10px;
+}
+.commentItem button:hover{
+	background-color: #ed936b;
+}
+.item{
+	width: 90%;
+	margin-bottom: 5px;
+	border-radius: 5px;
+	font-size: 14px;
+	background-color: #9ccfce;
 }
 .commentsBox{
 	display: flex;
 	justify-content: space-between;
 	/* background-color: darkcyan; */
+	margin-bottom: 10px;
 }
 .commentsBox input{
 	width: 90%;
@@ -29,6 +65,7 @@
 	font-size: 14px;
 	border-radius: 10px;
 	margin: 0 auto;
+	word-wrap: break-word;
 	background-color: whitesmoke;
 }
 .commentsBox button{
@@ -37,10 +74,26 @@
 	width: 8%;
 	border-radius: 10px;
 	font-size: 14px;
-	background-color: rgba(20, 168, 119, 0.58);
+	background-color: #9ccfce;
 }
 .commentsBox button:hover{
-	background-color: rgb(206, 224, 151);
+	background-color: #ed936b;
 	border-radius: 10px;
 
+}
+@media screen and (min-width: 414px)and (max-width: 700px){
+	.container{
+		width: 100%;
+		height: 100%;
+	}
+	.wrapper{
+		width: 100%;
+		height: 90%;
+	}
+	.commentItem{
+		word-wrap: break-word;
+	}
+	.item{
+		white-space: pre-wrap;
+	}
 }

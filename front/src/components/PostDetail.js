@@ -10,7 +10,7 @@ import Comments from './Comments';
 
 
 
-const PostDetail = ({post_comments}) => {
+const PostDetail = ({editvalue}) => {
 	const {id} = useParams();
 	// const params = useParams();
 	// console.log(params, '1231')
