@@ -62,6 +62,12 @@
 	border-bottom: 2px solid gray;
 	margin-bottom: 10px;
 } */
+.userPost .back{
+	position: absolute;
+	top:40px;
+	left: 0px;
+	width: 210px;
+}
 .userPost p:nth-child(2) {
 	padding:  10px;
 	background-color: wheat;
@@ -130,7 +136,11 @@
 	}
 	.comments p {
 	border-bottom: 1px solid gray;
-
+	}
+	.userPost .back{
+		position: absolute;
+		top: 15px;
+		left: -10px;
 	}
 }
 

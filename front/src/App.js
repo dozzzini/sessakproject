@@ -12,8 +12,6 @@ import GoogleOAuth2RedirectPage from './components/GoogleOAuth2RedirectPage';
 import KakaoRedirectPage from './components/KakaoRedirectPage';
 import MyPostLists from './pages/MyPostList';
 import MyComments from './pages/MyComments';
-// import FeedList from './components/Board';
-// import FeedDetail from './components/FeedDetail';
 import Playground from './pages/Playground';
 import PopularPost from './pages/PopularPost';
 import Sooda from './pages/Sooda';
@@ -38,7 +36,7 @@ body{
 function App() {
   const[access_token, setAccess_token] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState('');
-  
+
   useEffect(() => {
     if(access_token){
 
@@ -71,7 +69,6 @@ function App() {
     </UserContext.Provider>   
     </ChakraProvider>
     </div>
-        
     </BrowserRouter>
 
   );

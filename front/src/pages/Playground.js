@@ -4,6 +4,8 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import BackBtn from '../components/BackBtn';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRotateRight } from '@fortawesome/free-solid-svg-icons';
+import Cookies from 'js-cookie';
+import api from '../RefreshToken';
 
 const {kakao} = window;
 
@@ -77,14 +79,7 @@ const Playground = () => {
 			getReverseGeocode(location); 
 			console.log('run',address)
 		  // 위치 정보를 서버로 전송하는 POST 요청 보내기
-			await axios.put("/url", {
-				"location": address,
-			},{
-				headers: {
-					'Content-Type' : 'application/json',
-                    'withCredentials': true,
-				}
-			}
+			await api.put("users/userinfo/", 
 			)
 				.then((response) => {				
 					window.alert('동네변경 저장성공')
@@ -202,12 +197,12 @@ const Playground = () => {
 					
 				</button>
 			
-				
+{/* 				
 				{savedLocation && (
 				<div className={styles.savedLocation}>
 					저장된 위치: 위도 {savedLocation.latitude}, 경도 {savedLocation.longitude}
 				</div>
-				)}
+				)} */}
 				
 			</div>
 		</div>

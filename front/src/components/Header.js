@@ -84,12 +84,12 @@ const SettingBox = styled.div`
     width: 70px;
     justify-content: space-between;
     position: absolute;
-    top: 90px;
-    right: 30px;
+    top: 95px;
+    right: 60px;
     
     @media screen and (min-width: 414px) and (max-width: 700px){
         top: 70px;
-        right: 30px;
+        right: 20px;
         }
     
 `;

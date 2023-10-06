@@ -7,23 +7,31 @@ import styles from './postdetail.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEraser, faL, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import Comments from './Comments';
+import BackBtn from './BackBtn';
+import api from '../RefreshToken';
 
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
-
-const PostDetail = ({editvalue}) => {
+const PostDetail = () => {
 	const {id} = useParams();
-	// const params = useParams();
-	// console.log(params, '1231')
 	const navigate = useNavigate();
 	const [loading, setLoading] = useState(true);
 	const [post, setPost] =useState({});
 	const [isEdit, setIsEdit] = useState(false);
     const toggleIsEdit = () => setIsEdit(!isEdit);
+	const [editingPost, setEditingPost] = useState(null);
+	const [editFixPost, setEditFixPost] = useState({title: '',
+	content:''});
+	const [title, setTitle] = useState('');
+	const [content, setContent] = useState('');
 
+
+	// 게시글가져오기
 	const getPosts = async () => {
 		try{
-			const res = await axios.get(`https://port-0-sessak-back2-cgw1f2almhig6l2.sel5.cloudtype.app/api/v1/posts/${id}`,
-			{headers: {'Authorization': `Bearer ${Cookies.get('access_token')}`}});
+			const res = await api.get(`posts/${id}`,
+			);
 			setPost(res.data);
 			setLoading(false);
 			console.log('서버로부터 데이터 가져오기 성공');
@@ -38,26 +46,46 @@ const PostDetail = ({editvalue}) => {
 	useEffect(() => {
 		getPosts();
 	}, [id]);
+	
+	//게시글 수정클릭시
+	 const postPreModify = (id, title, content) => {
+		setEditingPost(id);
+		setEditFixPost({
+			title: title,
+			content: content,
+		  });		
+		  setIsEdit(true);
 
+	 };
 
+	 //게시글 수정 취소
+	const postCancel = () => {
+		setEditingPost(null);
+		setEditFixPost({title:title, content: content});
+		setIsEdit(false);
+
+	}
+	// 게시글 수정완료보내기
 	const postModifyFinish= async() => {
 		try{
 			const updatedPost = {
-				title:  "",
-				content: "",
+				title:  editFixPost.title , //변경된 제목
+				content: editFixPost.content	//변경된 내용
 			};
-			const res = await axios.put(`
-			https://port-0-sessak-back2-cgw1f2almhig6l2.sel5.cloudtype.app/api/v1/posts/${id}/`, updatedPost, 
-			{
-				headers: {'Authorization' : `Bearer ${Cookies.get('access_token')}`}
-			});
-			setPost(res.data);
+			const res = await api.put(`
+			posts/${id}/`, updatedPost, 
+			);
+			setPost(res.data.data);
 			setLoading(false);
+			setIsEdit(false);
 			console.log('게시글 수정 성공');
 		}catch(error){
 			console.log(error, '게시글 수정에 오류가 있어요.')
+			alert('유저정보가 일치하지 않아 수정할 수 없습니다.')
+
 		}
 	}
+	// 게시글 삭제
 	const postDelete = async() => {
 		try{
 			const res = await axios.delete(`https://port-0-sessak-back2-cgw1f2almhig6l2.sel5.cloudtype.app/api/v1/posts/${id}/`,
@@ -71,14 +99,9 @@ const PostDetail = ({editvalue}) => {
 			navigate('/hi') ;
 		}catch(error){
 			console.log(error, '게시글 삭제 실패' )
+			alert('유저정보가 일치하지 않아 삭제할 수 없습니다.')
 		}
 	};
-	 const postPreModify = () => {
-		navigate(`/post/update/${id}`)
-	 }
-	const postCancel = () => {
-
-	}
 	return(
 		<div className={styles.container}>
 			<Header   />
@@ -96,7 +119,7 @@ const PostDetail = ({editvalue}) => {
 							</>
 							:
 							<>
-								<button onClick={postPreModify}><FontAwesomeIcon icon={faEraser} />
+								<button onClick={() => postPreModify(post.id, post.title, post.content )}><FontAwesomeIcon icon={faEraser} />
 								</button>
 								<button onClick={postDelete}><FontAwesomeIcon icon={faTrashCan} /></button>
 							</>
@@ -104,26 +127,52 @@ const PostDetail = ({editvalue}) => {
 							
 						</div>
 						{post.title ? (
-							<div className={styles.mainContents}>
+						<div className={styles.mainContents}>
 							<div className={styles.userPost}>
-								<div className={styles.TitleId}>
-									<p>제목 : {post.title}</p>
-									<span>닉네임 : {post.author.nickname} </span>
+								<div className={styles.back}>
+									<BackBtn	/>
 								</div>
-								<p>{post.content}</p>
+							<div className={styles.TitleId}>
+								{isEdit ? (
+								<>
+								<input
+									type="text"
+									placeholder="제목"
+									defaultValue={post.title}
+									onChange={(e) => setEditFixPost({ ...editFixPost, title: e.target.value })}
+								/>
+								</>
+								) : (
+								<p> 제목 : {post.title}</p>
+								)}
+								<span>닉네임 : {post.author.nickname} </span>
 							</div>
+							{isEdit ? (
+							<>
+							<ReactQuill
+								placeholder="내용"
+								defaultValue={post.content || ''}
+								onChange={(newContent) => setEditFixPost({ ...editFixPost, content: newContent })}
+							/>
+							</>
+							) : (
+							<>
+							<p>{post.content}</p>
 							<div className={styles.comments}>
 								<p>댓글</p>
 								<Comments 	/>
 							</div>
+							</>
+							)
+							}
 							</div>
-						) : (
-							<h2>No content available</h2>
-						)}
+						</div>
+							) : (
+								<h2>No content available</h2>
+						)
+						}
 					</div>
 				)}
-				
-				
 			</div>
 		</div>
 	)

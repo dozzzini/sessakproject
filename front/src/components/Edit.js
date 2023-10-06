@@ -1,11 +1,12 @@
 import React, { useMemo, useRef, useState } from 'react';
-import ReactQuill, { Quill } from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+// import ReactQuill from 'react-quill';
+// import 'react-quill/dist/quill.snow.css';
 import styles from './edit.module.css';
 import BackBtn from './BackBtn';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
+import QuillEdit from './QuillEdit';
 
 
 const Edit = () => {
@@ -14,7 +15,7 @@ const Edit = () => {
     console.log(editvalue);
 
     //edit 속 컨텐츠 저장하는 state
-    const quillRef = useRef(null);
+    // const quillRef = useRef(null);
 
     // 이 함수는 HTML 태그를 제거하는 역할을 합니다.
     const removeHtmlTags = (html) => {
@@ -28,22 +29,22 @@ const Edit = () => {
     //   };
     
         // edit 커스텀
-    const toolbarOptions = [  
-            [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-            [{ 'font': [] }],
-            ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-            [{ 'align': [] }],
-            [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-            ['link', 'image', 'video']
-        ];
+    // const toolbarOptions = [  
+    //         [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+    //         [{ 'font': [] }],
+    //         ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+    //         [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+    //         [{ 'align': [] }],
+    //         [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+    //         ['link', 'image', 'video']
+    //     ];
     
     
-        const module = useMemo(() => (  {   toolbar: toolbarOptions,
-            clipboard: {
-                        matchVisual: false,
-                    },         
-        })) 
+        // const module = useMemo(() => (  {   toolbar: toolbarOptions,
+        //     clipboard: {
+        //                 matchVisual: false,
+        //             },         
+        // })) 
 
     
 
@@ -111,15 +112,21 @@ const Edit = () => {
                         placeholder='제목을 입력하세요.' />
                     </div>
                <div className={styles.editBox}>
-                    <ReactQuill theme="snow" 
+                    {/* <ReactQuill theme="snow" 
                         value={editvalue} 
                         modules={module} 
                         ref={quillRef}
-                        // onChange={handleEditChange}
                         onChange={setEditValue}
                         className={styles.editTool}
                         placeholder='내용을 입력하세요.'
-                    />
+                    /> */}
+                    <QuillEdit
+                         value={editvalue}
+                        //  ref={quillRef}
+                         onChange={setEditValue}
+                         className={styles.editTool}
+
+                         />
                 </div>
                 <div className={styles.btnBox}>
                     <button 
