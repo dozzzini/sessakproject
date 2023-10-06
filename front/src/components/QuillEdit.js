@@ -1,6 +1,7 @@
 import React, { useMemo, useRef } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import styles from './quillEdit.module.css';
 
 const QuillEdit = ({value, onChange}) => {
 
@@ -13,10 +14,9 @@ const QuillEdit = ({value, onChange}) => {
 	const toolbarOptions = [  
 		[{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
 		[{ 'font': [] }],
-		['bold', 'italic', 'underline', 'strike'],        // toggled buttons
 		[{ 'list': 'ordered'}, { 'list': 'bullet' }],
 		[{ 'align': [] }],
-		[{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+		[{ 'color': [] }],          // dropdown with defaults from theme
 		['link', 'image', 'video']
 	];
     const quillRef = useRef(null);
@@ -37,6 +37,7 @@ const module = useMemo(() => (  {   toolbar: toolbarOptions,
                     onChange={onChange}
 					ref={quillRef}
                     placeholder='내용을 입력하세요.'
+					className={styles.editbox}
         />
 		</>
 	)

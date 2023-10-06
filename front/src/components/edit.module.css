@@ -98,6 +98,7 @@
 	padding: 17px 60px;
 	margin: 10px ;
 	box-shadow: 0 5px 15px rgba(0,0,0,0.20);
+    /* margin-top: 20px; */
   }
   
   .submitBtn span {
@@ -133,6 +134,9 @@
     }
     .container{
         width: 100%;
+    }
+    .submitBtn{
+        margin-top: 50px
     }
 };
 

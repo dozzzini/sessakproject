@@ -93,6 +93,14 @@
 	height: 20px;
 	background-color: rgba(204, 204, 204, 0.488);
 }
+.quillBox div{
+	height: 900px;
+}
+.showContent {
+	word-break: break-all;
+	display: flex;
+	justify-content: flex-start;
+}
 .comments{
 	background-color: #6bcd1510;
 	border-radius: 5px;

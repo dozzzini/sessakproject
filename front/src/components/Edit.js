@@ -14,14 +14,14 @@ const Edit = () => {
     const [title, setTitle] = useState("");
     console.log(editvalue);
 
-    //edit 속 컨텐츠 저장하는 state
-    // const quillRef = useRef(null);
-
-    // 이 함수는 HTML 태그를 제거하는 역할을 합니다.
     const removeHtmlTags = (html) => {
         const doc = new DOMParser().parseFromString(html, 'text/html');
         return doc.body.textContent || "";
     };
+    //edit 속 컨텐츠 저장하는 state
+    // const quillRef = useRef(null);
+
+    // 이 함수는 HTML 태그를 제거하는 역할을 합니다.
 
     // const handleEditChange = (editvalue) => {
     //     const cleanedValue = removeHtmlTags(editvalue);

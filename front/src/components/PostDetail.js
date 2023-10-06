@@ -5,13 +5,12 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Header from './Header';
 import styles from './postdetail.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEraser, faL, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { faEraser, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import Comments from './Comments';
 import BackBtn from './BackBtn';
 import api from '../RefreshToken';
 
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+import QuillEdit from './QuillEdit';
 
 const PostDetail = () => {
 	const {id} = useParams();
@@ -26,6 +25,11 @@ const PostDetail = () => {
 	const [title, setTitle] = useState('');
 	const [content, setContent] = useState('');
 
+	// HTML 태그를 제거하는 역할을 합니다.
+    const removeHtmlTags = (html) => {
+        const doc = new DOMParser().parseFromString(html, 'text/html');
+        return doc.body.textContent || "";
+    };
 
 	// 게시글가져오기
 	const getPosts = async () => {
@@ -70,7 +74,7 @@ const PostDetail = () => {
 		try{
 			const updatedPost = {
 				title:  editFixPost.title , //변경된 제목
-				content: editFixPost.content	//변경된 내용
+				content: removeHtmlTags(editFixPost.content) 	//변경된 내용
 			};
 			const res = await api.put(`
 			posts/${id}/`, updatedPost, 
@@ -79,6 +83,7 @@ const PostDetail = () => {
 			setLoading(false);
 			setIsEdit(false);
 			console.log('게시글 수정 성공');
+			console.log('태그제거',removeHtmlTags(editFixPost.content) )
 		}catch(error){
 			console.log(error, '게시글 수정에 오류가 있어요.')
 			alert('유저정보가 일치하지 않아 수정할 수 없습니다.')
@@ -148,16 +153,19 @@ const PostDetail = () => {
 								<span>닉네임 : {post.author.nickname} </span>
 							</div>
 							{isEdit ? (
-							<>
-							<ReactQuill
+							<div className={styles.quilllBox}>
+							<QuillEdit
 								placeholder="내용"
-								defaultValue={post.content || ''}
+								value={editFixPost.content || ''}
 								onChange={(newContent) => setEditFixPost({ ...editFixPost, content: newContent })}
 							/>
-							</>
+							</div>
 							) : (
 							<>
-							<p>{post.content}</p>
+							<div className={styles.showContent}>
+								{/* {removeHtmlTags(editFixPost.content) } */}
+								<p>{post.content}</p>
+								</div>
 							<div className={styles.comments}>
 								<p>댓글</p>
 								<Comments 	/>
