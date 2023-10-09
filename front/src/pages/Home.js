@@ -1,5 +1,4 @@
 import {styled} from 'styled-components'
-import Pagination from '../components/Pagination';
 import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import Board from '../components/Board';
@@ -74,7 +73,6 @@ const Home = () => {
                     <Board  />
                     
                 </Main>
-                <Pagination />
             </Wrapper>
         </Container>
     )

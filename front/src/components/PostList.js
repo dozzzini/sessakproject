@@ -4,7 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser, faCommentDots, faEye, faHeart } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 
-const PostList = ({ posts, selectPost, }) => {
+
+const PostList = ({ posts, selectPost}) => {
     const [heartColors, setHeartColors] = useState({});
 	const [count, setCount] = useState(0);
 
@@ -61,7 +62,6 @@ console.log(posts , '23423');
 			key={post.id} onClick={() => selectPost(post)}>
 			{post.title.length > 30 ? `${post.title.slice(0,30)}...` : post.title}
 			{post.comment}
-			
 				<div className={styles.participation}>
 					<div className={styles.postUserId}>
 					<p><FontAwesomeIcon icon= {faCircleUser} />{post.author.nickname}</p>
@@ -93,6 +93,9 @@ console.log(posts , '23423');
 			</li>
 		))}
     	</ul>
+		<div className={styles.commentpagination}>
+			{/* < Paging	/> */}
+		</div>
 	</div>
 	)
 };

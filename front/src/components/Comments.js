@@ -4,63 +4,51 @@ import Cookies from 'js-cookie';
 import { useParams } from 'react-router-dom';
 import api from '../RefreshToken';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faCancel, faCheck, faEraser, faTrashCan, faX} from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faEraser, faTrashCan, faX} from '@fortawesome/free-solid-svg-icons';
 import { faSquarePlus } from '@fortawesome/free-regular-svg-icons';
-import { useMutation, useQueryClient } from 'react-query';
 
 
-const Comments = () => {
+const Comments = ({comments}) => {
 	const [comment, setComment] = useState('');
 	const [commentList, setCommentList] = useState([]); 
 	const [editingComment, setEditingComment] = useState(null); // 수정 중인 댓글  상태 변수
 	const [editedFixComment, setEditedFixComment] = useState(''); // 수정 중인 댓글 텍스트를 저장할 상태 변수
 	const {id} = useParams();
-	const queryClient = useQueryClient();
 
 
-	useEffect(() => {
-		callComment();
-	}, []);
+
 
 	//댓글 가져오기
-	const callComment = async () =>{
-		try{
-			const response = await api.get(
-				`posts/${id}/`,
-				{headers: {
-					Authorization: `Bearer ${Cookies.get('access_token')}`,
-					'Content-Type': 'application/json',
-				},
-					withCredentials: true,
-				},
+	// const callComment = async () =>{
+	// 	try{
+	// 		const response = await api.get(
+	// 			`posts/${id}/`,
+	// 			{headers: {
+	// 				Authorization: `Bearer ${Cookies.get('access_token')}`,
+	// 				'Content-Type': 'application/json',
+	// 			},
+	// 				withCredentials: true,
+	// 			},
 				
-			);
-			if (response.data.post_comments) {
-				const comments= response.data.post_comments.map((postComment) => postComment);
-				setCommentList(comments);
-				console.log('1', comments);
-			} else {
-				setCommentList([]);
-			}
-		}catch(error){
-			console.error('댓글을 불러오는 데 실패했습니다:', error);
-		}
-	};
+	// 		);
+			// if (response.data.post_comments) {
+			// 	const comments= response.data.post_comments.map((postComment) => postComment);
+			// 	setCommentList(comments);
+			// 	console.log('1', comments);
+			// } else {
+			// 	setCommentList([]);
+			// }
+	// 	}catch(error){
+	// 		console.error('댓글을 불러오는 데 실패했습니다:', error);
+	// 	}
+	// };
 
 	useEffect(()=>{
-			callComment()
-		}, [id]);
+			// callComment()
+			setCommentList(comments);
+			
+		}, [id,comments]);
 
-
-//Mutation addPost
-	// const addCommentMutation = useMutation(
-	// 	(newComment) =>  api.post('comments/newcomment/', {
-	// 		comment : newComment,
-	// 		post_id:id,
-	// 	}, {onSuccess:() => {
-	// 		queryClient.invalidateQueries('comments')
-	// 	}})
-	// );
 	//댓글 보내기
 	const addComment = async(comment) => {
 		if (comment.trim() !== '') {
@@ -156,7 +144,7 @@ const Comments = () => {
 		}
 	};
 	
-
+console.log(commentList,'commentlist')
 	return(
 		<div className={styles.container}>
 			<div className={styles.commentsBox}>

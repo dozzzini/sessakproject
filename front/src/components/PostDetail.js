@@ -35,11 +35,11 @@ const PostDetail = () => {
 	// 게시글가져오기
 	const getPosts = async () => {
 		try{
-			const res = await api.get(`posts/${id}`,
+			const res = await api.get(`posts/${id}/`,
 			);
 			setPost(res.data);
 			setLoading(false);
-			console.log('서버로부터 데이터 가져오기 성공');
+			console.log('서버로부터 데이터 가져오기 성공',res.data);
 			
 		}catch(error){
 			console.log(error, '게시글 가져오기 실패');
@@ -170,7 +170,7 @@ const PostDetail = () => {
 								</div>
 							<div className={styles.comments}>
 								<p>댓글</p>
-								<Comments	/>
+								<Comments comments={post?.post_comments} key={post?.post_comments}	/>
 							</div>
 							</>
 							)

@@ -4,9 +4,12 @@ import PostList from "./PostList";
 import Edit from "./Edit";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import {  useNavigate, useParams } from "react-router-dom";
+import {  useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import api from "../RefreshToken";
+import Pagination from "./Pagination";
+import { useQuery } from "@chakra-ui/react";
+// import Paging from "./Paging";
 
 const FeedBox  = styled.div`
     /* display: flex;
@@ -119,45 +122,70 @@ const UserDate = styled.div`
 
 
 
-const Board = () => {    
-    // const [ex, setEx] = useState([
-    //     { id: 1, title: '프로젝트... ' , likes: 123 , comments: 456, views: 7651},
-    //     { id: 2, title: '못하겠다...', likes: 345 , comments: 678, views:3455},
-    //     { id: 3, title: 'ㅠㅠㅠㅠㅠㅠ', likes: 975 , comments: 823,  views:4534},
-    //     { id: 4, title: '안녕히..', likes: 234 , comments: 234,  views:234},
-// ]}
+const Board = () => { 
 
     const [posts, setPosts] = useState([]);
     const [selectedPost, setSelectedPost] = useState(null);
+    const [date, setDate] = useState();
+    const [totalPage, setTotalPage] = useState([]);
+    // const [currentPage, setCurrentPage] = useState(1); // 현재 페이지를 상태로 관리합니다.
+    // const [page, setPage] = useState(1); // 현재 페이지 상태 추가
     const navigate = useNavigate();
     const params = useParams();
-	// const [heartStates, setHeartStates] = useState(Array(posts.length).fill(false));
+    const location = useLocation();
+
+// useSearchParams를 사용하여 URL 쿼리값 가져오기
+const [searchParams, setSearchParams] = useSearchParams();
+
+// page 값이 존재한다면 해당 값을 사용하고, 그렇지 않다면 1을 사용합니다.
+const currentPage = searchParams.get('total_page') || '1';
+// const apid = () => {
+//     try{
+//         const res = api.get(`posts/postlist/`,{
+//             params: { page:currentPage},
+//           })
+//         console.log(params,"response");
+//     }catch(error){ console.log(error,'ddsd')};
+// }
+// // 구조분해 할당
+// const {
+//     data:total_page,
+// //   isLoading,
+// //   error,
+// } = useQuery('total_page',apid);
+// console.log(total_page, 'dddf')
+
+// const postCount = total_page?.count || 0;
+// const itemsPerPage = total_page?.page_size || 0;
+// const pageCount = total_page?.page_count || 0;
+
+
+
 
     useEffect(() => {
+        
+        // 현재 페이지를 쿼리 매개변수 'page'에서 가져옵니다 (기본값은 1로 설정됩니다).
+        const searchParams = new URLSearchParams(location.search);
+        // const currentPage = parseInt(searchParams.get("page")) || 1;
+
         // 게시글 목록을 불러오기
         const getPosts = async() => {
         try {
-            // const response = await axios.get(
-            //     // "https://jsonplaceholder.typicode.com/posts", {data:posts.id},
-            //     "https://port-0-sessak-back2-cgw1f2almhig6l2.sel5.cloudtype.app/api/v1/posts/postlist/",
-            //     {headers: 
-            //         {
-            //         'Content-Type': 'application/json',
-            //         'Authorization':`Bearer ${Cookies.get('access_token')}`
-            //         },
-            //         'withCredentials': true,
-            //     }
-            // ); //더미데이터 url
-            // setHeartStates(new Array(response.data.length).fill(false));
-            const response = await api.get('posts/postlist/')
+            const response = await api.get('posts/postlist/',{
+                params: { page:currentPage},
+              })
             setPosts(response.data);
+            setTotalPage(response.data.total_page);
+            
+            // setCurrentPage(currentPage);
+            // setPage(currentPage); // 현재 페이지를 설정합니다.
         } catch (error) {
             console.log("게시글 목록을 불러오는 데 실패했습니다.", error);
         }
         }
 
         getPosts();
-    }, []);
+    }, [location.search]);
 
     const selectPost = (posts) => {
         
@@ -165,14 +193,24 @@ const Board = () => {
         navigate(`/posts/${id}`);
         setSelectedPost(posts);
     };
+    const newDate = (posts) => {
+        const dating =  posts.created_at;
+
+    }
+
+    // 페이지 이동을 처리하는 함수를 추가합니다.
+    const handlePageChange = (newPage) => {
+        navigate(`/posts/?page=${newPage}`);
+    };
+
     
-    
-   
+    console.log(posts,'post')
+    console.log(totalPage,'pages')
     return(
         <FeedBox>
         <PostList posts={posts} selectPost={selectPost}
-        //  onHeart ={onHeart} 
          />
+         
         {selectedPost ? (
             <PostDetail 
             post={selectedPost} 
@@ -180,6 +218,14 @@ const Board = () => {
         ) : (
         null
         )}
+        {/* <Paging
+            totalPage={totalPage} onPageChange={handlePageChange}   /> */}
+            <Pagination 
+                // 현재 페이지 값을 숫자로 변환합니다.
+               totalPage={totalPage.length}
+               pageList={totalPage}
+               currentPage={currentPage}
+                />
       </FeedBox>
     )
 };
