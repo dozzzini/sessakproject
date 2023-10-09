@@ -12,6 +12,7 @@ const HeaderBox = styled.div`
     align-items: center;
     font-family: 'Giants-Regular';    
     font-size: 40px;
+    cursor: pointer;
     /* border: 2px solid darkblue; */
     img{
         border-radius: 5px;
@@ -84,8 +85,8 @@ const SettingBox = styled.div`
     width: 70px;
     justify-content: space-between;
     position: absolute;
-    top: 95px;
-    right: 60px;
+    top: 90px;
+    right: 30px;
     
     @media screen and (min-width: 414px) and (max-width: 700px){
         top: 70px;
@@ -119,13 +120,12 @@ const Header = () => {
 
 	return(
 		<>
-		 <HeaderBox>
-                    <img src={process.env.PUBLIC_URL + '/logo.png'} 
-                    onClick={(e)=>navigate('/hi')}
+		 <HeaderBox onClick={()=>navigate('/hi')}>
+            <img src={process.env.PUBLIC_URL + '/logo.png'} 
                     style={{
                     width:'70px', marginRight:'10px', cursor:'pointer'}}/>
-                    <span className='headerBox'>지금 우리 동네는?</span>
-                </HeaderBox>
+            <span className='headerBox'>지금 우리 동네는?</span>
+        </HeaderBox>
                 
                 <Header1>
                     <SearchBox>

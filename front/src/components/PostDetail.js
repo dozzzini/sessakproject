@@ -5,7 +5,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Header from './Header';
 import styles from './postdetail.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEraser, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { faEraser, faTrashCan, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faCircleCheck } from '@fortawesome/free-regular-svg-icons';
 import Comments from './Comments';
 import BackBtn from './BackBtn';
 import api from '../RefreshToken';
@@ -118,9 +119,10 @@ const PostDetail = () => {
 						<div className={styles.BtnBox}>
 							{isEdit ? 
 							<> 
-								<button onClick={postModifyFinish}><FontAwesomeIcon icon={faEraser} />
+								<button onClick={postModifyFinish}>
+								<FontAwesomeIcon icon={faCircleCheck }/>
 								</button>
-								<button onClick={postCancel}>취소</button>
+								<button onClick={postCancel}><FontAwesomeIcon icon={faXmark}/></button>
 							</>
 							:
 							<>
@@ -168,7 +170,7 @@ const PostDetail = () => {
 								</div>
 							<div className={styles.comments}>
 								<p>댓글</p>
-								<Comments 	/>
+								<Comments	/>
 							</div>
 							</>
 							)

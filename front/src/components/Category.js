@@ -74,6 +74,7 @@ const Sidebar = styled.div`
         justify-content: start;
         align-items: start;
         border-radius: 0%;
+        z-index: 99;
 
     }
     @media screen and (min-width: 414px) and (max-width: 700px){

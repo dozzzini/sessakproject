@@ -6,6 +6,7 @@ import api from '../RefreshToken';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faCancel, faCheck, faEraser, faTrashCan, faX} from '@fortawesome/free-solid-svg-icons';
 import { faSquarePlus } from '@fortawesome/free-regular-svg-icons';
+import { useMutation, useQueryClient } from 'react-query';
 
 
 const Comments = () => {
@@ -13,8 +14,9 @@ const Comments = () => {
 	const [commentList, setCommentList] = useState([]); 
 	const [editingComment, setEditingComment] = useState(null); // 수정 중인 댓글  상태 변수
 	const [editedFixComment, setEditedFixComment] = useState(''); // 수정 중인 댓글 텍스트를 저장할 상태 변수
-
 	const {id} = useParams();
+	const queryClient = useQueryClient();
+
 
 	useEffect(() => {
 		callComment();
@@ -47,18 +49,26 @@ const Comments = () => {
 
 	useEffect(()=>{
 			callComment()
-		}, [id])
+		}, [id]);
 
+
+//Mutation addPost
+	// const addCommentMutation = useMutation(
+	// 	(newComment) =>  api.post('comments/newcomment/', {
+	// 		comment : newComment,
+	// 		post_id:id,
+	// 	}, {onSuccess:() => {
+	// 		queryClient.invalidateQueries('comments')
+	// 	}})
+	// );
 	//댓글 보내기
-	const addComment = async() => {
+	const addComment = async(comment) => {
 		if (comment.trim() !== '') {
 		const newComment = comment;
-		setComment(''); 
-		setCommentList([...commentList, newComment])
-		}
 		
 		console.log('add')
 		try{
+			// await addCommentMutation.mutateAsync(newComment);
 			const response = await api.post('comments/newcomment/',
 			{
 				comment : comment,
@@ -72,11 +82,12 @@ const Comments = () => {
 			withCredentials: true,
 			},
 		);
-		setCommentList([...commentList, response.data]);
+		setCommentList((prev)=>[...prev, response.data]);
 		setComment('');
 		}catch(error){
 			alert('댓글을 입력해주세요!')
 		}	
+	}
 	};
 	
  // 수정할 댓글을 선택하고 수정 입력 필드를 표시하는 함수
@@ -91,10 +102,10 @@ const Comments = () => {
   };
 
 // 댓글 수정
-	const commentModify = async(id, editedCommentText) => {
+	const commentModify = async(id, editedFixComment) => {
 		try{
-			const res = await api.put(`comments/${id}/`, {
-				comment:editedCommentText
+			const response = await api.put(`comments/${id}/`, {
+				comment : editedFixComment
 			},
 			{headers: {'Authorization' : `Bearer ${Cookies.get('access_token')}`}
 			});
@@ -102,10 +113,10 @@ const Comments = () => {
 			// alert('댓글이 수정되었습니다.')
 			// 수정된 댓글로 댓글 목록 업데이트
 			const updatedComments = commentList.map((comment) => {
-				if (comment.id === comment.id) {
+				if (comment.id === id) {
 				return {
 					...comment,
-					comment: editedCommentText,
+					comment: editedFixComment,
 				};
 				}
 				return comment;
@@ -113,7 +124,7 @@ const Comments = () => {
 		
 			setCommentList(updatedComments);
 			setEditingComment(null); // 편집 상태 초기화
-			setEditedFixComment(comment); // 수정 중인 댓글 텍스트 초기화
+			// setEditedFixComment(updatedComments); 
 		}catch(error){
 			console.log(error, '댓글 수정 실패')
 			alert('유저정보가 일치하지 않아 수정할 수 없습니다.')
@@ -125,14 +136,19 @@ const Comments = () => {
 	const commentTrash = async(id) => {
 		console.log(id,'dd')
 		try{
-			const res = await api.delete(`comments/${id}/`,
+			const response = await api.delete(`comments/${id}/`,
 			{
 				headers: {'Authorization': `Bearer ${Cookies.get('access_token')}`}
-			});
-			setComment(res.data);
-			console.log(res)
-			// navigate('/hi') ;
+			}, {
+				withCredentials: true
+			},
+			);
+			setComment(response.data);
 			alert('댓글이 삭제되었습니다.')
+
+			setCommentList((prev) => prev.filter((item)=> item.id !== id));
+
+			console.log(response,'ㄴㅁㅇ')
 		}catch(error){
 			console.log(error, '댓글 삭제 실패' )
 			alert('유저정보가 일치하지 않아 삭제할 수 없습니다.')
@@ -147,40 +163,42 @@ const Comments = () => {
 					<input type='text' value={comment}
 						onChange={(e) => setComment(e.target.value)}
 						placeholder='댓글을 입력해주세요.' />
-					<button onClick={addComment} >
+					<button onClick={() => addComment(comment)} >
 					<FontAwesomeIcon icon= {faSquarePlus} size='2xl' />
 					</button>
 				</div>
 			<div className={styles.wrapper}>
 				<div className={styles.commentList}>
-					{commentList?.map((item,index) => (
+					{commentList?.map((item, index) => (
 					<div className={styles.commentItem} key={index}>
-						<p className={styles.itemId}> id : {item.id} </p>
+						{/* 유저 아이디 */}
+						<p className={styles.itemId}> {item.author?.nickname} </p>
 						{editingComment === item.id ? (
-                <>
-                  <input
-				  className={styles.item}
-                    type="text"
-                    value={editedFixComment}
-                    onChange={(e) => setEditedFixComment(e.target.value)}
-                  />
-                  <button onClick={() => commentModify(item.id, editedFixComment)}>
-                    <FontAwesomeIcon icon={faCheck}/>
-                  </button>
-				  <button onClick={cancelEditingComment}><FontAwesomeIcon icon={faX} size='xs'/></button>
+							<>
+							<input
+							className={styles.item}
+								type="text"
+								value={editedFixComment}
+								onChange={(e) => setEditedFixComment(e.target.value)}
+							/>
+							<button onClick={() => commentModify(item.id, editedFixComment)}>
+								<FontAwesomeIcon icon={faCheck}/>
+							</button>
+							<button onClick={cancelEditingComment}><FontAwesomeIcon icon={faX} size='xs'/></button>
 
-                </>
-              ) : (
-                <>
-                  <p className={styles.item}>{item.comment}</p>
-                  <button onClick={() => startEditingComment(item.id, item.comment)}>
-				<FontAwesomeIcon icon={faEraser}	/>
-                  </button>
-                  <button onClick={() => commentTrash(item.id)}>
-                    <FontAwesomeIcon icon={faTrashCan} size="xs" />
-                  </button>
-                </>
-              )}
+							</>
+						) : (
+							<>
+							<p className={styles.item}>{item.comment}</p>
+							<button onClick={() => startEditingComment(item.id, item.comment)}>
+							<FontAwesomeIcon icon={faEraser}	/>
+							</button>
+							<button onClick={() => commentTrash(item.id)}>
+								<FontAwesomeIcon icon={faTrashCan} size="xs" />
+							</button>
+							</>
+						)
+						}
 					</div>
 					))}
 				</div>

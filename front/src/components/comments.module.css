@@ -23,7 +23,7 @@
 }
 .commentList div{
 	display: flex;
-	justify-content: center;
+	justify-content: flex-start;
 	align-items: center;
 	width: 100%;
 	/* background-color: darkcyan; */
@@ -32,6 +32,7 @@
 .commentItem {
 	display: flex;
 	margin-top: 10px;
+
 }
 
 .commentItem button{
@@ -57,7 +58,7 @@
 }
 .itemId{
 	font-size: 12px;
-	margin-right: 10px;
+	margin-right: 50px;
 	/* background-color: #ed936b; */
 	width: 50px;
 }
