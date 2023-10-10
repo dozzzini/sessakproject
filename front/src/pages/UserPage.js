@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import Cookies from 'js-cookie';
 import axios from 'axios';
+import api from '../RefreshToken';
 
 const UserPage = () => {
     const navigate = useNavigate();
@@ -28,18 +29,15 @@ const UserPage = () => {
         console.log('로그아웃');
         
         try {
-            await axios.post('url/logout', {
-                'headers' : {
-                    'Content-Type': 'application/json',
-                },
-                withCredentials: true,
-            });
+            await api.delete('logout/');
     
             Cookies.remove('access_token'); // 쿠키 삭제 (값 없이 이름만 제공)
             // Cookies.remove('refresh_token', response.data.refresh) // 필요한 경우 주석 해제
+            alert('로그아웃 되었습니다.')
             navigate('/');
         } catch (error) {
             // 에러 처리 코드 추가
+            alert('로그아웃 실패되었습니다.')
             console.log('로그아웃 실패:', error);
         }
     };

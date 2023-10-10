@@ -127,6 +127,7 @@ const Edit = () => {
                          className={styles.editTool}
 
                          />
+                         {/* <div>카테고리</div> */}
                 </div>
                 <div className={styles.btnBox}>
                     <button 

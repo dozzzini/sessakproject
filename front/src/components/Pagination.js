@@ -7,7 +7,8 @@ const Nav = styled.nav`
   justify-content: center;
   align-items: center;
   gap: 4px;
-  margin: 20px 0px;
+  height: 20px;
+  /* margin: 0px 0px 10px 0px; */
 `;
 
 const Button = styled.button`
@@ -16,12 +17,15 @@ const Button = styled.button`
   padding: 8px;
   margin: 0;
   background: white;
-  color: #ecececec;
+  color: black;
   font-size: 1rem;
 
   &:hover {
     cursor: pointer;
     transform: translateY(-2px);
+    color: white;
+    font-weight: 500;
+    background-color: #337ab7;
   }
 
   &[disabled] {
@@ -33,6 +37,8 @@ const Button = styled.button`
     font-weight: bold;
     cursor: revert;
     transform: revert;
+    background-color: #337ab7;
+
   }
 `;
 
@@ -64,7 +70,7 @@ function Pagination({   totalPage,pageList,currentPage }) {
               onClick={() => setPage(page)}
               aria-current={+currentPage === page ? 'page' : null}
             >
-              {page}
+             <p>{page}</p> 
             </Button>
           ))}
         <Button onClick={() => setPage(+currentPage + 1)} disabled={+currentPage === pageList[totalPage-1]}>

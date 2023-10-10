@@ -141,18 +141,19 @@ const PostDetail = () => {
 								</div>
 							<div className={styles.TitleId}>
 								{isEdit ? (
-								<>
+								<div className={styles.titleModify}><span>제목 :</span>
 								<input
 									type="text"
 									placeholder="제목"
 									defaultValue={post.title}
 									onChange={(e) => setEditFixPost({ ...editFixPost, title: e.target.value })}
 								/>
-								</>
-								) : (
+								</div>
+								) : (<div className={styles.titleView}>
 								<p> 제목 : {post.title}</p>
+								</div>
 								)}
-								<span>닉네임 : {post.author.nickname} </span>
+								<p>닉네임 : {post.author.nickname} </p>
 							</div>
 							{isEdit ? (
 							<div className={styles.quilllBox}>
@@ -165,8 +166,8 @@ const PostDetail = () => {
 							) : (
 							<>
 							<div className={styles.showContent}>
-								{/* {removeHtmlTags(editFixPost.content) } */}
-								<p>{post.content}</p>
+
+								<p> {post.content}</p>
 								</div>
 							<div className={styles.comments}>
 								<p>댓글</p>

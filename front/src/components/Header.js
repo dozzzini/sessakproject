@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Category from './Category';
 
 
@@ -60,7 +60,9 @@ const SearchInput = styled.input`
     width: 80%;
     height: 35px;
     border: none;
-    font-size: 14px;
+    font-size: 18px;
+    font-family: 'omyu_pretty';
+
 `
 const SearchBtn = styled.div`
     background-color: #fcbe32;
@@ -114,9 +116,12 @@ const Header = () => {
     const addEdit = () =>{
         navigate('/edit')
     }
-
+    
     const searchingBtn = () => {
+        navigate(`?total_page=1&keyword=${search}`)
     };
+ 
+
 
 	return(
 		<>
@@ -134,11 +139,14 @@ const Header = () => {
                     onClick={addEdit}
                     />
                         <SearchInput
-                        
+                        type='text'
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
                         placeholder='검색어를 입력하세요.'  />
                         <SearchBtn 
-                        onClick={searchingBtn}
+                        onClick={()=>searchingBtn(search)}
                         className='search'>
+                            
                         <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" height={'20px'} aria-hidden="true">
                         <path clipRule="evenodd" fillRule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" />
                         </svg>

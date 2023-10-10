@@ -60,8 +60,12 @@ console.log(posts , '23423');
 		{posts?.page_list?.map((post) => (
 			<li className={styles.postItem}
 			key={post.id} onClick={() => selectPost(post)}>
-			{post.title.length > 30 ? `${post.title.slice(0,30)}...` : post.title}
-			{post.comment}
+				<div className={styles.contents}>
+					<p>{post.title.length > 30 ? `${post.title.slice(0,30)}...` : post.title}
+					</p>
+					<p>{post.created_at.length > 0 ? `${post.created_at.slice(0,10)}` : post.created_at}</p>
+				</div>
+			
 				<div className={styles.participation}>
 					<div className={styles.postUserId}>
 					<p><FontAwesomeIcon icon= {faCircleUser} />{post.author.nickname}</p>
@@ -93,9 +97,8 @@ console.log(posts , '23423');
 			</li>
 		))}
     	</ul>
-		<div className={styles.commentpagination}>
-			{/* < Paging	/> */}
-		</div>
+		{/* <div className={styles.commentpagination}>
+		</div> */}
 	</div>
 	)
 };

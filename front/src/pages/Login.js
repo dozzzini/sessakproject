@@ -11,50 +11,7 @@ import Gg from "../components/Gg";
 import { useForm } from "react-hook-form";
 import Cookies from "js-cookie";
 
-const Container = styled.div`
-@media screen and (min-width: 414px)and (max-width: 700px){
-    width: 100vw;
-    height: 100vh;
-    background-color: seashell;
-    /* display: flex;
-    justify-content: center;
-    align-items: center; */
-}
-`
-const Wrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100vw;
-    height: 80vh;
-    /* border: 1px solid gray; */
-`
-const Title = styled.div`
-    /* border: 1px solid red; */
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    margin: 0 auto;
-    font-family: 'Giants-Regular';    
-    font-size: 40px;
-`
-const TitleImg = styled.img`
-    width: 300px;
-    height: 300px;
-    border-radius: 25px;
-    margin: 20px auto;
-    /* border: 2px solid firebrick; */
-`
-const SocialBox = styled.div`
-    width: 100%;
-    /* border: 2px solid darkblue; */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
 
-`
 const SocialBtnBox = styled.div`
    
     padding: 5px;
@@ -131,26 +88,26 @@ const Login = () => {
  
     // const gg = () => {`https://port-0-sessak-back2-cgw1f2almhig6l2.sel5.cloudtype.app/api/v1/users/google/login`}
 
-	const KAKAO_REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
+	// const KAKAO_REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
     
-    const KAKAO_REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
+    // const KAKAO_REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
 
 
-	const KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`;
+	// const KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`;
 
 
-    const onKakaoSocialLogin = () => {
-        // window.location.href=`https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URI}`;
-		window.location.href = KAKAO_URL;
-        console.log('kako');
-        // const isSuccess = true;
-		// if(isSuccess){
-		// 	navigate('/hi');
-		// }else{
-		// 	alert('카카오 로그인 실패');
-		// 	navigate('/');
-		// }
-    }; 
+    // const onKakaoSocialLogin = () => {
+    //     // window.location.href=`https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URI}`;
+	// 	window.location.href = KAKAO_URL;
+    //     console.log('kako');
+    //     // const isSuccess = true;
+	// 	// if(isSuccess){
+	// 	// 	navigate('/hi');
+	// 	// }else{
+	// 	// 	alert('카카오 로그인 실패');
+	// 	// 	navigate('/');
+	// 	// }
+    // }; 
     const  {register, handleSubmit,  errors}   = useForm();
     const handleLogin = async(data) => {console.log({
         email:data.email,
@@ -176,36 +133,51 @@ const Login = () => {
         navigate('/signup')
     }
     return(
-        <Container>
-            <Wrapper>
-                <Title>지금 우리 동네는
-                    <TitleImg src="https://modo-phinf.pstatic.net/20190104_252/154656769119680glg_JPEG/mosa5BMDm6.jpeg?type=f320_320"  />
-                </Title>
-                <Form onSubmit={handleSubmit(handleLogin)}>
-                    <Id>이메일
-                        <input
-                            type="email"
-                            name="이메일"
-                            {...register("email",{ required: true, pattern: /^\S+@\S+$/i})}
-                         />
-                    </Id>
-                    <Pw>비밀번호
-                        <input
-                            type="password"
-                            name="password"  
-                            {...register('password', { required: true })}   
-                        />
-                    </Pw>
-                    <button type="submit">로그인하기</button>
-                </Form>
-                <div onClick={pathSignUp}>회원가입</div>
-                <SocialBox className={styles.sub}>지우동을 이용하려면 소셜로그인을 이용해주세요!
-                    <SocialBtnBox>
+        <div className={styles.container}>
+            <div className={styles.wrapper}>
+                <div className={styles.title}>지금 우리 동네는
+                    <img src=" https://i.pinimg.com/564x/38/35/9a/38359a83e8df8b0a0eb77b0aee69e448.jpg" />
+                </div>
+                <form onSubmit={handleSubmit(handleLogin)}>
+                    <div className={styles.loginBox}>
+                        <div>
+                            <div className={styles.userBox}>
+                                <span>이메일</span>
+                                <input
+                                    className={styles.inputText}
+                                    type="email"
+                                    name="이메일"
+                                        {...register("email",{ required: true, pattern: /^\S+@\S+$/i})}
+                                    />
+                            </div>
+                            <div className={styles.userBox}>
+                                <span>비밀번호</span>
+                                <input
+                                    className={styles.inputText}
+                                    type="password"
+                                    name="password"  
+                                    {...register('password', { required: true })}   
+                                />
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <button className={styles.loginBtn} type="submit">Go</button>
+                        </div>
+                    </div>
+                    
+                </form>
+                <div className={styles.sub}>
+                    <p>지우동을 이용하려면 소셜로그인을 이용해주세요!</p>
+                <div
+                className={styles.joinus} 
+                onClick={pathSignUp}>회원가입</div>
+                    {/* <div className={styles.socialBtnBox}> */}
                         {/* <NaverBtn>네이버</NaverBtn> */}
                         {/* <KAKAOBtn style={{width: '100px', backgroundColor:'yellow'}} onClick={onKakaoSocialLogin}>카카오</KAKAOBtn> */}
-                        <div><KakaoRedirectPage  /></div>
-                        <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-                        <GoogleLogin
+                        {/* <div><KakaoRedirectPage  /></div> */}
+                        {/* <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}> */}
+                        {/* <GoogleLogin
                             scope={scope}
                             onSuccess={(credentialResponse ) => {
                                
@@ -225,17 +197,17 @@ const Login = () => {
                             onError={(error) => {
                                 console.log('Login Failed', error);
                             }}
-                            />
-                            <button onClick={()=>{
+                        /> */}
+                            {/* <button onClick={()=>{
                                 
                             }}>123</button>
                             <Gg />
-                        </GoogleOAuthProvider>
+                        </GoogleOAuthProvider> */}
                         
-                    </SocialBtnBox>
-                </SocialBox>
-            </Wrapper>
-        </Container>
+                    </div>
+                </div>
+            </div>
+        // </div>
     )
 }
 

@@ -1,3 +1,11 @@
+@font-face {
+    font-family: 'omyu_pretty';
+    src: url('../fonts/오뮤_다예쁨체.ttf') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
 .container{
 	display: flex;
     flex-direction: column;
@@ -43,18 +51,26 @@
     justify-content: space-between;
     flex-direction: column;
 	cursor: pointer;
+    font-family: 'omyu_pretty';
 
+}
+.postItem .contents{
+    display: flex;
+    justify-content: space-between;
+}
+.contents p:nth-child(1){
+    font-size: 20px;
 }
 .postUserId{
     /* background-color: darkcyan; */
-    font-size: 12px;
-    width: 90px;
-    margin-top: 20px;
+    font-size: 14px;
+    width: 60px;
+    margin-bottom: 10px;
 }
 .postUserId p{
     margin-right: 10px;
     /* background-color: darkgreen; */
-    width: 90px;
+    width: 50px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -69,7 +85,6 @@
 .participation .participationItem{
 	display: flex;
     justify-content: space-between;
-	margin-right: 10px;
 	margin-top: 10px;
     width: 90px;
     /* background-color: darkgoldenrod; */

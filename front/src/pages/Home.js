@@ -11,6 +11,7 @@ const Container = styled.div`
     padding-top: 30px;
     background-color: #e1eef6;
     margin: 0px 50px;
+    height: 105vh;
 
     @media screen and (min-width: 414px) and (max-width: 700px){
         background-color: #e1eef6;
@@ -47,15 +48,7 @@ const Main = styled.div`
 const Home = () => {
     const navigate = useNavigate();
     const [search, setSearch] = useState('');
-    // 햄버거바 세팅
-    // const onMySetting = () => {
-    //         return (
-    //             <div>
-                    
-    //             </div>
-    //         );
-    // };
-  
+
 
     const addEdit = () =>{
         navigate('/edit')
@@ -67,7 +60,7 @@ const Home = () => {
     return(
         <Container>
             <Wrapper >
-                <Header />
+                <Header/>
                          
                 <Main>
                     <Board  />

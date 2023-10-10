@@ -52,9 +52,7 @@ const Comments = ({comments}) => {
 	//댓글 보내기
 	const addComment = async(comment) => {
 		if (comment.trim() !== '') {
-		const newComment = comment;
-		
-		console.log('add')
+		// const newComment = comment;
 		try{
 			// await addCommentMutation.mutateAsync(newComment);
 			const response = await api.post('comments/newcomment/',
@@ -145,6 +143,8 @@ const Comments = ({comments}) => {
 	};
 	
 console.log(commentList,'commentlist')
+
+
 	return(
 		<div className={styles.container}>
 			<div className={styles.commentsBox}>

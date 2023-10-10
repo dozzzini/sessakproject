@@ -2,8 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 import { styled } from "styled-components";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCircleXmark} from "@fortawesome/free-regular-svg-icons";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import api from "../RefreshToken";
+import Cookies from "js-cookie";
 
 
 const SettingBtn =styled.div`
@@ -17,6 +19,7 @@ const SettingBtn =styled.div`
     /* display: flex; */
     /* align-items: center; */
     /* justify-content: center;  */
+    
    
 `;
 const Nav = styled.div`
@@ -34,6 +37,8 @@ const NewCategoryItem = styled.input`
     margin-bottom: 10px;
     border: none;
     border-radius: 5px;
+    font-size: 14px;
+
 `
 const AddCategoryBtn = styled.button`
     cursor: pointer;
@@ -41,6 +46,7 @@ const AddCategoryBtn = styled.button`
     height: 40px;
     border: none;
     border-radius: 15px;
+    font-size: 16px;
     &:hover{
         background-color: #ff5f2e;
     }
@@ -75,7 +81,7 @@ const Sidebar = styled.div`
         align-items: start;
         border-radius: 0%;
         z-index: 99;
-
+        font-size: 30px;
     }
     @media screen and (min-width: 414px) and (max-width: 700px){
 
@@ -108,6 +114,8 @@ const Sidebar = styled.div`
         span{
             margin:0 auto;
             font-size: 40px;
+            font-family: 'Giants-Regular';    
+
         }
     }
     .categoryBox{
@@ -116,11 +124,13 @@ const Sidebar = styled.div`
         /* display: flex; */
         align-items: start;
         border-radius: 0%;
+        overflow-y: scroll;
     }
      .categoryItem{
         /* text-decoration: none; */
         padding: 8px;
-        font-size: 15px;
+        font-family: 'omyu_pretty';
+        font-size: 20px;
         cursor: pointer;
         &:hover{
             background-color: whitesmoke;
@@ -147,10 +157,11 @@ const Category = () => {
     const [open, setOpen] = useState(true);
     const [newCategory, setNewCategory] = useState(""); // 새 카테고리를 저장할 state 추가
     const [isInputVisible, setInputVisible] = useState(false); // 입력 창의 가시성을 관리하는 state
-    const [categories, setCategories] = useState(["인기글", "왁자지껄"]); // 기존 카테고리 목록을 저장할 state 추가
+    const [categories, setCategories] = useState([{name:"인기글"}, {name:"왁자지껄"}]); // 기존 카테고리 목록을 저장할 state 추가
     const navigate = useNavigate();
     const inputRef = useRef(null);
-
+    const {id} = useParams();
+    
     // 입력 폼이 열렸을 때 외부 클릭을 감지하여 닫기
     useEffect(() => {
         const handleClickOutside = (e) => {
@@ -185,30 +196,47 @@ const Category = () => {
     };
     
     
-    const handleCategoryItemClick = (category) => {
+    const handleCategoryItemClick = (data) => {
         // 카테고리 항목을 클릭했을 때의 로직 추가
         // 예를 들어, 해당 카테고리 페이지로 이동하도록 설정
-        navigate(`/${category}`);
+        navigate(`/${data.name}`);
     };
 
-    const addCategory = () => {
+    useEffect(() => {
+        getCategory()
+    }, [ ])
+
+    const getCategory = async() => {
+        try{
+            console.log(categories,'categories')
+            const response = await api.get(`categories/categorylist/`, {
+        
+            })
+            setCategories((prev)=>[...prev,...response.data])
+        }catch(error){
+            console.log('카테고리에러', error)
+        }
+    }
+    const addCategory = async() => {
         // 새 카테고리를 목록에 추가하는 함수
         if (newCategory.trim() !== "") {
             setCategories([...categories, newCategory]);
             setNewCategory(""); // 입력 창 초기화
             setInputVisible(false); // 입력이 완료되면 입력 창을 숨김
         
-            axios.post("/api/categories", { newCategory: newCategory },
-                {headers: 
-                    {
+            await api.post("categories/newcategory/", { name: newCategory,
+                description:newCategory},
+                {
+                    headers: {
                         'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${Cookies.get('access_token')}`       
                     },
                     'withCredentials': true,
-
-                },
+                }
             )
             .then((response) => {
                 console.log("카테고리 추가 성공:", response.data);
+                setCategories((prev)=>[...prev,response.data])
             })
             .catch((error) => {
                 console.error("카테고리 추가 오류:", error);
@@ -240,7 +268,7 @@ const Category = () => {
                         <span style={{fontSize: '30px'}}>카테고리</span>
                     </div>
                     <div className='categoryBox'>
-                    {categories.map((category, index) => (
+                    {categories?.map((category, index) => (
                 <div
                 key={index}
                 className="categoryItem"
@@ -248,7 +276,7 @@ const Category = () => {
                     handleCategoryItemClick(category);
                 }}
                 >
-                {category}
+                {category.name}
                 </div>
             ))}
             <div>
