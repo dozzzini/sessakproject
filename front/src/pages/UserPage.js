@@ -71,7 +71,7 @@ const UserPage = () => {
                     <ul className={styles.list}>
                         <li onClick={handleDongnea}>
                             <span>동네 인증</span></li>
-                        <li onClick={handlePosts}><span>내가 작성한 게시물</span></li>
+                        <li onClick={handlePosts}><span>내가 작성한 게시글</span></li>
                         <li onClick={handleCommnets}><span>내가 작성한 댓글</span></li>
                         <li className={styles.dd}
                         onClick={handleLogout}

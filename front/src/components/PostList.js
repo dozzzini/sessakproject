@@ -9,6 +9,7 @@ const PostList = ({ posts, selectPost}) => {
     const [heartColors, setHeartColors] = useState({});
 	const [count, setCount] = useState(0);
 
+	const myLocation = posts?.page_list?.[0]?.author?.location || '' ;
 
 	  // 좋아요 클릭 배경채우기
 	const updateHeartColor = (postId) => {
@@ -56,6 +57,7 @@ console.log(posts , '23423');
 	return(
 
 	<div className={styles.container} >
+			<div className={styles.myLocation}><p>내 동네 : {myLocation}</p></div>
 		<ul className={styles.postList}>
 		{posts?.page_list?.map((post) => (
 			<li className={styles.postItem}
