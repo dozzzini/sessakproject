@@ -11,12 +11,12 @@ const Container = styled.div`
     padding-top: 30px;
     background-color: #e1eef6;
     margin: 0px 50px;
-    height: 105vh;
+    height: 110vh;
 
     @media screen and (min-width: 414px) and (max-width: 700px){
         background-color: #e1eef6;
         width: 100%;
-        height: 100vh;
+        height: 110vh;
         text-align: center;
         font-size: 30px;
         padding-top: 30px;

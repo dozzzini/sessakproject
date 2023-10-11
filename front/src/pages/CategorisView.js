@@ -6,7 +6,7 @@ import { faCircleUser, faCommentDots, faEye } from "@fortawesome/free-solid-svg-
 import Header from "../components/Header";
 
 
-const MyPostLists = () => {
+const CategorisView = () => {
 	const [postData, setPostData] =useState([]);
 	const [userInfo, setUserInfo] = useState({}); 
 
@@ -34,7 +34,7 @@ const MyPostLists = () => {
 	return(
 		<>
 		<div className={styles.container}>
-				{/* nickname: {userInfo.nickname} */}
+				nickname: {userInfo.nickname}
 				<Header	/>
 				<p>내가 작성한 게시글</p>
 				<ul className={styles.postList}>
@@ -47,12 +47,12 @@ const MyPostLists = () => {
 						<div className={styles.postTitle}>제목 : { post.title.length > 30? `post.title.slice(0, 30)}...` : post.title}</div>
 						<div className={styles.postContent}> 내용 : { post.content.length >150? `${post.content.slice(0,120)}...` : post.content} </div>
 					</div>
-					{/* <div className={styles.participation}> */}
+					<div className={styles.participation}>
 					{/* <div className={styles.postUserId}>
 					<p><FontAwesomeIcon icon= {faCircleUser} />{post.nickname}</p>
 					
 					</div> */}
-					{/* <div className={styles.participationItem}>
+					<div className={styles.participationItem}>
 						<span count={count} onClick={(e) =>  onHeart(e, post.id)}>
 						{heartColors[post.id] ?
 						(
@@ -72,9 +72,9 @@ const MyPostLists = () => {
 						<p>{post.view_num}</p>
 						</div>
 							
-					</div> */}
+					</div> 
 					
-				{/* </div> */}
+				</div>
 				</li>
 				
 				))}
@@ -89,4 +89,4 @@ const MyPostLists = () => {
 	)
 };
 
-export default MyPostLists;
+export default CategorisView;

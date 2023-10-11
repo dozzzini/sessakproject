@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './postList.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser, faCommentDots, faEye, faHeart } from '@fortawesome/free-solid-svg-icons';
@@ -8,14 +8,14 @@ import api from '../RefreshToken';
 
 const PostList = ({ posts, selectPost}) => {
     const [heartColors, setHeartColors] = useState({});
-	const [count, setCount] = useState(0);
-	const [isLiked, setIsLiked] = useState(null);
+	const [count, setCount] = useState({});
+	const [isLiked, setIsLiked] = useState({});
 
 	const myLocation = posts?.page_list?.[0]?.author?.location || '' ;
 
-	function toggleLike() {
-		setIsLiked(!isLiked);
-	  }
+	// function toggleLike() {
+	// 	setIsLiked(!isLiked);
+	//   }
 	  // 좋아요 클릭 배경채우기
 	const updateHeartColor = (postId) => {
 		setHeartColors((prevColors) => ({
@@ -23,12 +23,29 @@ const PostList = ({ posts, selectPost}) => {
 		[postId]: !prevColors[postId],
 		}));
 	};  
+	useEffect(() => {
+        // 포스트 목록이 변경될 때, 각 포스트의 좋아요 상태 및 개수를 초기화합니다.
+        const initialIsLiked = {};
+        const initialCount = {};
+
+        posts?.page_list?.forEach((post) => {
+            initialIsLiked[post.id] = post.is_like;
+            initialCount[post.id] = post.like_nums;
+        });
+
+        setIsLiked(initialIsLiked);
+        setCount(initialCount);
+    }, [posts]);
+
+    // ...
+
 	const onHeart = (e, postId) => {
 		e.stopPropagation(); // 이벤트 버블링 막기
 		updateHeartColor(postId)
-		// setCount(count + 1);
-		// console.log((count));
-		const currentLiked = heartColors[postId] || false;
+		
+		const currentLiked = isLiked[postId] || false;
+		setIsLiked({ ...isLiked, [postId]: !currentLiked });
+        setCount({ ...count, [postId]: currentLiked ? count[postId] -1  : count[postId] +1 });
 
 		const likeData = {
 			postId: postId,
@@ -71,19 +88,15 @@ const PostList = ({ posts, selectPost}) => {
 					
 					</div>
 					<div className={styles.participationItem}>
-						<span count={count} onClick={(e) =>  onHeart(e, post.id)}>
-						{/* {post.is_like ? ( // is_like 값에 따라 색상 변경
-						<FontAwesomeIcon icon={faHeart} style={{ color: 'red' }} />
-					) : (
-						<FontAwesomeIcon icon={faHeart} style={{ color: 'black' }} />
-					)} */}
-						<FontAwesomeIcon
-						icon={faHeart}
-						style={{ color: isLiked ? 'red' : 'black' }}
-						onClick={toggleLike}
-						/>
+						<span count={count} onClick={(e) =>  {onHeart(e, post.id)}}>
+						{isLiked[post.id] ? (
+                                <FontAwesomeIcon icon={faHeart} style={{ color: 'red' }} />
+                            ) : (
+                                <FontAwesomeIcon icon={faHeart} style={{ color: 'black' }} />
+                            )}
+        					<p>{count[post.id]}</p>
 
-						<p>{post.like_nums}</p>
+						{/* <p>{post.like_nums}</p> */}
 						</span>
 						<div><FontAwesomeIcon icon={faCommentDots} flip="horizontal" />
 							<p>{post.comment_nums}</p>

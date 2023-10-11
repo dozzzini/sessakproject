@@ -69,19 +69,21 @@ const Sidebar = styled.div`
         align-items: center;
         justify-content: center;
         background-color: #fcbe32;
-        width: 100%;
-        /* border: 2px solid violet; */
+        width: 200px;
+        border: 2px solid violet;
         
     }
   
     .categoryBox{
-        height: 90vh;
+        height: 100vh;
+        width: 100%;
         display: flex;
         justify-content: start;
         align-items: start;
         border-radius: 0%;
         z-index: 99;
         font-size: 30px;
+        /* border: 2px springgreen solid; */
     }
     @media screen and (min-width: 414px) and (max-width: 700px){
 
@@ -125,6 +127,7 @@ const Sidebar = styled.div`
         align-items: start;
         border-radius: 0%;
         overflow-y: scroll;
+        overflow-x: hidden;
     }
      .categoryItem{
         /* text-decoration: none; */
@@ -157,7 +160,7 @@ const Category = () => {
     const [open, setOpen] = useState(true);
     const [newCategory, setNewCategory] = useState(""); // 새 카테고리를 저장할 state 추가
     const [isInputVisible, setInputVisible] = useState(false); // 입력 창의 가시성을 관리하는 state
-    const [categories, setCategories] = useState([{name:"인기글"}, {name:"왁자지껄"}]); // 기존 카테고리 목록을 저장할 state 추가
+    const [categories, setCategories] = useState([]); // 기존 카테고리 목록을 저장할 state 추가
     const navigate = useNavigate();
     const inputRef = useRef(null);
     const {id} = useParams();

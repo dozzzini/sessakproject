@@ -12,7 +12,14 @@ const Edit = () => {
     const [editvalue, setEditValue] = useState('');
     const [title, setTitle] = useState("");
     // console.log(editvalue);
+    // const [talk, setTalk] = useState('');
+    // const [taste, setTaste] = useState('');
+    // const [pet, setPet] = useState('');
+    // const [recommened, setRecommened] = useState('');
+    const [selectedCategory, setSelectedCategory] = useState('');
 
+    const navigate = useNavigate();
+    
     const removeHtmlTags = (html) => {
         const doc = new DOMParser().parseFromString(html, 'text/html');
         return doc.body.textContent || "";
@@ -45,13 +52,20 @@ const Edit = () => {
         //             },         
         // })) 
 
-    
-
     const handleTitle = (e) => {
         setTitle(e.target.value);
         // console.log(e.target.title);
     };
-    const navigate = useNavigate();
+    const handleRadioChange = (e) => {
+        const selectedValue = e.target.value;
+        
+        // 현재 선택된 항목과 다른 항목을 선택하면 선택 변경
+        setSelectedCategory((prevCategory) => {
+            return prevCategory === selectedValue ? '' : selectedValue;
+        });
+        console.log(selectedValue)
+    };
+
 
     const handleSubmit = async() => {
         const date = new Date();
@@ -68,8 +82,8 @@ const Edit = () => {
         try {
             const response = await api.post('posts/newpost/', {
                 title: title,
-                content: removeHtmlTags(editvalue), // ReactQuill의 내용을 사용합니다.
-                // date: date // 날짜를 ISO 형식으로 변환하여 보낼 수 있습니다.
+                content: removeHtmlTags(editvalue),
+                category: setSelectedCategory(selectedCategory)
             },{
                 headers: {
                     'Content-Type': 'application/json',
@@ -128,12 +142,16 @@ const Edit = () => {
                          />
                          {/* <div>카테고리</div> */}
                 </div>
-                <form>카테고리
-                    <input type='radio' name='sooda' value='snack'  />tmsor
-                    <input type='radio' name='goodE' value=''  />
-                    <input type='radio' name='' value=''  />
-                    <input type='radio' name='' value=''  />
-                </form>
+                <div className={styles.radio}>카테고리
+                    <input type='radio' name='category' 
+                    value='talk' checked={selectedCategory === 'talk'}  onChange={handleRadioChange} />왁자지껄
+                    <input type='radio' name='category' 
+                    value='taste' checked={selectedCategory === 'taste'} onChange={handleRadioChange} />이집맛집
+                    <input type='radio' name='category' 
+                    value='pet' checked={selectedCategory === 'pet' }   onChange={handleRadioChange}    />내새꾸자랑
+                    <input type='radio' name='category' 
+                    value='recommened' checked={selectedCategory === 'recommened' }  onChange={handleRadioChange} />여기어때?!
+                </div>
                 <div className={styles.btnBox}>
                     <button type='submit'
                     className={styles.submitBtn} 

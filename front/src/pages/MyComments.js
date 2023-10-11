@@ -18,7 +18,6 @@ const MyComments = () => {
 			const {data, comment} = response.data;
 			setUserInfo(data);
 			setCommentData(comment);
-
 			// console.log('내가쓴글성공',response)		
 		}catch(error){
 			// console.log( '내가쓴글실패', error)
@@ -42,7 +41,11 @@ const MyComments = () => {
 				key={index}>
 					<div className={styles.numIdx}>{index+1}.
 					</div>
-					<div>댓글 : { comment.comment} </div>
+					<div className={styles.contents}>
+						<div>댓글 : { comment.comment} </div>
+						<div>date: {comment?.created_at.length > 1 ? `${comment.created_at.slice(0,10)}` : comment.title }</div>
+					</div>
+					
 					<div className={styles.participation}>
 					{/* <div className={styles.postUserId}>
 					<p><FontAwesomeIcon icon= {faCircleUser} />{post.nickname}</p>

@@ -25,95 +25,95 @@ const FeedBox  = styled.div`
     scrollbar-width: none;
 
 `;
-const Feed = styled.div`
-    background-color: whitesmoke;
-    width: 100%;
-    height: 100%;
-    font-size: 20px;
-    border: 1px solid white;
-    border-radius: 15px;
-    margin-bottom: 20px;
-    text-align: start;
-    display: flex;
-    flex-direction: column;
+// const Feed = styled.div`
+//     background-color: whitesmoke;
+//     width: 100%;
+//     height: 100%;
+//     font-size: 20px;
+//     border: 1px solid white;
+//     border-radius: 15px;
+//     margin-bottom: 20px;
+//     text-align: start;
+//     display: flex;
+//     flex-direction: column;
     
-`;
-const TextBox = styled.div`
-    background-color: #FAEBCD;
-    width: 100%;
-    height: 90px;
-    padding: 10px;
-    border-radius: 15px;
-    cursor: pointer;
-    margin-bottom: 20px;
-    /* .tt{
-        height: 100%;
-        background-color: aqua;
-        font-size:10px;
-    } */
+// `;
+// const TextBox = styled.div`
+//     background-color: #FAEBCD;
+//     width: 100%;
+//     height: 90px;
+//     padding: 10px;
+//     border-radius: 15px;
+//     cursor: pointer;
+//     margin-bottom: 20px;
+//     /* .tt{
+//         height: 100%;
+//         background-color: aqua;
+//         font-size:10px;
+//     } */
    
-`
-const Participation = styled.div`
-    display: flex;
-    justify-content: flex-end;
-    padding: 2px;
-    margin-right: 10px;
-    background-color: #FAEBCD;
-    /* position: relative; */
-`
-const Likes = styled.button`
-    border: none;
-    /* background-color: whitesmoke; */
-    background-color: #FAEBCD;
+// `
+// const Participation = styled.div`
+//     display: flex;
+//     justify-content: flex-end;
+//     padding: 2px;
+//     margin-right: 10px;
+//     background-color: #FAEBCD;
+//     /* position: relative; */
+// `
+// const Likes = styled.button`
+//     border: none;
+//     /* background-color: whitesmoke; */
+//     background-color: #FAEBCD;
 
-    margin-right: 15px;
-    margin-top: 10px;
-    cursor: pointer;
-    svg{
-        width: 20px;
-        color: red;
-    };
-    p{
-    background-color: #FAEBCD;
+//     margin-right: 15px;
+//     margin-top: 10px;
+//     cursor: pointer;
+//     svg{
+//         width: 20px;
+//         color: red;
+//     };
+//     p{
+//     background-color: #FAEBCD;
 
-        margin: 0px;
-    };
-`
-const Comments = styled.button`
-    border: none;
-    /* background-color: whitesmoke; */
-    background-color: #FAEBCD;
-    margin-right: 15px;
-    margin-top: 10px;
-    cursor: pointer;
-    svg{
-        width: 20px;
-    };
-    p{
-        margin: 0px;
-    };
-`
-const Views = styled.button`
-    border: none;
-    /* background-color: whitesmoke; */
-    background-color: #FAEBCD;
-    margin-right: 10px;
-    margin-top: 10px;
-    cursor: pointer;
-    svg{
-        width: 20px;
-    };
-    p{
-        margin: 0px;
-    };
-`
-const UserDate = styled.div`
-    /* position: absolute;
-    left: 30px;
-    top: 20px; */
-    margin-top: 10px;
-    font-size: 10px;
-`
+//         margin: 0px;
+//     };
+// `
+// const Comments = styled.button`
+//     border: none;
+//     /* background-color: whitesmoke; */
+//     background-color: #FAEBCD;
+//     margin-right: 15px;
+//     margin-top: 10px;
+//     cursor: pointer;
+//     svg{
+//         width: 20px;
+//     };
+//     p{
+//         margin: 0px;
+//     };
+// `
+// const Views = styled.button`
+//     border: none;
+//     /* background-color: whitesmoke; */
+//     background-color: #FAEBCD;
+//     margin-right: 10px;
+//     margin-top: 10px;
+//     cursor: pointer;
+//     svg{
+//         width: 20px;
+//     };
+//     p{
+//         margin: 0px;
+//     };
+// `
+// const UserDate = styled.div`
+//     /* position: absolute;
+//     left: 30px;
+//     top: 20px; */
+//     margin-top: 10px;
+//     font-size: 10px;
+// `
 
 
 
