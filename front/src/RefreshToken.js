@@ -2,7 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 const api = axios.create({
-	baseURL : 'https://port-0-sessak-back2-cgw1f2almhig6l2.sel5.cloudtype.app/api/v1/',
+	baseURL : 'http://www.sessak.store/api/v1/',
 	headers: {'Content-Type' : 'application/json'},
 	'withCredentials': true,
 });
@@ -28,7 +28,7 @@ api.interceptors.request.use(
 	},
 	function (error) {
 	  // Do something with request error
-	  console.log("request error", error);
+	//   console.log("request error", error);
 	  return Promise.reject(error);
 	}
   );
@@ -49,8 +49,9 @@ api.interceptors.request.use(
 		  const originalRequest = error.config;
 		  const refresh_token = await Cookies.get("refresh_token");
 		  // token refresh 요청
-		 try{ const res = await axios.post(
-			`https://port-0-sessak-back2-cgw1f2almhig6l2.sel5.cloudtype.app/api/v1/users/refresh/`, // token refresh api
+		 try{ const res = await api
+			.post(
+			`users/refresh/`, // token refresh api
 			{refresh:refresh_token},
 		  );
 		 
@@ -74,7 +75,7 @@ api.interceptors.request.use(
 
 	  // Any status codes that falls outside the range of 2xx cause this function to trigger
 	  // Do something with response error
-	  console.log("response error", error);
+	//   console.log("response error", error);
 	  return Promise.reject(error);
 	}
   );

@@ -15,34 +15,6 @@ const Comments = ({comments}) => {
 	const [editedFixComment, setEditedFixComment] = useState(''); // 수정 중인 댓글 텍스트를 저장할 상태 변수
 	const {id} = useParams();
 
-
-
-
-	//댓글 가져오기
-	// const callComment = async () =>{
-	// 	try{
-	// 		const response = await api.get(
-	// 			`posts/${id}/`,
-	// 			{headers: {
-	// 				Authorization: `Bearer ${Cookies.get('access_token')}`,
-	// 				'Content-Type': 'application/json',
-	// 			},
-	// 				withCredentials: true,
-	// 			},
-				
-	// 		);
-			// if (response.data.post_comments) {
-			// 	const comments= response.data.post_comments.map((postComment) => postComment);
-			// 	setCommentList(comments);
-			// 	console.log('1', comments);
-			// } else {
-			// 	setCommentList([]);
-			// }
-	// 	}catch(error){
-	// 		console.error('댓글을 불러오는 데 실패했습니다:', error);
-	// 	}
-	// };
-
 	useEffect(()=>{
 			// callComment()
 			setCommentList(comments);
@@ -112,7 +84,7 @@ const Comments = ({comments}) => {
 			setEditingComment(null); // 편집 상태 초기화
 			// setEditedFixComment(updatedComments); 
 		}catch(error){
-			console.log(error, '댓글 수정 실패')
+			// console.log(error, '댓글 수정 실패')
 			alert('유저정보가 일치하지 않아 수정할 수 없습니다.')
 
 		}
@@ -134,15 +106,15 @@ const Comments = ({comments}) => {
 
 			setCommentList((prev) => prev.filter((item)=> item.id !== id));
 
-			console.log(response,'ㄴㅁㅇ')
+			// console.log(response,'ㄴㅁㅇ')
 		}catch(error){
-			console.log(error, '댓글 삭제 실패' )
+			// console.log(error, '댓글 삭제 실패' )
 			alert('유저정보가 일치하지 않아 삭제할 수 없습니다.')
 
 		}
 	};
 	
-console.log(commentList,'commentlist')
+// console.log(commentList,'commentlist')
 
 
 	return(

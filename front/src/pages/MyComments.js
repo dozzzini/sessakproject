@@ -13,15 +13,15 @@ const MyComments = () => {
 	const getMyPostList = async() => {
 		try{
 			const response = await api.get('users/userinfo/');
-			console.log('api응답데이터', response.data);
+			// console.log('api응답데이터', response.data);
 
 			const {data, comment} = response.data;
 			setUserInfo(data);
 			setCommentData(comment);
 
-			console.log('내가쓴글성공',response)		
+			// console.log('내가쓴글성공',response)		
 		}catch(error){
-			console.log( '내가쓴글실패', error)
+			// console.log( '내가쓴글실패', error)
 		}
 	}
 	useEffect(() => {
@@ -40,6 +40,8 @@ const MyComments = () => {
 				{commentData.map((comment, index) => (
 				<li className={styles.postItem}
 				key={index}>
+					<div className={styles.numIdx}>{index+1}.
+					</div>
 					<div>댓글 : { comment.comment} </div>
 					<div className={styles.participation}>
 					{/* <div className={styles.postUserId}>

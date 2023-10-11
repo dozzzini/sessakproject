@@ -39,12 +39,12 @@ const PostDetail = () => {
 			);
 			setPost(res.data);
 			setLoading(false);
-			console.log('서버로부터 데이터 가져오기 성공',res.data);
+			// console.log('서버로부터 데이터 가져오기 성공',res.data);
 			
 		}catch(error){
 			console.log(error, '게시글 가져오기 실패');
 			setLoading(false);
-			console.log(post.title, '1');
+			// console.log(post.title, '1');
 		}
 	};
 

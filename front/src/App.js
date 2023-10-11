@@ -19,6 +19,8 @@ import PostDetail from './components/PostDetail';
 import SignUp from './pages/SignUp';
 import { ChakraProvider } from '@chakra-ui/react';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { ProtectedRouter } from './ProtectRouter';
+
 
 const GlobalStyles = createGlobalStyle`
 ${reset}
@@ -50,25 +52,39 @@ function App() {
   return (
     <BrowserRouter>
         <QueryClientProvider client={queryClient}>
-
-      <GlobalStyles />
+        <GlobalStyles />
         <div className='App'>
           <ChakraProvider>
             <UserContext.Provider value= {{access_token, setAccess_token, isLoggedIn, setIsLoggedIn}}>
               <Routes>
-                <Route path='/hi' element={<Home />} />
-                <Route path='/userinfo' element={<UserPage/>}  />
+                <Route path='/hi' 
+                element={<ProtectedRouter>
+                  <Home />
+                  </ProtectedRouter>} />
+                <Route path='/userinfo' element={<ProtectedRouter>
+                  <UserPage/>
+                  </ProtectedRouter>}  />
                 <Route path='/' element={<Login />} />
                 <Route path='signup' element={<SignUp />} />
                 <Route path='/oauth' element={<GoogleOAuth2RedirectPage  />} />
                 <Route path='/oauth' element={<KakaoRedirectPage  />}/>
-                <Route path='/edit' element={<NewPost />}  />
-                <Route path='/posts/:id' element={<PostDetail />} />
-                <Route path='/mypostlist' element={<MyPostLists  />} />
-                <Route path='/mycommentlist' element={<MyComments />} />
-                <Route path='/dongnea' element={<Playground />} />
-                <Route path='/인기글' element={<PopularPost  />}/>
-                <Route path='/왁자지껄' element={<Sooda  />}/>
+                <Route path='/edit' element={<ProtectedRouter>
+                  <NewPost />
+                </ProtectedRouter>}  />
+                <Route path='/posts/:id' element={<ProtectedRouter>
+                  <PostDetail />
+                </ProtectedRouter>} />
+                <Route path='/mypostlist' element={<ProtectedRouter>
+                  <MyPostLists  />
+                </ProtectedRouter>} />
+                <Route path='/mycommentlist' element={<ProtectedRouter>
+                  <MyComments />
+                </ProtectedRouter>} />
+                <Route path='/dongnea' element={<ProtectedRouter>
+                  <Playground />
+                </ProtectedRouter>} />
+                {/* <Route path='/인기글' element={<PopularPost  />}/>
+                <Route path='/왁자지껄' element={<Sooda  />}/> */}
               </Routes> 
             </UserContext.Provider>   
           </ChakraProvider>

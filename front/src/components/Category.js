@@ -208,13 +208,14 @@ const Category = () => {
 
     const getCategory = async() => {
         try{
-            console.log(categories,'categories')
+            // console.log(categories,'categories')
             const response = await api.get(`categories/categorylist/`, {
         
             })
             setCategories((prev)=>[...prev,...response.data])
         }catch(error){
-            console.log('카테고리에러', error)
+            // console.log('카테고리에러', error)
+            alert('권한이 없습니다.')
         }
     }
     const addCategory = async() => {
@@ -235,11 +236,11 @@ const Category = () => {
                 }
             )
             .then((response) => {
-                console.log("카테고리 추가 성공:", response.data);
+                // console.log("카테고리 추가 성공:", response.data);
                 setCategories((prev)=>[...prev,response.data])
             })
             .catch((error) => {
-                console.error("카테고리 추가 오류:", error);
+                // console.error("카테고리 추가 오류:", error);
             });
         }
     };

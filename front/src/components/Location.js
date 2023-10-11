@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useMemo, useState, useEffect } from "react";
+import api from "../RefreshToken";
 const {kakao} = window;
 
 const Location = ({onLocationUpdate,}) => {
@@ -28,14 +29,14 @@ const Location = ({onLocationUpdate,}) => {
 				latitude: position.coords.latitude,
 				longitude: position.coords.longitude,
 			});
-				console.log("위치 받기 성공", position);
+				// console.log("위치 받기 성공", position);
 			}
 		function error() {
 			setLocation({
 				latitude: 33.450701,
 				longitude: 126.570667,
 			});
-				console.log("위치 받기 실패");
+				// console.log("위치 받기 실패");
 			}
 	}, [onLocationUpdate]);
 
@@ -69,7 +70,7 @@ const Location = ({onLocationUpdate,}) => {
 		if (location) {
 			const dong = extractDongFromLocation(location); 
 		  // 위치 정보를 서버로 전송하는 POST 요청 보내기
-			await axios.post("/url", {
+			await api.post("/url", {
 				location: location,
 				dong: dong,
 			},{
@@ -126,7 +127,7 @@ const Location = ({onLocationUpdate,}) => {
 		if (status === kakao.maps.services.Status.OK) {
 			// 변환 성공
 			const fullAddress = result[0].address.address_name; // 전체 주소
-			console.log("주소:", fullAddress);
+			// console.log("주소:", fullAddress);
 			const regex = /(\S+동)/; // "동"으로 끝나는 문자열을 찾는 정규표현식
 			//전체 주소에서 동만 추출
 			const match = fullAddress.match(regex);
@@ -134,7 +135,7 @@ const Location = ({onLocationUpdate,}) => {
 			if (match) {
 			  const dongWithNumbers = match[1].trim();
 			  const dong = dongWithNumbers.replace(/[0-9-]/g, ''); // 숫자와 하이픈 제거
-			  console.log("동:", dong);
+			//   console.log("동:", dong);
 			  onLocationUpdate(dong);
 	  
 			  // 동 정보를 화면에 표시
@@ -149,21 +150,15 @@ const Location = ({onLocationUpdate,}) => {
 			if (matchEup) {
 				const eupWithNumbers = matchEup[1].trim();
 				const eup = eupWithNumbers.replace(/[0-9-]/g, '');
-				console.log("읍:", eup);
+				// console.log("읍:", eup);
 				onLocationUpdate(eup);
 				const dongDiv = document.getElementById('dongDiv');
 				if (dongDiv) {
 				  dongDiv.textContent = `현재 위치 : ${eup}`;
 				}
-			  } else {
-				// If neither "동" nor "읍" is found, use the full address
-				console.log("전체 주소:", fullAddress);
-			  }
+			  } 
 			}
-		} else {
-			// 변환 실패
-			console.error("주소 변환 실패:", status);
-		}
+		} 
 		});
 	};
 	

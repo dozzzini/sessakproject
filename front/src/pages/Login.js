@@ -10,28 +10,13 @@ import styles from './login.module.css';
 import Gg from "../components/Gg";
 import { useForm } from "react-hook-form";
 import Cookies from "js-cookie";
+import api from "../RefreshToken";
 
 
 const SocialBtnBox = styled.div`
    
     padding: 5px;
     margin: 0 auto;
-`
-// const NaverBtn = styled.button`
-//     width: 80px;
-//     text-align: center;
-//     cursor: pointer;
-// `
-const KAKAOBtn = styled.div`
-    width: 180px;
-    text-align: center;
-    cursor: pointer;
-    
-`
-const GoogleBtn = styled.button`
-    width: 80px;
-    text-align: center;
-    cursor: pointer;
 `
 const Id = styled.div`
 `
@@ -49,41 +34,22 @@ const Login = () => {
 
 
 
-    // const onGoogleSocialLogin = () => {
-    //     window.location.href = `https://accounts.google.com/o/oauth2/auth?client_id=${GOOGLE_CLIENT_ID }&redirect_uri=${GOOGLE_REDIRECT_URI}&response_type=token&scope=openid email`;
-    // };
-
-
-    // const responseGoogle = (response) => {
-    //     if (response.accessToken) {
-    //         // 클라이언트에서 받은 액세스 토큰을 상태 변수에 저장
-    //         setAccessToken(response.accessToken);
-
-    //         // 서버로 액세스 토큰 전송 로직을 추가
-    //         sendAccessTokenToServer(response.accessToken);
-
-    //         // 로그인 성공 후 이동할 페이지로 네비게이션
-    //         navigate('/hi');
-    //     } else {
-    //         console.log('구글 로그인 실패', response);
-    //     }
-    // };
+  
 
     const sendAccessTokenToServer = async(accessToken) => {
         // 액세스 토큰을 서버로 전송
         try {
-            const response = await axios.post('/api/login', { accessToken }, {
+            const response = await api.post('api/login', { accessToken }, {
                 headers: { accept: 'application/json' },
             });
-            console.log('서버 응답:', response.data);
+            // console.log('서버 응답:', response.data);
             // 서버에서의 응답을 처리하거나 필요한 작업을 수행
             // navigate 함수 사용해서 페이지 이동하기
             navigate('/hi');
         } catch (error) {
-            console.error('서버 요청 실패:', error);
+            // console.error('서버 요청 실패:', error);
         }
     };
-    // const axios = require('axios');
 
  
     // const gg = () => {`https://port-0-sessak-back2-cgw1f2almhig6l2.sel5.cloudtype.app/api/v1/users/google/login`}
@@ -109,11 +75,14 @@ const Login = () => {
 	// 	// }
     // }; 
     const  {register, handleSubmit,  errors}   = useForm();
-    const handleLogin = async(data) => {console.log({
-        email:data.email,
-        password:data.password
-    })
-        const response = await axios.post('https://port-0-sessak-back2-cgw1f2almhig6l2.sel5.cloudtype.app/api/v1/users/login/', 
+
+    const handleLogin = async(data) => {
+    //     console.log({
+    //     email:data.email,
+    //     password:data.password
+    // }
+    // )
+        const response = await api.post('users/login/', 
         {
             email:data.email,
             password:data.password
@@ -172,7 +141,7 @@ const Login = () => {
                 <div
                 className={styles.joinus} 
                 onClick={pathSignUp}>회원가입</div>
-                    {/* <div className={styles.socialBtnBox}> */}
+                    <div className={styles.socialBtnBox}>
                         {/* <NaverBtn>네이버</NaverBtn> */}
                         {/* <KAKAOBtn style={{width: '100px', backgroundColor:'yellow'}} onClick={onKakaoSocialLogin}>카카오</KAKAOBtn> */}
                         {/* <div><KakaoRedirectPage  /></div> */}
@@ -201,13 +170,13 @@ const Login = () => {
                             {/* <button onClick={()=>{
                                 
                             }}>123</button>
-                            <Gg />
                         </GoogleOAuthProvider> */}
+                        <Gg />
                         
                     </div>
                 </div>
             </div>
-        // </div>
+        </div>
     )
 }
 

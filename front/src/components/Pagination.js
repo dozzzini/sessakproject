@@ -46,8 +46,8 @@ function Pagination({   totalPage,pageList,currentPage }) {
 	const [ searchParams,setSearchParams] = useSearchParams()
 
   const numPages = totalPage;
-  console.log('totalPage',totalPage)
-  console.log('currentPage',typeof(+currentPage))
+  // console.log('totalPage',totalPage)
+  // console.log('currentPage',typeof(+currentPage))
   
   const setPage = (newPage) => {
 	setSearchParams({ total_page: newPage }); // setSearchParams를 사용하여 쿼리 값을 변경합니다.

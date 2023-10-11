@@ -37,14 +37,15 @@ const Playground = () => {
 				latitude: position.coords.latitude,
 				longitude: position.coords.longitude,
 			});
-				console.log("위치 받기 성공", position);
+				// console.log("위치 받기 성공", position);
 			}
 		function error() {
 			setLocation({
 				latitude: 33.450701,
 				longitude: 126.570667,
 			});
-				console.log("위치 받기 실패");
+				// console.log("위치 받기 실패");
+				alert('새로고침이 필요합니다.')
 			}
 	}, [options]);
 
@@ -77,19 +78,19 @@ const Playground = () => {
 	const saveLocation = async() => {
 		if (location) {
 			getReverseGeocode(location); 
-			console.log('run',address)
+			// console.log('run',address)
 		  // 위치 정보를 서버로 전송하는 POST 요청 보내기
 			await api.put("users/userinfo/", 
 			)
 				.then((response) => {				
-					window.alert('동네변경 저장성공')
+					window.alert('우리동네변경 저장성공')
 
-				console.log("위치 저장 서버 성공", response.data);
+				// console.log("위치 저장 서버 성공", response.data);
 				setSavedLocation(location); // 저장된 위치 정보 업데이트
 				})
 				.catch((error) => {
 					window.alert('동네변경 저장실패! 다시 시도해주세요')
-				console.error("위치 정보 저장 오류(서버로)", error);
+				// console.error("위치 정보 저장 오류(서버로)", error);
 			});
 		}
 	};
@@ -99,7 +100,7 @@ const Playground = () => {
 		// 위치 정보에서 동 정보 추출하는 로직 작성
 		// 예: location에서 동 정보가 어떤 속성에 저장되어 있다면 해당 속성을 반환
 		// 이 예시에서는 location.latitude와 location.longitude를 이용하여 동 정보를 얻는다고 가정
-		console.log('location,dong',location)
+		// console.log('location,dong',location)
 		const latitude = location.latitude;
 		const longitude = location.longitude;
 		const dong = getReverseGeocode(latitude, longitude);
@@ -129,7 +130,7 @@ const Playground = () => {
 		if (status === kakao.maps.services.Status.OK) {
 			// 변환 성공
 			const fullAddress = result[0].address.address_name; // 전체 주소
-			console.log("주소:", fullAddress);
+			// console.log("주소:", fullAddress);
 			const regex = /(\S+동)/; // "동"으로 끝나는 문자열을 찾는 정규표현식
 			//전체 주소에서 동만 추출
 			const match = fullAddress.match(regex);
@@ -137,7 +138,7 @@ const Playground = () => {
 			if (match) {
 			  const dongWithNumbers = match[1].trim();
 			  const dong = dongWithNumbers.replace(/[0-9-]/g, ''); // 숫자와 하이픈 제거
-			  console.log("동:", dong);
+			//   console.log("동:", dong);
 	  
 			  // 동 정보를 화면에 표시
 			  const dongDiv = document.getElementById('dongDiv');
@@ -152,7 +153,7 @@ const Playground = () => {
 			if (matchEup) {
 				const eupWithNumbers = matchEup[1].trim();
 				const eup = eupWithNumbers.replace(/[0-9-]/g, '');
-				console.log("읍:", eup);
+				// console.log("읍:", eup);
 				
 				const dongDiv = document.getElementById('dongDiv');
 				if (dongDiv) {
@@ -160,12 +161,12 @@ const Playground = () => {
 				}
 			  } else {
 				// If neither "동" nor "읍" is found, use the full address
-				console.log("전체 주소:", fullAddress);
+				// console.log("전체 주소:", fullAddress);
 			  }
 			}
 		} else {
 			// 변환 실패
-			console.error("주소 변환 실패:", status);
+			// console.error("주소 변환 실패:", status);
 		}
 		});
 	};

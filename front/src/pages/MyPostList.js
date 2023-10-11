@@ -14,15 +14,15 @@ const MyPostLists = () => {
 	const getMyPostList = async() => {
 		try{
 			const response = await api.get('users/userinfo/');
-			console.log('api응답데이터', response.data);
+			// console.log('api응답데이터', response.data);
 
 			const {data, post} = response.data;
 			setUserInfo(data);
 			setPostData(post);
 
-			console.log('내가쓴글성공',response)		
+			// console.log('내가쓴글성공',response)		
 		}catch(error){
-			console.log( '내가쓴글실패', error)
+			// console.log( '내가쓴글실패', error)
 		}
 	}
 	useEffect(() => {
@@ -41,7 +41,7 @@ const MyPostLists = () => {
 				{postData.map((post, index) => (
 				<li className={styles.postItem}
 				key={index}>
-					<div className={styles.numIdx}>{index}.
+					<div className={styles.numIdx}>{index+1}.
 					</div>
 					<div>
 						<div className={styles.postTitle}>제목 : { post.title.length > 30? `post.title.slice(0, 30)}...` : post.title}</div>

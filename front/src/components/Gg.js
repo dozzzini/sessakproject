@@ -10,14 +10,15 @@ function Gg() {
   
 	return (
 	  <a href={Google_URI}>
-		<NaverLoginBtn src={"/naverlogin.png"} alt="구글구글"></NaverLoginBtn>
+		<GGLoginBtn src={'https://w7.pngwing.com/pngs/506/509/png-transparent-google-company-text-logo.png'} alt="구글구글"></GGLoginBtn>
 	  </a>
 	);
   }
   
-  const NaverLoginBtn = styled.img`
+  const GGLoginBtn = styled.img`
 	width: 50px;
 	height: 50px;
+	border-radius: 50%;
   `;
   
   export default Gg;

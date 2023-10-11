@@ -2,14 +2,16 @@ import styles from './UserPage.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faLeftLong} from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
-import axios from 'axios';
 import api from '../RefreshToken';
 
 const UserPage = () => {
     const navigate = useNavigate();
-    const [isLoggedIn, setIsLoggedIn] = useState(false); 
+    // const [isLoggedIn, setIsLoggedIn] = useState(false); 
+  //초기 로그인 상태설정
+  const [isLoggedIn, setIsLoggedIn] = useState(!!Cookies.access_token);
+
 
     const handleDongnea = () => {
         //api gps 인증
@@ -24,24 +26,33 @@ const UserPage = () => {
         //api get comments
         navigate('/mycommentlist')
     };
+    // useEffect(() => {
+    //     setIsLoggedIn(!!Cookies.get('refresh_token'))
+    // },[Cookies.get('refresh_token')]);
+   
     const handleLogout = async () => {
-        setIsLoggedIn(false);
-        console.log('로그아웃');
-        
+        setIsLoggedIn(Cookies.get('refresh_token'));
+        // console.log('로그아웃');
+        // console.log(Cookies.get('refresh_token'), 'ㅇㅇ')
         try {
-            await api.delete('logout/');
-    
-            Cookies.remove('access_token'); // 쿠키 삭제 (값 없이 이름만 제공)
+            await api.post('users/logout/', {
+                refresh_token : Cookies.get('refresh_token')
+            },
+            );
+            
+            // Cookies.remove('access_token'); // 쿠키 삭제 (값 없이 이름만 제공)
             // Cookies.remove('refresh_token', response.data.refresh) // 필요한 경우 주석 해제
+               // 클라이언트 측에서 쿠키 삭제
+               
+            } catch (error) {
+                // 에러 처리 코드 추가
+                
+            };
+            Cookies.remove('access_token');
+            Cookies.remove('refresh_token');
             alert('로그아웃 되었습니다.')
-            navigate('/');
-        } catch (error) {
-            // 에러 처리 코드 추가
-            alert('로그아웃 실패되었습니다.')
-            console.log('로그아웃 실패:', error);
+         navigate('/');
         }
-    };
-    
 
     return(
         <div className={styles.container}>

@@ -158,7 +158,7 @@ const keywordSearch = searchParams.get(`keyword`)
                 // setCurrentPage(currentPage);
                 // setPage(currentPage); // 현재 페이지를 설정합니다.
             } catch (error) {
-                console.log("게시글 목록을 불러오는 데 실패했습니다.", error);
+                // console.log("게시글 목록을 불러오는 데 실패했습니다.", error);
             }
         }
         if(!keywordSearch){
@@ -174,7 +174,8 @@ const keywordSearch = searchParams.get(`keyword`)
                     setPosts({page_list:response.data})},   
                     ).catch((error) => {
                     alert('검색어를 다시 입력해주세요.');
-                    console.log(error, '검색에러')}
+                    // console.log(error, '검색에러')
+                }
                     )
         }
     }, [searchParams]);
@@ -198,12 +199,13 @@ const keywordSearch = searchParams.get(`keyword`)
         ) : (
         null
         )}
-            <Pagination 
-                // 현재 페이지 값을 숫자로 변환합니다.
-               totalPage={totalPage.length}
-               pageList={totalPage}
-               currentPage={currentPage}
-                />
+           {keywordSearch ? (null) :
+           ( <Pagination 
+            // 현재 페이지 값을 숫자로 변환합니다.
+           totalPage={totalPage.length}
+           pageList={totalPage}
+           currentPage={currentPage}
+            />)}
       </FeedBox>
     )
 };

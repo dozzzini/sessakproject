@@ -1,18 +1,17 @@
-import React, { useMemo, useRef, useState } from 'react';
-// import ReactQuill from 'react-quill';
-// import 'react-quill/dist/quill.snow.css';
+import React, {  useState } from 'react';
 import styles from './edit.module.css';
 import BackBtn from './BackBtn';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import QuillEdit from './QuillEdit';
+import api from '../RefreshToken';
 
 
 const Edit = () => {
     const [editvalue, setEditValue] = useState('');
     const [title, setTitle] = useState("");
-    console.log(editvalue);
+    // console.log(editvalue);
 
     const removeHtmlTags = (html) => {
         const doc = new DOMParser().parseFromString(html, 'text/html');
@@ -50,7 +49,7 @@ const Edit = () => {
 
     const handleTitle = (e) => {
         setTitle(e.target.value);
-        console.log(e.target.title);
+        // console.log(e.target.title);
     };
     const navigate = useNavigate();
 
@@ -64,10 +63,10 @@ const Edit = () => {
         // const seconds = date.getSeconds().toString().padStart(2, '0');
 
         const formattedDate = `${year}.${month}.${day} ${hours}:${minutes}`;
-        console.log(formattedDate);
+        // console.log(formattedDate);
 
         try {
-            const response = await axios.post('https://port-0-sessak-back2-cgw1f2almhig6l2.sel5.cloudtype.app/api/v1/posts/newpost/', {
+            const response = await api.post('posts/newpost/', {
                 title: title,
                 content: removeHtmlTags(editvalue), // ReactQuill의 내용을 사용합니다.
                 // date: date // 날짜를 ISO 형식으로 변환하여 보낼 수 있습니다.
@@ -81,13 +80,13 @@ const Edit = () => {
             });
 
             // 서버 응답 확인
-            console.log(response.data);
+            // console.log(response.data);
             navigate(`/posts/${response.data.id}`);
 
 
             // 서버로 데이터를 보낸 후에 필요한 작업을 수행할 수 있습니다.
         } catch (error) {
-            console.error('서버로 데이터를 보내는 중 오류 발생:', error);
+            // console.error('서버로 데이터를 보내는 중 오류 발생:', error);
         }
     };
 
@@ -129,8 +128,14 @@ const Edit = () => {
                          />
                          {/* <div>카테고리</div> */}
                 </div>
+                <form>카테고리
+                    <input type='radio' name='sooda' value='snack'  />tmsor
+                    <input type='radio' name='goodE' value=''  />
+                    <input type='radio' name='' value=''  />
+                    <input type='radio' name='' value=''  />
+                </form>
                 <div className={styles.btnBox}>
-                    <button 
+                    <button type='submit'
                     className={styles.submitBtn} 
                     onClick={handleSubmit}>
                         <span>저장하기</span>

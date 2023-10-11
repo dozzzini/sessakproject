@@ -9,21 +9,21 @@
 .container{
 	display: flex;
     flex-direction: column;
-    align-items: center; 
+    /* align-items: center;  */
     width: 100%;
-    height: 100vh;
+    height: 100% ;
     /* padding: 20px 30px 0px 30px; */
 	background-color: aliceblue;
     /* margin: 0px auto 20px auto; */
     /* background-color: green; */
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
     /* y축 스크롤 바 가리기 */
-    -ms-overflow-style: none;
-	scrollbar-width: none;
+    /* -ms-overflow-style: none; */
+	/* scrollbar-width: none; */
 }
-.container::-webkit-scrollbar{
+/* .container::-webkit-scrollbar{
 	display: none;
-}
+} */
 .container p{
 	margin-top: 10px;
 	display: flex;
@@ -41,12 +41,12 @@
 	background-color: rgb(255, 255, 255);
 	border-radius: 5px;
 	padding: 15px;
-    overflow: hidden;
+    /* overflow: hidden; */
 	margin: 10px auto;
 	background-color: white;
-	max-height: 100%; /* 포스트 리스트의 최대 높이 설정 */
-	overflow-y: auto;
-
+	max-height: 100%; 
+	/* 포스트 리스트의 최대 높이 설정 */
+	/* overflow-y: scroll; */
 }
 .postItem{
 	background-color: rgba(255, 248, 196, 0.771);
