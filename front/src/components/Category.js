@@ -115,7 +115,7 @@ const Sidebar = styled.div`
         span{
             margin:0 auto;
             font-size: 40px;
-            font-family: 'Giants-Regular';    
+            font-family: 'Giants-Bold';
 
         }
     }

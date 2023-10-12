@@ -11,7 +11,7 @@ const HeaderBox = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Giants-Regular';    
+    font-family: 'Giants-Bold';
     font-size: 40px;
     cursor: pointer;
     /* border: 2px solid darkblue; */

@@ -23,7 +23,7 @@
 	margin-left: 50px;
 	/* display: flex; */
 	width: 90%;
-	font-family: 'omyu_pretty';
+	font-family: 'SUITE-Regular';
 	font-size: 25px;
 }
 .postList{
@@ -56,7 +56,7 @@
     text-align: start;
     display: flex;
 	cursor: pointer;
-    font-family: 'omyu_pretty';
+	font-family: 'SUITE-Regular';
 	position: relative;
 	z-index: 1; /* 상위 컨테이너를 가리지 않도록 설정 */
 }

@@ -34,7 +34,7 @@
     flex-direction: column;
     text-align: center;
     margin: 0px auto;
-    font-family: 'Giants-Regular';    
+    font-family: 'Giants-Bold';    
     font-size: 40px;
 }
 .title img{
@@ -78,7 +78,7 @@
     margin: 10px auto;
 }
 .loginBox {
-    font-family: 'omyu_pretty';
+    font-family: 'SUITE-Regular';
     font-size: 20px;
     height: inherit;
 
@@ -167,7 +167,7 @@
     100% {opacity: 1;}
 }
 .sub{
-    font-family: 'omyu_pretty';
+    font-family: 'SUITE-Regular';
 	font-size: 20px;
     display: flex;
     flex-direction: column;
@@ -178,7 +178,7 @@
     cursor: pointer;
     margin-top: 10px;
     font-size: 20px;
-    font-family: 'Giants-Regular';    
+    font-family: 'Giants-Bold';
 
 }
 .socialBox{

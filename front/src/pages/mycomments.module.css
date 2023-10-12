@@ -28,7 +28,7 @@
 	margin-top: 10px;
 	display: flex;
 	width: 90%;
-	font-family: 'omyu_pretty';
+	font-family: 'SUITE-Regular';
 	font-size: 25px;
 }
 .postList{
@@ -61,7 +61,7 @@
     justify-content: space-between;
     flex-direction: column;
 	cursor: pointer;
-    font-family: 'omyu_pretty';
+	font-family: 'SUITE-Regular';
 
 }
 .postItem .contents{

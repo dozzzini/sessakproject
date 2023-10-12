@@ -1,9 +1,3 @@
-@font-face {
-  font-family: 'omyu_pretty';
-  src: url('./fonts/오뮤_다예쁨체.ttf') format('woff2');
-  font-weight: normal;
-  font-style: normal;
-}
 
 @font-face {
   font-family: 'Giants-Inline';
@@ -24,11 +18,11 @@
   font-style: normal;
 }
 .App {
-  font-family: 'SUITE-Regular', 'Giants-Inline', 'Giants-Regular', sans-serif;   
+  font-family: 'SUITE-Regular', 'Giants-Inline', 'Giants-Bold', sans-serif;   
 }
 
   @media screen and (min-width: 414px) and (max-width: 700px){
     .App {
-      font-family: 'SUITE-Regular', 'Giants-Inline', 'Giants-Regular', sans-serif;   
+      font-family: 'SUITE-Regular', 'Giants-Inline', 'Giants-Bold', sans-serif;   
     }
   } 
