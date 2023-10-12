@@ -42,7 +42,7 @@ const PostDetail = () => {
 			// console.log('서버로부터 데이터 가져오기 성공',res.data);
 			
 		}catch(error){
-			console.log(error, '게시글 가져오기 실패');
+			// console.log(error, '게시글 가져오기 실패');
 			setLoading(false);
 			// console.log(post.title, '1');
 		}
@@ -86,7 +86,7 @@ const PostDetail = () => {
 			// console.log('게시글 수정 성공');
 			// console.log('태그제거',removeHtmlTags(editFixPost.content) )
 		}catch(error){
-			console.log(error, '게시글 수정에 오류가 있어요.')
+			// console.log(error, '게시글 수정에 오류가 있어요.')
 			alert('유저정보가 일치하지 않아 수정할 수 없습니다.')
 
 		}
@@ -100,11 +100,11 @@ const PostDetail = () => {
 			});
 			setPost(res.data);
 			setLoading(false); 
-			console.log(res)
+			// console.log(res)
 			alert('게시글이 삭제되었습니다.')
 			navigate('/hi') ;
 		}catch(error){
-			console.log(error, '게시글 삭제 실패' )
+			// console.log(error, '게시글 삭제 실패' )
 			alert('유저정보가 일치하지 않아 삭제할 수 없습니다.')
 		}
 	};
