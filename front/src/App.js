@@ -14,7 +14,6 @@ import MyPostLists from './pages/MyPostList';
 import MyComments from './pages/MyComments';
 import Playground from './pages/Playground';
 import PopularPost from './pages/PopularPost';
-import Sooda from './pages/Sooda';
 import PostDetail from './components/PostDetail';
 import SignUp from './pages/SignUp';
 import { ChakraProvider } from '@chakra-ui/react';
@@ -90,8 +89,6 @@ function App() {
                 <Route path='/dongnea' element={<ProtectedRouter>
                   <Playground />
                 </ProtectedRouter>} />
-                {/* <Route path='/인기글' element={<PopularPost  />}/>
-                <Route path='/왁자지껄' element={<Sooda  />}/> */}
                 <Route path='/ad' element={<Spinner/>}  />
               </Routes> 
             </UserContext.Provider>   

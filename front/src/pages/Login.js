@@ -160,9 +160,6 @@ const Login = () => {
                 className={styles.joinus} 
                 onClick={pathSignUp}>회원가입</div>
                     <div className={styles.socialBtnBox}>
-                        {/* <NaverBtn>네이버</NaverBtn> */}
-                        {/* <KAKAOBtn style={{width: '100px', backgroundColor:'yellow'}} onClick={onKakaoSocialLogin}>카카오</KAKAOBtn> */}
-                        {/* <div><KakaoRedirectPage  /></div> */}
                         {/* <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}> */}
                         {/* <GoogleLogin
                             scope={scope}
@@ -189,7 +186,7 @@ const Login = () => {
                                 
                             }}>123</button>
                         </GoogleOAuthProvider> */}
-                        <Gg />
+                        {/* <Gg /> */}
                         
                     </div>
                 </div>
