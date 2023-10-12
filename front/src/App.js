@@ -13,7 +13,6 @@ import KakaoRedirectPage from './components/KakaoRedirectPage';
 import MyPostLists from './pages/MyPostList';
 import MyComments from './pages/MyComments';
 import Playground from './pages/Playground';
-import PopularPost from './pages/PopularPost';
 import PostDetail from './components/PostDetail';
 import SignUp from './pages/SignUp';
 import { ChakraProvider } from '@chakra-ui/react';

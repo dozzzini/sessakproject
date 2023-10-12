@@ -37,7 +37,7 @@ const SignUp = () => {
 
 		} catch (error) {
 			// console.log('서버 전송실패', error);
-			// alert('회원가입 실패! 다시 시도해주세요.')
+			alert('회원가입 실패! 다시 시도해주세요.')
 		}
 	}
 

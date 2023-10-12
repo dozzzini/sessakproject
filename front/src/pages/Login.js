@@ -41,7 +41,7 @@ const Login = () => {
     const sendAccessTokenToServer = async(accessToken) => {
         // 액세스 토큰을 서버로 전송
         try {
-            const response = await api.post('api/login', { accessToken }, {
+            const response = await api.post('api/login/', { accessToken }, {
                 headers: { accept: 'application/json' },
             });
             // console.log('서버 응답:', response.data);
@@ -155,7 +155,7 @@ const Login = () => {
                     </div>
                 </form>
                 <div className={styles.sub}>
-                    <p>지우동을 이용하려면 소셜로그인을 이용해주세요!</p>
+                    <p>지우동이 처음이시라면 아래를 클릭해주세요!</p>
                 <div
                 className={styles.joinus} 
                 onClick={pathSignUp}>회원가입</div>

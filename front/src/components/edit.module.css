@@ -87,7 +87,7 @@
     border: 1px solid rgb(210, 207, 207);
     height: 60px;
     font-size: 20px;
-    font-family: 'omyu_pretty';
+	font-family: 'SUITE-Regular';
 }
 .radio span{
     width: 80px;
@@ -159,10 +159,13 @@
         font-size: 14px;
     }
     .radio span{
-        width: 45px;
+        width: 50px;
+    }
+    .radio input{
+        font-size: 14px;
     }
     .submitBtn{
-        margin-top: 5=20px
+        margin-top: 20px
     }
 };
 

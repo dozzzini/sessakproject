@@ -1,23 +1,34 @@
-  /* @import url('https://fonts.googleapis.com/css2?family=Gruppo&family=Nanum+Pen+Script&family=Yeon+Sung&display=swap');
-  .App{
-    font-family: 'Gruppo', sans-serif;
-    font-family: 'Nanum Pen Script', cursive;
-    font-family: 'Yeon Sung', cursive;
-  } */
-  /* @media screen and (min-width: 414px) and (max-width: 700px){ */
-  /* Styles */
-  /* .App{ */
-  /* background-color: brown; */
-  /* }  */
-  /* } */
- 
+@font-face {
+  font-family: 'omyu_pretty';
+  src: url('./fonts/오뮤_다예쁨체.ttf') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
 
-  /* .App{
-    background-color: darkblue;
-    
-  }
+@font-face {
+  font-family: 'Giants-Inline';
+  src: url('./fonts/Giants-Inline.ttf') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Giants-Regular';
+  src: url('./fonts/Giants-Regular.ttf') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'SUITE-Regular';
+  src: url('./fonts/SUITE-Regular.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+}
+.App {
+  font-family: 'SUITE-Regular', 'Giants-Inline', 'Giants-Regular', sans-serif;   
+}
+
   @media screen and (min-width: 414px) and (max-width: 700px){
-    .App{
-      width: 414px;
+    .App {
+      font-family: 'SUITE-Regular', 'Giants-Inline', 'Giants-Regular', sans-serif;   
     }
-  } */
+  } 

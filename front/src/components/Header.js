@@ -61,8 +61,11 @@ const SearchInput = styled.input`
     width: 80%;
     height: 35px;
     border: none;
-    font-size: 18px;
-    font-family: 'omyu_pretty';
+    font-size: 16px;
+	font-family: 'SUITE-Regular';
+    @media screen  and (max-width: 700px){
+        font-size: 12px;
+    }    
 
 `
 const SearchBtn = styled.div`

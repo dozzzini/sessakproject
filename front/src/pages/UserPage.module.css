@@ -1,6 +1,6 @@
   /* @import url('https://fonts.googleapis.com/css2?family=Flamenco&family=Gasoek+One&display=swap'); */
 
-@font-face {
+/* @font-face {
     font-family: 'Giants-Inline';
     src: url('../fonts/Giants-Inline.ttf') format('woff2');
     font-weight: normal;
@@ -11,7 +11,7 @@
     src: url('../fonts/Giants-Regular.ttf') format('woff2');
     font-weight: 700;
     font-style: normal;
-}
+} */
 
 .container{
     text-align: center;
@@ -186,7 +186,7 @@
 
 
 /* 미디어쿼리 iphone XR */
-@media screen and (min-width: 414px)and (max-width: 700px){
+@media screen and (max-width: 700px){
     .container{
         background-color: #e1eef6;
         width: 100%;
@@ -196,6 +196,15 @@
         padding-top: 0px;
         margin:  0px;
     }
+    .wrapper{
+        width: 100%;
+        /* padding: 15px; */
+        /* height: 100%; */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    
     .head{
         display: flex;
         width: 100%;
@@ -205,7 +214,7 @@
         
     }
     .headTitle{
-        font-size: 25px;
+        font-size: 18px;
         display: flex;
         justify-content: center;
         /* background-color: #fcbe32; */

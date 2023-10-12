@@ -134,7 +134,7 @@ const Sidebar = styled.div`
         /* width: 280px; */
         /* background-color: saddlebrown; */
         padding: 8px;
-        font-family: 'omyu_pretty';
+        font-family: 'SUITE-Regular';
         font-size: 20px;
         cursor: pointer;
         &:hover{

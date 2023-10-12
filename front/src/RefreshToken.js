@@ -2,7 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 const api = axios.create({
-	baseURL : 'http://www.sessak.store/api/v1/',
+	baseURL : 'https://www.sessak.store/api/v1/',
 	headers: {'Content-Type' : 'application/json'},
 	'withCredentials': true,
 });

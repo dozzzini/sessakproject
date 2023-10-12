@@ -1,9 +1,9 @@
-@font-face {
+/* @font-face {
     font-family: 'omyu_pretty';
     src: url('../fonts/오뮤_다예쁨체.ttf') format('woff2');
     font-weight: normal;
     font-style: normal;
-}
+} */
 .container{
 	width: 100%;
 	height: 100%;
@@ -20,7 +20,7 @@
     margin-top: 10px;
 	font-size: 20px;
 	/* height: 100%; */
-	font-family: 'omyu_pretty';
+	font-family: 'SUITE-Regular';
 
 }
 .postBox{
