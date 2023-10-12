@@ -11,6 +11,7 @@ import Gg from "../components/Gg";
 import { useForm } from "react-hook-form";
 import Cookies from "js-cookie";
 import api from "../RefreshToken";
+import SpinnerCompo from "../components/Spinner";
 
 
 const SocialBtnBox = styled.div`
@@ -31,6 +32,7 @@ const Login = () => {
     const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
     const GOOGLE_REDIRECT_URI = process.env.REACT_APP_GOOGLE_REDIRECT_URI;
     const scope = ['email'];
+    const [loading, setLoading] = useState(false); // 로딩 상태 추가
 
 
 
@@ -77,11 +79,14 @@ const Login = () => {
     const  {register, handleSubmit,  errors}   = useForm();
 
     const handleLogin = async(data) => {
+        setLoading(true); // 로딩 상태 시작
+
     //     console.log({
     //     email:data.email,
     //     password:data.password
     // }
     // )
+        try{
         const response = await api.post('users/login/', 
         {
             email:data.email,
@@ -95,15 +100,29 @@ const Login = () => {
     )
         Cookies.set('access_token', response.data.access)
         Cookies.set('refresh_token', response.data.refresh)
+        setIsLoggedIn(true)
         navigate('/hi');
+    }catch(error){
+        alert('이메일, 비밀번호를 다시 확인해주세요.');
+        navigate('/');
+        setLoading(false)
+    }
+       
     }
 
     const pathSignUp = () => {
         navigate('/signup')
     }
     return(
+           
         <div className={styles.container}>
-            <div className={styles.wrapper}>
+            {loading ? ( // 로딩 중일 때 스피너를 표시
+                    <div className={styles.loadingSpinner}>
+                        {/* 스피너 컴포넌트 렌더링 */}
+                        <SpinnerCompo    />
+                        <div className="spinner"></div>
+                    </div>
+                ) : (<div className={styles.wrapper}>
                 <div className={styles.title}>지금 우리 동네는
                     <img src=" https://i.pinimg.com/564x/38/35/9a/38359a83e8df8b0a0eb77b0aee69e448.jpg" />
                 </div>
@@ -134,7 +153,6 @@ const Login = () => {
                             <button className={styles.loginBtn} type="submit">Go</button>
                         </div>
                     </div>
-                    
                 </form>
                 <div className={styles.sub}>
                     <p>지우동을 이용하려면 소셜로그인을 이용해주세요!</p>
@@ -175,7 +193,8 @@ const Login = () => {
                         
                     </div>
                 </div>
-            </div>
+            </div>)}
+            
         </div>
     )
 }

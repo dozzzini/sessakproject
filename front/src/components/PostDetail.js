@@ -83,8 +83,8 @@ const PostDetail = () => {
 			setPost(res.data.data);
 			setLoading(false);
 			setIsEdit(false);
-			console.log('게시글 수정 성공');
-			console.log('태그제거',removeHtmlTags(editFixPost.content) )
+			// console.log('게시글 수정 성공');
+			// console.log('태그제거',removeHtmlTags(editFixPost.content) )
 		}catch(error){
 			console.log(error, '게시글 수정에 오류가 있어요.')
 			alert('유저정보가 일치하지 않아 수정할 수 없습니다.')
@@ -94,7 +94,7 @@ const PostDetail = () => {
 	// 게시글 삭제
 	const postDelete = async() => {
 		try{
-			const res = await axios.delete(`https://port-0-sessak-back2-cgw1f2almhig6l2.sel5.cloudtype.app/api/v1/posts/${id}/`,
+			const res = await api.delete(`posts/${id}/`,
 			{
 				headers: {'Authorization': `Bearer ${Cookies.get('access_token')}`}
 			});
@@ -156,7 +156,7 @@ const PostDetail = () => {
 								<p>닉네임 : {post.author.nickname} </p>
 							</div>
 							{isEdit ? (
-							<div className={styles.quilllBox}>
+							<div className={styles.quilllBox} style={{fontSize: '25px'}}>
 							<QuillEdit
 								placeholder="내용"
 								value={editFixPost.content || ''}

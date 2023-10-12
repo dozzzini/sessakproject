@@ -5,6 +5,8 @@ import React, { useEffect, useState } from "react";
 import {  useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import api from "../RefreshToken";
 import Pagination from "./Pagination";
+import Category from "./Category";
+import { useCategory } from "../CategoryContext";
 
 const FeedBox  = styled.div`
     /* display: flex;
@@ -23,97 +25,8 @@ const FeedBox  = styled.div`
     display: none;
     };
     scrollbar-width: none;
-
 `;
-// const Feed = styled.div`
-//     background-color: whitesmoke;
-//     width: 100%;
-//     height: 100%;
-//     font-size: 20px;
-//     border: 1px solid white;
-//     border-radius: 15px;
-//     margin-bottom: 20px;
-//     text-align: start;
-//     display: flex;
-//     flex-direction: column;
-    
-// `;
-// const TextBox = styled.div`
-//     background-color: #FAEBCD;
-//     width: 100%;
-//     height: 90px;
-//     padding: 10px;
-//     border-radius: 15px;
-//     cursor: pointer;
-//     margin-bottom: 20px;
-//     /* .tt{
-//         height: 100%;
-//         background-color: aqua;
-//         font-size:10px;
-//     } */
-   
-// `
-// const Participation = styled.div`
-//     display: flex;
-//     justify-content: flex-end;
-//     padding: 2px;
-//     margin-right: 10px;
-//     background-color: #FAEBCD;
-//     /* position: relative; */
-// `
-// const Likes = styled.button`
-//     border: none;
-//     /* background-color: whitesmoke; */
-//     background-color: #FAEBCD;
 
-//     margin-right: 15px;
-//     margin-top: 10px;
-//     cursor: pointer;
-//     svg{
-//         width: 20px;
-//         color: red;
-//     };
-//     p{
-//     background-color: #FAEBCD;
-
-//         margin: 0px;
-//     };
-// `
-// const Comments = styled.button`
-//     border: none;
-//     /* background-color: whitesmoke; */
-//     background-color: #FAEBCD;
-//     margin-right: 15px;
-//     margin-top: 10px;
-//     cursor: pointer;
-//     svg{
-//         width: 20px;
-//     };
-//     p{
-//         margin: 0px;
-//     };
-// `
-// const Views = styled.button`
-//     border: none;
-//     /* background-color: whitesmoke; */
-//     background-color: #FAEBCD;
-//     margin-right: 10px;
-//     margin-top: 10px;
-//     cursor: pointer;
-//     svg{
-//         width: 20px;
-//     };
-//     p{
-//         margin: 0px;
-//     };
-// `
-// const UserDate = styled.div`
-//     /* position: absolute;
-//     left: 30px;
-//     top: 20px; */
-//     margin-top: 10px;
-//     font-size: 10px;
-// `
 
 
 
@@ -123,13 +36,20 @@ const Board = () => {
     const [selectedPost, setSelectedPost] = useState(null);
     const [date, setDate] = useState();
     const [totalPage, setTotalPage] = useState([]);
-    // const [currentPage, setCurrentPage] = useState(1); // 현재 페이지를 상태로 관리합니다.
-    // const [page, setPage] = useState(1); // 현재 페이지 상태 추가
+    
     const navigate = useNavigate();
     const params = useParams();
     const location = useLocation();
-    //검색어 조회
+    //검색어 조회, 
     const [searchValue, setSearchValue] = useState('');
+    // const [selectedCategory, setSelectedCategory] = useState(''); // 선택한 카테고리 저장
+    const {category} =params;
+    // const handleSelectCategory = (category) => {
+    //     setSelectedCategory(category);
+    // };
+    // 선택한 카테고리 
+    const { selectedCategory } = useCategory(category);
+
 
 // useSearchParams를 사용하여 URL 쿼리값 가져오기
 const [searchParams, setSearchParams] = useSearchParams();
@@ -140,8 +60,6 @@ const keywordSearch = searchParams.get(`keyword`)
 
     useEffect(() => {
         
-        
-        
         // 현재 페이지를 쿼리 매개변수 'page'에서 가져옵니다 (기본값은 1로 설정됩니다).
         const searchParams = new URLSearchParams(location.search);
         // const currentPage = parseInt(searchParams.get("page")) || 1;
@@ -150,7 +68,7 @@ const keywordSearch = searchParams.get(`keyword`)
         const getPosts = async() => {
             try {
                 const response = await api.get('posts/postlist/',{
-                    params: { page:currentPage},
+                    params: { page:currentPage, category: selectedCategory},
                 })
                 setPosts(response.data);
                 setTotalPage(response.data.total_page);
@@ -178,7 +96,8 @@ const keywordSearch = searchParams.get(`keyword`)
                 }
                     )
         }
-    }, [searchParams]);
+    }, [searchParams, selectedCategory]);
+
 
     const selectPost = (posts) => {
         
@@ -189,7 +108,8 @@ const keywordSearch = searchParams.get(`keyword`)
   
     return(
         <FeedBox>
-        <PostList posts={posts} key={posts} selectPost={selectPost}
+            {/* <Category   onSelectCategory={handleSelectCategory}/> */}
+        <PostList posts={posts} key={posts} selectPost={selectPost} selectedCategory={selectedCategory}
          />
          
         {selectedPost ? (

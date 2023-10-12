@@ -16,7 +16,7 @@ const Edit = () => {
     // const [taste, setTaste] = useState('');
     // const [pet, setPet] = useState('');
     // const [recommened, setRecommened] = useState('');
-    const [selectedCategory, setSelectedCategory] = useState('');
+    const [selectedCategory, setSelectedCategory] = useState({});
 
     const navigate = useNavigate();
     
@@ -63,7 +63,7 @@ const Edit = () => {
         setSelectedCategory((prevCategory) => {
             return prevCategory === selectedValue ? '' : selectedValue;
         });
-        console.log(selectedValue)
+        // console.log(selectedValue)
     };
 
 
@@ -83,7 +83,7 @@ const Edit = () => {
             const response = await api.post('posts/newpost/', {
                 title: title,
                 content: removeHtmlTags(editvalue),
-                category: setSelectedCategory(selectedCategory)
+                category:selectedCategory
             },{
                 headers: {
                     'Content-Type': 'application/json',
@@ -94,6 +94,7 @@ const Edit = () => {
             });
 
             // 서버 응답 확인
+            // console.log(selectedCategory)
             // console.log(response.data);
             navigate(`/posts/${response.data.id}`);
 
@@ -101,6 +102,7 @@ const Edit = () => {
             // 서버로 데이터를 보낸 후에 필요한 작업을 수행할 수 있습니다.
         } catch (error) {
             // console.error('서버로 데이터를 보내는 중 오류 발생:', error);
+            alert('제목, 내용, 카테고리를 입력 해주세요.')
         }
     };
 
@@ -142,15 +144,17 @@ const Edit = () => {
                          />
                          {/* <div>카테고리</div> */}
                 </div>
-                <div className={styles.radio}>카테고리
+                <div className={styles.radio}> <span >카테고리</span>
                     <input type='radio' name='category' 
-                    value='talk' checked={selectedCategory === 'talk'}  onChange={handleRadioChange} />왁자지껄
+                    value='마이펫' checked={selectedCategory === '마이펫' }   onChange={handleRadioChange}    />마이펫
                     <input type='radio' name='category' 
-                    value='taste' checked={selectedCategory === 'taste'} onChange={handleRadioChange} />이집맛집
+                    value='여기어때' checked={selectedCategory === '여기어때' }  onChange={handleRadioChange} />여기어때
                     <input type='radio' name='category' 
-                    value='pet' checked={selectedCategory === 'pet' }   onChange={handleRadioChange}    />내새꾸자랑
+                    value='왁자지껄' checked={selectedCategory === '왁자지껄'}  onChange={handleRadioChange} />왁자지껄
                     <input type='radio' name='category' 
-                    value='recommened' checked={selectedCategory === 'recommened' }  onChange={handleRadioChange} />여기어때?!
+                    value='이집맛집' checked={selectedCategory === '이집맛집'} onChange={handleRadioChange} />이집맛집
+                    <input type='radio' name='category' 
+                    value='일반' checked={selectedCategory === '일반' }  onChange={handleRadioChange} />일반
                 </div>
                 <div className={styles.btnBox}>
                     <button type='submit'

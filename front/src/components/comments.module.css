@@ -50,10 +50,11 @@
 	background-color: #ed936b;
 }
 .item{
-	width: 80%;
+	width: 86%;
 	/* margin-bottom: 15px; */
 	border-radius: 5px;
-	font-size: 14px;
+	font-size: 44px;
+	margin-right: 30px;
 	background-color: #9ccfce;
 }
 .itemId{
@@ -70,7 +71,7 @@
 .commentsBox input{
 	width: 90%;
 	padding: 15px;
-	font-size: 14px;
+	font-size: 25px;
 	border-radius: 10px;
 	margin: 0 auto;
 	word-wrap: break-word;

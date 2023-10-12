@@ -89,6 +89,15 @@
     font-size: 20px;
     font-family: 'omyu_pretty';
 }
+.radio span{
+    width: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+             7px 7px 20px 0px rgba(0,0,0,.1),
+             4px 4px 5px 0px rgba(0,0,0,.1);
+}
 .btnBox{
     display: flex;
     justify-content: flex-end;
@@ -107,7 +116,7 @@
 	background-color: #fcbe32;
 	padding: 17px 60px;
 	margin: 10px ;
-    
+
 	box-shadow: 0 5px 15px rgba(0,0,0,0.20);
     /* margin-top: 20px; */
   }
@@ -149,8 +158,11 @@
     .radio{
         font-size: 14px;
     }
+    .radio span{
+        width: 45px;
+    }
     .submitBtn{
-        margin-top: 50px
+        margin-top: 5=20px
     }
 };
 

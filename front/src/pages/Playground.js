@@ -10,7 +10,8 @@ import api from '../RefreshToken';
 const {kakao} = window;
 
 const Playground = () => {
-	
+	const [loading, setLoading] = useState(true); // 로딩 상태 추가
+
 	const [map, setMap] = useState(null);  
 	const [location, setLocation] = useState({ latitude: null, longitude: null });
 	const [address,setAddress] = useState()
@@ -47,12 +48,14 @@ const Playground = () => {
 				// console.log("위치 받기 실패");
 				alert('새로고침이 필요합니다.')
 			}
+			
 	}, [options]);
 
  // 카카오지도 API 가져오기
 	useEffect(() => {
 		// 카카오지도 API 가져오기
 		const kakaoMap = () => {
+
 		const container = document.getElementById('map');
 		const options = {
 			center: new kakao.maps.LatLng(location.latitude, location.longitude),
@@ -190,7 +193,11 @@ const Playground = () => {
 					
 				</div>
 				<div id='dongDiv' className={styles.dongText}>현재 우리 동네 :</div>
-				
+				{loading ? (
+                        <div className={styles.loadingSpinner}>
+                            <div className="spinner"></div>
+                        </div>
+                    ) : null}
 				<div id='map' className={styles.mapBox} >
 				</div>
 

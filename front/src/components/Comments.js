@@ -92,7 +92,7 @@ const Comments = ({comments}) => {
 
 // 댓글삭제
 	const commentTrash = async(id) => {
-		console.log(id,'dd')
+		// console.log(id,'dd')
 		try{
 			const response = await api.delete(`comments/${id}/`,
 			{
@@ -136,6 +136,7 @@ const Comments = ({comments}) => {
 						{editingComment === item.id ? (
 							<>
 							<input
+							style={{height:'55px', padding:'10px', fontSize: '25px'}}
 							className={styles.item}
 								type="text"
 								value={editedFixComment}

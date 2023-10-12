@@ -66,32 +66,32 @@ const Location = ({onLocationUpdate,}) => {
 
 
 	 // 위치 저장 및 서버로 전송
-	const saveLocation = async() => {
-		if (location) {
-			const dong = extractDongFromLocation(location); 
-		  // 위치 정보를 서버로 전송하는 POST 요청 보내기
-			await api.post("/url", {
-				location: location,
-				dong: dong,
-			},{
-				headers: {
-					'Content-Type' : 'application/json',
-                    'withCredentials': true,
-				}
-			}
-			)
-				.then((response) => {				
-					window.alert('동네변경 저장성공')
+	// const saveLocation = async() => {
+	// 	if (location) {
+	// 		const dong = extractDongFromLocation(location); 
+	// 	  // 위치 정보를 서버로 전송하는 POST 요청 보내기
+	// 		await api.post("/url", {
+	// 			location: location,
+	// 			dong: dong,
+	// 		},{
+	// 			headers: {
+	// 				'Content-Type' : 'application/json',
+    //                 'withCredentials': true,
+	// 			}
+	// 		}
+	// 		)
+	// 			.then((response) => {				
+	// 				window.alert('동네변경 저장성공')
 
-				console.log("위치 저장 서버 성공", response.data);
-				setSavedLocation(location); // 저장된 위치 정보 업데이트
-				})
-				.catch((error) => {
-					window.alert('동네변경 저장실패! 다시 시도해주세요')
-				console.error("위치 정보 저장 오류(서버로)", error);
-			});
-		}
-	};
+	// 			console.log("위치 저장 서버 성공", response.data);
+	// 			setSavedLocation(location); // 저장된 위치 정보 업데이트
+	// 			})
+	// 			.catch((error) => {
+	// 				window.alert('동네변경 저장실패! 다시 시도해주세요')
+	// 			console.error("위치 정보 저장 오류(서버로)", error);
+	// 		});
+	// 	}
+	// };
 	
 	// 위치 정보에서 동 정보 추출하는 함수 (예시)
 	const extractDongFromLocation = (location) => {

@@ -21,7 +21,8 @@ import api from '../RefreshToken';
 const SignUp = () => {
 	const navigate = useNavigate();
 	const [locationInfo, setLocationInfo] = useState(''); // 위치 정보 상태 추가
-	const { register, handleSubmit,  errors  } = useForm();
+	const { register, handleSubmit, formState: { errors },
+	} = useForm();
 	const { isOpen, onOpen, onClose } = useDisclosure()
 
 	const onSubmit = async(data) => {
@@ -57,30 +58,56 @@ const SignUp = () => {
 				
 						type='email'
 						name='email' 
-						{...register("email",{ required: true, pattern: /^\S+@\S+$/i  })} // 중괄호의 위치를 수정해야 합니다.
+						{...register("email", {
+							required: '이메일은 필수 입력 항목입니다.',
+							pattern: {
+							value: /^\S+@\S+$/i,
+							message: '올바른 이메일 주소를 입력하세요.',
+							},
+						})}
 					/>
-					{errors?.email && <p>올바른 이메일 주소를 입력하세요.</p>}
+					{errors?.email && <p style={{color: 'red', fontSize:'16px'}}>{errors.email.message}</p>}
 
 					<label >비밀번호</label>
 					<input 
 						
 						type='password'
 						name='password'
-						{...register('password', { required: true })}
+						{...register("password", {
+							required: '비밀번호는 필수 입력 항목입니다.',
+							minLength: {
+							value: 8,
+							message: '비밀번호는 최소 8자 이상이어야 합니다.',
+							},
+							pattern: {
+							value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/,
+							message: '영문, 숫자, 특수기호를 포함한 8자 이상의 비밀번호를 입력하세요.',
+							},
+						})}
 					/>
-					{errors?.password && <p>비밀번호 오류</p>}
+					{errors?.password && <p style={{color: 'red', fontSize:'16px'}}>{errors.password.message}</p>}
 				
 					<label >이름</label>
 					<input 
 						
 						type='text'
 						name='name'
-						{...register('name' , {
-							required: true
+						{...register("name", {
+							required: '이름은 필수 입력 항목입니다.',
+							minLength: {
+							value: 2,
+							message: '이름은 최소 2자 이상이어야 합니다.',
+							},
+							pattern: {
+							value: /^[가-힣a-zA-Z\s]+$|[^\\s]/,
+							message: '한글, 영어, 공백만 입력하세요.',
+							},
 						})}
 					/>
+					    {errors.name && <p style={{color: 'red', fontSize:'16px'}}>{errors.name.message}</p>}
+
 					<label>위치</label>
-					<div>현재 나의 동네: <span className={styles.mylocation}>{locationInfo || '없음'}</span></div>
+					<div>현재 나의 동네: <span className={styles.mylocation}>{locationInfo || '-'}</span></div>
 						<div className={styles.btn}
 						onClick={onOpen}>위치 인증하기</div>
 						<Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
@@ -109,8 +136,6 @@ const SignUp = () => {
 						<button 
 						className={styles.btn} type='submit'>가입하기</button>
 						</div>
-				
-			
 			</form>
 			</div>
 		</div>

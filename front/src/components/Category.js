@@ -2,10 +2,11 @@ import React, { useEffect, useRef, useState } from "react";
 import { styled } from "styled-components";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCircleXmark} from "@fortawesome/free-regular-svg-icons";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import api from "../RefreshToken";
 import Cookies from "js-cookie";
+import { useCategory } from "../CategoryContext";
 
 
 const SettingBtn =styled.div`
@@ -13,14 +14,7 @@ const SettingBtn =styled.div`
     width: 30px;
     height: 30px;
     border: none;
-    /* padding-bottom:5px;
-    border-radius: 5px; */
     background-color:wheat;
-    /* display: flex; */
-    /* align-items: center; */
-    /* justify-content: center;  */
-    
-   
 `;
 const Nav = styled.div`
     height: 90vh;
@@ -61,6 +55,7 @@ const Sidebar = styled.div`
     /* background-color: #004e66; */
     /* border: 2px solid red; */
     /* cursor: pointer; */
+    overflow-x: hidden;
     
     .title{
         font-weight: 100;
@@ -69,21 +64,25 @@ const Sidebar = styled.div`
         align-items: center;
         justify-content: center;
         background-color: #fcbe32;
-        width: 200px;
-        border: 2px solid violet;
+        width: 250px;
+        /* border: 2px solid violet; */
         
     }
   
     .categoryBox{
-        height: 100vh;
+        height: 100%;
         width: 100%;
         display: flex;
         justify-content: start;
-        align-items: start;
+        /* align-items: start; */
         border-radius: 0%;
         z-index: 99;
         font-size: 30px;
         /* border: 2px springgreen solid; */
+    }
+    .categoryItem{
+        /* border: 2px solid darkblue; */
+        margin-top: 10px;
     }
     @media screen and (min-width: 414px) and (max-width: 700px){
 
@@ -126,11 +125,14 @@ const Sidebar = styled.div`
         /* display: flex; */
         align-items: start;
         border-radius: 0%;
-        overflow-y: scroll;
-        overflow-x: hidden;
+        /* overflow-y: scroll; */
+        /* overflow-x: hidden; */
     }
      .categoryItem{
         /* text-decoration: none; */
+        text-align: center;
+        /* width: 280px; */
+        /* background-color: saddlebrown; */
         padding: 8px;
         font-family: 'omyu_pretty';
         font-size: 20px;
@@ -156,7 +158,7 @@ const Sidebar = styled.div`
     }
 `
 
-const Category = () => {
+const Category = ({ onSelectCategory }) => {
     const [open, setOpen] = useState(true);
     const [newCategory, setNewCategory] = useState(""); // 새 카테고리를 저장할 state 추가
     const [isInputVisible, setInputVisible] = useState(false); // 입력 창의 가시성을 관리하는 state
@@ -164,7 +166,31 @@ const Category = () => {
     const navigate = useNavigate();
     const inputRef = useRef(null);
     const {id} = useParams();
-    
+    const { selectedCategory, setSelectedCategory } = useCategory();
+    const location = useLocation();
+
+    useEffect(() => {
+        getCategory()
+    }, [ ])
+
+    const getCategory = async() => {
+        const category = new URLSearchParams(location.search).get('category');
+        // console.log(category);
+        try{
+            // console.log(categories,'categories')
+            const response = await api.get(`categories/categorylist/`, {
+                params: {category}
+            })
+            setCategories((prev)=>[...prev,...response.data])
+        }catch(error){
+            // console.log('카테고리에러', error)
+            alert('권한이 없습니다.')
+        }
+    }
+
+    const handleCategorySelect = (category) => {
+        setSelectedCategory(category);
+    }
     // 입력 폼이 열렸을 때 외부 클릭을 감지하여 닫기
     useEffect(() => {
         const handleClickOutside = (e) => {
@@ -181,71 +207,17 @@ const Category = () => {
         };
         }, []);
 
-    const handleCategoryItemPopulur = (e) => {
-        // 클릭 이벤트 버블링을 막음
-        e.stopPropagation();
-    
-        // 페이지 이동 로직 추가
-        // 예를 들어, 인기글을 클릭하면 /popular 로 이동하도록 설정
-        navigate("/popular");
-    };
-    const handleCategoryItemSooda = (e) => {
-        // 클릭 이벤트 버블링을 막음
-        e.stopPropagation();
-    
-        // 페이지 이동 로직 추가
-        // 예를 들어, 인기글을 클릭하면 /popular 로 이동하도록 설정
-        navigate("/sooda");
-    };
-    
+   
     
     const handleCategoryItemClick = (data) => {
         // 카테고리 항목을 클릭했을 때의 로직 추가
         // 예를 들어, 해당 카테고리 페이지로 이동하도록 설정
-        navigate(`/${data.name}`);
-    };
-
-    useEffect(() => {
-        getCategory()
-    }, [ ])
-
-    const getCategory = async() => {
-        try{
-            // console.log(categories,'categories')
-            const response = await api.get(`categories/categorylist/`, {
+        // navigate(`?category=${data.name}`);
+        // onSelectCategory(data.name);
+        setSelectedCategory(data.name);
+        // console.log(data.name)
+        navigate(`?category=${data.name}`)
         
-            })
-            setCategories((prev)=>[...prev,...response.data])
-        }catch(error){
-            // console.log('카테고리에러', error)
-            alert('권한이 없습니다.')
-        }
-    }
-    const addCategory = async() => {
-        // 새 카테고리를 목록에 추가하는 함수
-        if (newCategory.trim() !== "") {
-            setCategories([...categories, newCategory]);
-            setNewCategory(""); // 입력 창 초기화
-            setInputVisible(false); // 입력이 완료되면 입력 창을 숨김
-        
-            await api.post("categories/newcategory/", { name: newCategory,
-                description:newCategory},
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${Cookies.get('access_token')}`       
-                    },
-                    'withCredentials': true,
-                }
-            )
-            .then((response) => {
-                // console.log("카테고리 추가 성공:", response.data);
-                setCategories((prev)=>[...prev,response.data])
-            })
-            .catch((error) => {
-                // console.error("카테고리 추가 오류:", error);
-            });
-        }
     };
 
     return( 
@@ -273,17 +245,17 @@ const Category = () => {
                     </div>
                     <div className='categoryBox'>
                     {categories?.map((category, index) => (
-                <div
-                key={index}
-                className="categoryItem"
-                onClick={() => {
-                    handleCategoryItemClick(category);
-                }}
-                >
-                {category.name}
+                    <div
+                        key={index}
+                        className="categoryItem"
+                        onClick={() => {
+                        handleCategoryItemClick(category);
+                        }}
+                    >
+                <Link to={`/?category=${category.name}`}>{category.name}</Link>
                 </div>
             ))}
-            <div>
+            {/* <div style={{width:'260px'}}>
             {!isInputVisible ? (
                 <button
                     onClick={(e) =>
@@ -295,7 +267,8 @@ const Category = () => {
                 +
                 </button>
                 ) : (
-                <div ref={inputRef}>
+                <div style={{ width:'260px'}}
+                ref={inputRef}>
                     <NewCategoryItem
                     type="text"
                     placeholder="새 카테고리"
@@ -311,7 +284,7 @@ const Category = () => {
                     </AddCategoryBtn>
                 </div>
                 )}
-                        </div>
+             </div> */}
                     </div>
                 </Nav>
             </Sidebar>

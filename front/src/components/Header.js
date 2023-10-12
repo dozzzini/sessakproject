@@ -4,6 +4,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import Category from './Category';
+import { useCategory } from '../CategoryContext';
 
 
 const HeaderBox = styled.div`
@@ -112,6 +113,7 @@ const User = styled.button`
 const Header = () => {
 	const navigate = useNavigate();
 	const [search, setSearch] = useState('');
+    const { setSelectedCategory } = useCategory(); // 선택한 카테고리를 초기화하기 위해 컨텍스트 사용
 
     const addEdit = () =>{
         navigate('/edit')
@@ -120,12 +122,15 @@ const Header = () => {
     const searchingBtn = () => {
         navigate(`?total_page=1&keyword=${search}`)
     };
- 
+    const homeLogo = () => {
+        setSelectedCategory(''); // 선택한 카테고리 초기화
+        navigate('/hi');
+    }
 
 
 	return(
 		<>
-		 <HeaderBox onClick={()=>navigate('/hi')}>
+		 <HeaderBox onClick={homeLogo}>
             <img src={process.env.PUBLIC_URL + '/logo.png'} 
                     style={{
                     width:'70px', marginRight:'10px', cursor:'pointer'}}/>

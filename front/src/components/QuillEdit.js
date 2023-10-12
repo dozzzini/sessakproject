@@ -12,13 +12,15 @@ const QuillEdit = ({value, onChange}) => {
     // };
  // edit 커스텀
 	const toolbarOptions = [  
-		[{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+		[{ 'size': ['small', false, 'large', 'huge'] }], 
+		//  custom dropdown
 		[{ 'font': [] }],
 		[{ 'list': 'ordered'}, { 'list': 'bullet' }],
 		[{ 'align': [] }],
 		[{ 'color': [] }],          // dropdown with defaults from theme
 		['link', 'image', 'video']
 	];
+	
     const quillRef = useRef(null);
 
 

@@ -10,7 +10,7 @@ const Container = styled.div`
     font-size: 30px;
     padding-top: 30px;
     background-color: #e1eef6;
-    margin: 0px 50px;
+    /* margin: 0px 50px; */
     height: 110vh;
 
     @media screen and (min-width: 414px) and (max-width: 700px){
@@ -43,6 +43,7 @@ const Main = styled.div`
     /* border: 4px solid red; */
     width: 100%;
     height: 85%;
+    padding: 25px;
 `;
 
 const Home = () => {
@@ -58,9 +59,9 @@ const Home = () => {
     };
 
     return(
-        <Container>
+        <Container> 
             <Wrapper >
-                <Header/>
+                <Header />
                          
                 <Main>
                     <Board  />

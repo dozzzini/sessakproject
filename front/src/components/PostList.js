@@ -42,8 +42,9 @@ const PostList = ({ posts, selectPost}) => {
 	const onHeart = (e, postId) => {
 		e.stopPropagation(); // 이벤트 버블링 막기
 		updateHeartColor(postId)
-		
-		const currentLiked = isLiked[postId] || false;
+		// setCount(count + 1);
+		// console.log((count));
+		const currentLiked = heartColors[postId] || false;
 		setIsLiked({ ...isLiked, [postId]: !currentLiked });
         setCount({ ...count, [postId]: currentLiked ? count[postId] -1  : count[postId] +1 });
 

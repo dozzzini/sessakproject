@@ -20,6 +20,8 @@ import SignUp from './pages/SignUp';
 import { ChakraProvider } from '@chakra-ui/react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ProtectedRouter } from './ProtectRouter';
+import { CategoryProvider } from './CategoryContext';
+import Spinner from './components/Spinner';
 
 
 const GlobalStyles = createGlobalStyle`
@@ -41,6 +43,8 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState('');
   const queryClient = new QueryClient();
 
+  const [selectedCategory, setSelectedCategory] = useState(''); // 선택한 카테고리 저장
+
   useEffect(() => {
     if(access_token){
 
@@ -48,11 +52,14 @@ function App() {
 
   }, [access_token]);
 
-
+  const handleSelectCategory = (category) => {
+    setSelectedCategory(category);
+};
   return (
     <BrowserRouter>
         <QueryClientProvider client={queryClient}>
         <GlobalStyles />
+        <CategoryProvider>
         <div className='App'>
           <ChakraProvider>
             <UserContext.Provider value= {{access_token, setAccess_token, isLoggedIn, setIsLoggedIn}}>
@@ -85,10 +92,12 @@ function App() {
                 </ProtectedRouter>} />
                 {/* <Route path='/인기글' element={<PopularPost  />}/>
                 <Route path='/왁자지껄' element={<Sooda  />}/> */}
+                <Route path='/ad' element={<Spinner/>}  />
               </Routes> 
             </UserContext.Provider>   
           </ChakraProvider>
         </div>
+        </CategoryProvider>
       </QueryClientProvider>
     </BrowserRouter>
 
